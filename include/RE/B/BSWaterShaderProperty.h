@@ -45,8 +45,10 @@ namespace RE
 		// members
 		stl::enumeration<WaterFlag, std::uint32_t> waterFlags;            // 88
 		std::uint32_t                              unk8C;                 // 8C
-		std::uint64_t                              unk90;                 // 90
-		std::uint64_t                              unk98;                 // 98
+		std::uint32_t                              cellX;                 // 90
+		std::uint32_t                              unk94;                 // 94
+		std::uint32_t                              cellY;                 // 98
+		std::uint32_t                              unk9C;                 // 9C
 		NiPlane                                    plane;                 // A0
 		std::uint64_t                              unkB0;                 // B0
 		std::uint8_t                               unkB8;                 // B8

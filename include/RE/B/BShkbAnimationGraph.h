@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RE/B/BShkbHkxDB.h"
 #include "RE/B/BSFixedString.h"
 #include "RE/B/BSIRagdollDriver.h"
 #include "RE/B/BSIntrusiveRefCounted.h"
@@ -130,7 +131,7 @@ namespace RE
 		float                          interpolationTimeOffsets[2];  // 1E8
 		BSFixedString                  projectName;                  // 1F0
 		BSResource::ID*                unk1F8;                       // 1F8
-		void*                          projectDBData;                // 200 - BShkbHkxDB::ProjectDBData*
+		BShkbHkxDB::ProjectDBData*     projectDBData;                // 200
 		hkbBehaviorGraph*              behaviorGraph;                // 208
 		Actor*                         holder;                       // 210
 		BSFadeNode*                    rootNode;                     // 218

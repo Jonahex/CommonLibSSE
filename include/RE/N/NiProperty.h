@@ -13,7 +13,8 @@ namespace RE
 		enum class Type
 		{
 			kAlpha = 0,
-			kShade = 1
+			kShade = 1,
+			kFog = 4
 		};
 
 		~NiProperty() override;  // 00

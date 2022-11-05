@@ -4,9 +4,9 @@
 
 namespace RE
 {
-	class hkbVariableInfo;
 	class hkbEventInfo;
 	class hkbVariableBounds;
+	class hkbVariableInfo;
 	class hkbVariableValueSet;
 
 	class hkbBehaviorGraphData : public hkReferencedObject

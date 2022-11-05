@@ -112,6 +112,8 @@ namespace RE
 		bool GetDangerous() const override;                                                                                                                            // 1B - { return flags & 1; }
 		bool Activate(TESObjectREFR* a_targetRef, TESObjectREFR* a_activatorRef, std::uint8_t a_arg3, TESBoundObject* a_object, std::int32_t a_targetCount) override;  // 37
 
+		void FillMaterial(BSWaterShaderMaterial& material) const;
+
 		// members
 		bool                                 needUpdate;               // 040
 		std::uint8_t                         pad41;                    // 041

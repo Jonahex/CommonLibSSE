@@ -470,6 +470,11 @@ namespace RE
 			inline constexpr REL::ID ResetQuest(static_cast<std::uint64_t>(25014));
 		}
 
+		namespace TESWaterForm
+		{
+			inline constexpr REL::ID FillMaterial(static_cast<std::uint64_t>(20373));
+		}
+
 		namespace UI
 		{
 			inline constexpr REL::ID Singleton(static_cast<std::uint64_t>(400327));
@@ -962,6 +967,11 @@ namespace RE
 		{
 			inline constexpr REL::ID EnsureQuestStarted(static_cast<std::uint64_t>(24481));
 			inline constexpr REL::ID ResetQuest(static_cast<std::uint64_t>(24486));
+		}
+
+		namespace TESWaterForm
+		{
+			inline constexpr REL::ID FillMaterial(static_cast<std::uint64_t>(19945));
 		}
 
 		namespace UI

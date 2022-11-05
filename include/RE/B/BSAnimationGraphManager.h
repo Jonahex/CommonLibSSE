@@ -6,20 +6,13 @@
 #include "RE/B/BSTArray.h"
 #include "RE/B/BSTEvent.h"
 #include "RE/B/BSTSmartPointer.h"
+#include "RE/H/hkbVariableValue.h"
 
 namespace RE
 {
 	class BSAnimationGraphChannel;
 	class BShkbAnimationGraph;
 	struct BSAnimationGraphEvent;
-
-	union hkbVariableValue
-	{
-		bool         b;
-		std::int32_t i;
-		float        f;
-	};
-	static_assert(sizeof(hkbVariableValue) == 0x4);
 
 	struct AnimVariableCacheInfo
 	{

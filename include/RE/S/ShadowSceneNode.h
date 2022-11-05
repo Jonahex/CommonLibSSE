@@ -49,7 +49,7 @@ namespace RE
 		BSLight*                        sunLight;            // 200
 		BSLight*                        cloudLight;          // 208
 		BSShadowDirectionalLight*       shadowDirLight;      // 210
-		std::uint8_t                    unk218;              // 218
+		std::uint8_t                    globalNodeIndex;     // 218
 		std::uint8_t                    unk219;              // 219
 		std::uint8_t                    unk21A;              // 21A
 		std::uint8_t                    unk21B;              // 21B
