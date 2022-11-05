@@ -54,8 +54,8 @@ namespace RE
 		[[nodiscard]] bool IsRaining() const;
 		[[nodiscard]] bool IsSnowing() const;
 
-		void SetWeather(RE::TESWeather* apWeather, bool abOverride, bool abAccelerate);
-		void ForceWeather(RE::TESWeather* apWeather, bool abOverride);
+		void SetWeather(RE::TESWeather* a_weather, bool a_override, bool a_accelerate);
+		void ForceWeather(RE::TESWeather* a_weather, bool a_override);
 		void ResetWeather();
 
 		// members
@@ -85,8 +85,10 @@ namespace RE
 		std::uint32_t                         unk174;                          // 174
 		std::uint64_t                         unk178;                          // 178
 		std::uint64_t                         unk180;                          // 180
-		std::uint64_t                         unk188;                          // 188
-		std::uint64_t                         unk190;                          // 190
+		std::uint32_t                         unk188;                          // 188
+		float                                 windSpeed;                       // 18C
+		float                                 windAngle;                       // 190
+		std::uint32_t                         unk194;                          // 190
 		std::uint64_t                         unk198;                          // 198
 		std::uint32_t                         unk1A0;                          // 1A0
 		std::uint32_t                         unk1A4;                          // 1A4

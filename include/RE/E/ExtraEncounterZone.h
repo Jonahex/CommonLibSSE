@@ -11,9 +11,12 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_ExtraEncounterZone;
+		inline static constexpr auto VTABLE = VTABLE_ExtraEncounterZone;
 		inline static constexpr auto EXTRADATATYPE = ExtraDataType::kEncounterZone;
 
-		~ExtraEncounterZone() override;  // 00
+		ExtraEncounterZone();
+		explicit ExtraEncounterZone(BGSEncounterZone* a_zone);
+		~ExtraEncounterZone() override = default;  // 00
 
 		// override (BSExtraData)
 		ExtraDataType GetType() const override;                             // 01 - { return kEncounterZone; }

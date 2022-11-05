@@ -23,6 +23,7 @@ namespace RE
 			{
 			public:
 				inline static constexpr auto RTTI = RTTI_BSScript__NF_util__NativeFunctionBase;
+				inline static constexpr auto VTABLE = VTABLE_BSScript__NF_util__NativeFunctionBase;
 
 				NativeFunctionBase() = delete;
 				explicit NativeFunctionBase(std::string_view a_fnName, std::string_view a_className, bool a_isStatic, std::uint16_t a_numParams);

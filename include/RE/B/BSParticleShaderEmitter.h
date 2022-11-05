@@ -1,18 +1,18 @@
 #pragma once
 
 #include "RE/N/NiRefObject.h"
-#include "RE/N/NiSmartPointer.h"
 
 namespace RE
 {
 	class BSParticleShaderProperty;
+	class NiAVObject;
 
 	class BSParticleShaderEmitter : public NiRefObject
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_BSParticleShaderEmitter;
 
-		enum class PARTICLE_EMITTER_TYPE
+		enum class EMITTER_TYPE
 		{
 			kGeometry = 0,
 			kCollision = 1,
@@ -24,6 +24,7 @@ namespace RE
 		class TextureAnimInfo
 		{
 		public:
+			// members
 			float         currentFrame;  // 00
 			std::uint32_t totalFrames;   // 04
 		};
@@ -32,6 +33,7 @@ namespace RE
 		struct ParticleData
 		{
 		public:
+			// members
 			float        XPos;           // 00
 			float        YPos;           // 04
 			float        ZPos;           // 08
@@ -53,18 +55,18 @@ namespace RE
 		virtual ~BSParticleShaderEmitter();  // 00
 
 		// add
-		virtual void Unk_02(void);      // 02
-		virtual void Unk_03(void) = 0;  // 03
+		virtual NiAVObject* GetBoundsObject();                                              // 02
+		virtual bool        Generate(bool a_arg1, NiPoint3& a_arg2, NiPoint3& a_arg3) = 0;  // 03
 
 		// members
-		BSParticleShaderProperty*                              property;          // 10
-		stl::enumeration<PARTICLE_EMITTER_TYPE, std::uint16_t> emitterType;       // 18
-		std::uint16_t                                          particleCount;     // 1A
-		float                                                  alpha;             // 1C
-		float                                                  generateReminder;  // 20
-		float                                                  maxParticleRatio;  // 24
-		TextureAnimInfo*                                       textureAnims;      // 28
-		ParticleData                                           instanceData[78];  // 30
+		BSParticleShaderProperty*                     property;          // 10
+		stl::enumeration<EMITTER_TYPE, std::uint16_t> emitterType;       // 18
+		std::uint16_t                                 particleCount;     // 1A
+		float                                         alpha;             // 1C
+		float                                         generateReminder;  // 20
+		float                                         maxParticleRatio;  // 24
+		TextureAnimInfo*                              textureAnims;      // 28
+		ParticleData                                  instanceData[78];  // 30
 	};
 	static_assert(sizeof(BSParticleShaderEmitter) == 0xED0);
-};
+}

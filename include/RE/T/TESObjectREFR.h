@@ -443,6 +443,7 @@ namespace RE
 		void                                    SetActivationBlocked(bool a_blocked);
 		void                                    SetCollision(bool a_enable);
 		bool                                    SetDisplayName(const BSFixedString& a_name, bool a_force);
+		void                                    SetEncounterZone(BGSEncounterZone* a_zone);
 		bool                                    SetMotionType(MotionType a_motionType, bool a_allowActivate = true);
 		void                                    SetPosition(float a_x, float a_y, float a_z);
 		void                                    SetPosition(NiPoint3 a_pos);

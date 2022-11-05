@@ -59,6 +59,7 @@ namespace RE
 			[[nodiscard]] bool IsObjectArray() const;
 			[[nodiscard]] bool IsString() const;
 
+			[[nodiscard]] TypeInfo                GetType() const;
 			[[nodiscard]] std::int32_t            GetSInt() const;
 			[[nodiscard]] std::uint32_t           GetUInt() const;
 			[[nodiscard]] float                   GetFloat() const;

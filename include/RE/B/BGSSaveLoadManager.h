@@ -88,6 +88,8 @@ namespace RE
 		void Load(const char* a_fileName);
 		void Load(const char* a_fileName, bool a_checkForMods);
 
+		bool LoadMostRecentSaveGame();
+
 		// members
 		BSTHashMap<std::uint64_t, BSFixedString> playerIDNameMap;  // 078
 		std::uint64_t                            unk0A0;           // 0A0

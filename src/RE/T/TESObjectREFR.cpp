@@ -807,6 +807,12 @@ namespace RE
 		return renamed;
 	}
 
+	void TESObjectREFR::SetEncounterZone(BGSEncounterZone* a_zone)
+	{
+		extraList.SetEncounterZone(a_zone);
+		AddChange(ChangeFlags::kEncZoneExtra);
+	}
+
 	bool TESObjectREFR::SetMotionType(MotionType a_motionType, bool a_allowActivate)
 	{
 		auto node = Get3D();

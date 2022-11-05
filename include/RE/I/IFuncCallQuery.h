@@ -21,6 +21,10 @@ namespace RE
 
 				enum class CallType
 				{
+					kMember,
+					kStatic,
+					kGetter,
+					kSetter
 				};
 
 				virtual ~IFuncCallQuery();  // 00

@@ -5,6 +5,7 @@
 #include "RE/B/BSPointerHandle.h"
 #include "RE/E/ExtraDataTypes.h"
 #include "RE/E/ExtraFlags.h"
+#include "RE/E/ExtraLevCreaModifier.h"
 #include "RE/F/FormTypes.h"
 #include "RE/M/MemoryManager.h"
 #include "RE/S/SoulLevels.h"
@@ -180,9 +181,11 @@ namespace RE
 		TESForm*              GetOwner();
 		SOUL_LEVEL            GetSoulLevel() const;
 		ObjectRefHandle       GetTeleportLinkedDoor();
+		void                  SetEncounterZone(BGSEncounterZone* a_zone);
 		void                  SetExtraFlags(ExtraFlags::Flag a_flags, bool a_enable);
 		void                  SetHeadingTargetRefHandle(ObjectRefHandle& a_handle);
 		void                  SetInventoryChanges(InventoryChanges* a_changes);
+		void                  SetLevCreaModifier(LEV_CREA_MODIFIER a_modifier);
 		void                  SetLinkedRef(TESObjectREFR* a_targetRef, BGSKeyword* a_keyword);
 		void                  SetOwner(TESForm* a_owner);
 

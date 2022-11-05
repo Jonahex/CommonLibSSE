@@ -270,6 +270,7 @@ set(SOURCES
 	include/RE/B/BSOrderedNode.h
 	include/RE/B/BSPCGamepadDeviceDelegate.h
 	include/RE/B/BSPCGamepadDeviceHandler.h
+	include/RE/B/BSParticleShaderCubeEmitter.h
 	include/RE/B/BSParticleShaderEmitter.h
 	include/RE/B/BSParticleShaderObjectEmitter.h
 	include/RE/B/BSParticleShaderProperty.h
@@ -1078,6 +1079,11 @@ set(SOURCES
 	include/RE/N/NiObject.h
 	include/RE/N/NiObjectGroup.h
 	include/RE/N/NiObjectNET.h
+	include/RE/N/NiPSysData.h
+	include/RE/N/NiPSysModifier.h
+	include/RE/N/NiParticleSystem.h
+	include/RE/N/NiParticles.h
+	include/RE/N/NiParticlesData.h
 	include/RE/N/NiPlane.h
 	include/RE/N/NiPoint2.h
 	include/RE/N/NiPoint3.h
@@ -1105,6 +1111,7 @@ set(SOURCES
 	include/RE/N/NiTMap.h
 	include/RE/N/NiTMapBase.h
 	include/RE/N/NiTPointerAllocator.h
+	include/RE/N/NiTPointerList.h
 	include/RE/N/NiTPointerListBase.h
 	include/RE/N/NiTPointerMap.h
 	include/RE/N/NiTSet.h
@@ -1220,6 +1227,7 @@ set(SOURCES
 	include/RE/S/StealthMeter.h
 	include/RE/S/Stream.h
 	include/RE/S/StreamBase.h
+	include/RE/S/SubtitleManager.h
 	include/RE/S/SummonCreatureEffect.h
 	include/RE/S/SummonPlacementEffect.h
 	include/RE/S/Sun.h
@@ -1499,9 +1507,11 @@ set(SOURCES
 	src/RE/E/ExtraCount.cpp
 	src/RE/E/ExtraDataList.cpp
 	src/RE/E/ExtraEnchantment.cpp
+	src/RE/E/ExtraEncounterZone.cpp
 	src/RE/E/ExtraForcedTarget.cpp
 	src/RE/E/ExtraHealth.cpp
 	src/RE/E/ExtraHotkey.cpp
+	src/RE/E/ExtraLevCreaModifier.cpp
 	src/RE/E/ExtraLightData.cpp
 	src/RE/E/ExtraLock.cpp
 	src/RE/E/ExtraMissingLinkedRefIDs.cpp

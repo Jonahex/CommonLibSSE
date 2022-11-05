@@ -27,7 +27,7 @@ namespace RE
 		}
 
 		// members
-		bool                       pad01;                                            // 01
+		std::uint8_t               pad01;                                            // 01
 		std::uint16_t              pad02;                                            // 02
 		std::uint32_t              pad04;                                            // 04
 		NiPointer<NiNode>          root;                                             // 08

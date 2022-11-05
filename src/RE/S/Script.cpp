@@ -4,6 +4,20 @@
 
 namespace RE
 {
+	bool Script::GetProcessScripts()
+	{
+		using func_t = decltype(&Script::GetProcessScripts);
+		REL::Relocation<func_t> func{ Offset::Script::GetProcessScripts };
+		return func();
+	}
+
+	void Script::SetProcessScripts(bool a_ProcessScripts)
+	{
+		using func_t = decltype(&Script::SetProcessScripts);
+		REL::Relocation<func_t> func{ Offset::Script::SetProcessScripts };
+		return func(a_ProcessScripts);
+	}
+
 	void Script::ClearCommand()
 	{
 		if (text) {

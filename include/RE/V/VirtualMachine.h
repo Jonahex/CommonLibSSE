@@ -46,6 +46,7 @@ namespace RE
 			{
 			public:
 				inline static constexpr auto RTTI = RTTI_BSScript__Internal__VirtualMachine;
+				inline static constexpr auto VTABLE = VTABLE_BSScript__Internal__VirtualMachine;
 
 				struct QueuedUnbindRefs
 				{
@@ -56,6 +57,13 @@ namespace RE
 					std::uint32_t           pad0C;     // 0C
 				};
 				static_assert(sizeof(QueuedUnbindRefs) == 0x10);
+
+				enum class FreezeState
+				{
+					kNotFrozen = 0,
+					kFreezing,
+					kFrozen
+				};
 
 				~VirtualMachine() override;  // 00
 
@@ -166,9 +174,10 @@ namespace RE
 				BSTHashMap<VMStackID, BSTSmartPointer<Stack>>              waitingLatentReturns;        // 9350
 				VMStackID                                                  nextStackID;                 // 9380
 				mutable BSSpinLock                                         frozenStacksLock;            // 9384
-				std::uint32_t                                              unk938C;                     // 938C
-				std::uint64_t                                              unk9390;                     // 9390
-				std::uint64_t                                              unk9398;                     // 9398
+				std::uint32_t                                              pad938C;                     // 938C
+				BSScript::Stack*                                           frozenStacks;                // 9390
+				std::uint32_t                                              frozenStacksCount;           // 9398
+				stl::enumeration<FreezeState, std::uint32_t>               freezeState;                 // 939C
 				mutable BSSpinLock                                         attachedScriptsLock;         // 93A0
 				BSTHashMap<VMHandle, BSTSmallSharedArray<AttachedScript>>  attachedScripts;             // 93A8
 				std::uint64_t                                              unk93D8;                     // 93D8

@@ -46,6 +46,9 @@ namespace RE
 
 			enum class StackType
 			{
+				kNormal,
+				kPropertyInitialize,
+				kInitialize
 			};
 
 			struct MemoryPageData

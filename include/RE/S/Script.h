@@ -35,6 +35,9 @@ namespace RE
 
 		~Script() override;  // 00
 
+		static bool GetProcessScripts();
+		static void SetProcessScripts(bool a_ProcessScripts);
+
 		// override (TESForm)
 		void InitializeData() override;      // 04
 		void ClearData() override;           // 05

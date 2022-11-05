@@ -298,6 +298,7 @@ namespace RE
 		void                     SetAIDriven(bool a_enable);
 		void                     SetEscaping(bool a_flag, bool a_escaped);
 		void                     StartGrabObject();
+		void                     UpdateCrosshairs();
 
 		template <class T>
 		inline BSTEventSource<T>* GetEventSource()

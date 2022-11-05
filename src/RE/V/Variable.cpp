@@ -210,6 +210,11 @@ namespace RE
 			return varType.IsString();
 		}
 
+		TypeInfo Variable::GetType() const
+		{
+			return varType;
+		}
+
 		std::int32_t Variable::GetSInt() const
 		{
 			assert(IsInt());
