@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RE/B/BSTEvent.h"
 #include "RE/B/BaseFormComponent.h"
 #include "RE/C/ContainerItemExtra.h"
 
@@ -39,12 +40,12 @@ namespace RE
 		void ClearDataComponent() override;                     // 02
 		void CopyComponent(BaseFormComponent* a_rhs) override;  // 03
 
-		inline void ForEachContainerObject(std::function<bool(ContainerObject&)> a_fn) const
+		inline void ForEachContainerObject(std::function<BSContainer::ForEachResult(ContainerObject&)> a_fn) const
 		{
 			for (std::uint32_t i = 0; i < numContainerObjects; ++i) {
 				auto entry = containerObjects[i];
 				if (entry) {
-					if (!a_fn(*entry)) {
+					if (a_fn(*entry) == BSContainer::ForEachResult::kStop) {
 						break;
 					}
 				}

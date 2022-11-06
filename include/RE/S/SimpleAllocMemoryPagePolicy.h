@@ -15,16 +15,16 @@ namespace RE
 			~SimpleAllocMemoryPagePolicy() override;  // 00
 
 			// override (IMemoryPagePolicy)
-			void Unk_01(void) override;  // 01 - { return maxPageSize; }
-			void Unk_02(void) override;  // 02
-			void Unk_03(void) override;  // 03
-			void Unk_04(void) override;  // 04
+			std::uint32_t    MaximumPageSize() override;                                                                                         // 01 - { return maxPageSize; }
+			AllocationStatus AllocatePage(std::uint32_t a_pageSize, NewPageStrategy a_stategy, BSTAutoPointer<MemoryPage>& a_newPage) override;  // 02
+			AllocationStatus GetLargestAvailablePage(BSTAutoPointer<MemoryPage>& a_newPage) override;                                            // 03
+			void             DisposePage(BSTAutoPointer<MemoryPage>& a_newPage) override;                                                        // 04
 
 			// members
 			const std::uint32_t minPageSize{ 0 };          // 08
 			const std::uint32_t maxPageSize{ 0 };          // 0C
 			const std::uint32_t maxAllocatedMemory{ 0 };   // 10
-			const std::uint32_t maxStackDepth{ 0 };        // 14
+			const bool          ignoreMemoryLimit{ 0 };    // 14 - Set each update by overstress status
 			BSSpinLock          dataLock;                  // 18
 			std::uint32_t       currentMemorySize;         // 20
 			std::uint32_t       maxAdditionalAllocations;  // 20

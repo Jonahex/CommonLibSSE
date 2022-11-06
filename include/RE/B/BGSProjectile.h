@@ -103,28 +103,13 @@ namespace RE
 		void        UnClone3D(TESObjectREFR* a_ref) override;                                                                                                                 // 41
 		bool        GetActivateText(TESObjectREFR* a_activator, BSString& a_dst) override;                                                                                    // 4C
 
-		[[nodiscard]] std::uint32_t GetType() const
-		{
-			using Type = BGSProjectileData::Type;
-
-			if (data.types.all(Type::kMissile)) {
-				return 1;
-			} else if (data.types.all(Type::kGrenade)) {
-				return 2;
-			} else if (data.types.all(Type::kBeam)) {
-				return 3;
-			} else if (data.types.all(Type::kFlamethrower)) {
-				return 4;
-			} else if (data.types.all(Type::kCone)) {
-				return 5;
-			} else if (data.types.all(Type::kBarrier)) {
-				return 6;
-			} else if (data.types.all(Type::kArrow)) {
-				return 7;
-			} else {
-				return 0;
-			}
-		}
+		[[nodiscard]] constexpr bool IsMissle() const noexcept { return data.types.all(BGSProjectileData::Type::kMissile); }
+		[[nodiscard]] constexpr bool IsGrenade() const noexcept { return data.types.all(BGSProjectileData::Type::kGrenade); }
+		[[nodiscard]] constexpr bool IsBeam() const noexcept { return data.types.all(BGSProjectileData::Type::kBeam); }
+		[[nodiscard]] constexpr bool IsFlamethrower() const noexcept { return data.types.all(BGSProjectileData::Type::kFlamethrower); }
+		[[nodiscard]] constexpr bool IsCone() const noexcept { return data.types.all(BGSProjectileData::Type::kCone); }
+		[[nodiscard]] constexpr bool IsBarrier() const noexcept { return data.types.all(BGSProjectileData::Type::kBarrier); }
+		[[nodiscard]] constexpr bool IsArrow() const noexcept { return data.types.all(BGSProjectileData::Type::kArrow); }
 
 		// members
 		BGSProjectileData data;              // 080 - DATA

@@ -348,7 +348,7 @@ namespace RE
 						it->second.first += a_entry.count;
 					}
 				}
-				return true;
+				return BSContainer::ForEachResult::kContinue;
 			});
 		}
 

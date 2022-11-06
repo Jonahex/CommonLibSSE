@@ -64,7 +64,6 @@ static_assert(
 #include <spdlog/spdlog.h>
 #pragma warning(pop)
 
-#include "SKSE/Impl/Util.h"
 #include "SKSE/Impl/WinAPI.h"
 
 namespace SKSE

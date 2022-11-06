@@ -34,7 +34,7 @@ namespace RE
 			return nextInChain == -1;
 		}
 
-		[[nodiscard]] UPInt GetCachedHash(UPInt a_maskValue) const
+		[[nodiscard]] UPInt GetCachedHash([[maybe_unused]] UPInt a_maskValue) const
 		{
 			return hashValue;
 		}

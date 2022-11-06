@@ -94,7 +94,7 @@ namespace RE
 		BSSpinLockGuard() = delete;
 		BSSpinLockGuard(const BSSpinLockGuard&) = delete;
 		BSSpinLockGuard(BSSpinLockGuard&&) = delete;
-		explicit BSSpinLockGuard(BSSpinLock& a_lock);
+		[[nodiscard]] explicit BSSpinLockGuard(BSSpinLock& a_lock);
 		~BSSpinLockGuard();
 
 		BSSpinLockGuard& operator=(const BSSpinLockGuard&) = delete;
@@ -111,7 +111,7 @@ namespace RE
 		BSReadLockGuard() = delete;
 		BSReadLockGuard(const BSReadLockGuard&) = delete;
 		BSReadLockGuard(BSReadLockGuard&&) = delete;
-		explicit BSReadLockGuard(BSReadWriteLock& a_lock);
+		[[nodiscard]] explicit BSReadLockGuard(BSReadWriteLock& a_lock);
 		~BSReadLockGuard();
 
 		BSReadLockGuard& operator=(const BSReadLockGuard&) = delete;
@@ -128,7 +128,7 @@ namespace RE
 		BSWriteLockGuard() = delete;
 		BSWriteLockGuard(const BSWriteLockGuard&) = delete;
 		BSWriteLockGuard(BSWriteLockGuard&&) = delete;
-		explicit BSWriteLockGuard(BSReadWriteLock& a_lock);
+		[[nodiscard]] explicit BSWriteLockGuard(BSReadWriteLock& a_lock);
 		~BSWriteLockGuard();
 
 		BSWriteLockGuard& operator=(const BSWriteLockGuard&) = delete;

@@ -1,7 +1,6 @@
 #include "RE/B/BGSKeywordForm.h"
 
 #include "RE/B/BGSKeyword.h"
-#include "SKSE/Impl/Util.h"
 
 namespace RE
 {
@@ -32,7 +31,7 @@ namespace RE
 	{
 		bool result = false;
 		ForEachKeyword([&](const BGSKeyword& a_keyword) {
-			if (stl::string::icontains(a_keyword.formEditorID, a_editorID)) {
+			if (a_keyword.formEditorID.contains(a_editorID)) {
 				result = true;
 				return BSContainer::ForEachResult::kStop;
 			}

@@ -71,7 +71,7 @@ namespace RE
 		INTERFACE_LIGHT_SCHEME                     currentlightScheme;  // 90
 		std::uint32_t                              pad94;               // 94
 		BSTArray<INTERFACE_LIGHT_SCHEME>           lightSchemes;        // 98
-		BSTArray<NiPointer<TESImageSpaceModifier>> ImageSpaceMods;      // B0
+		BSTArray<NiPointer<TESImageSpaceModifier>> imageSpaceMods;      // B0
 		NiPoint3                                   cachedCameraPos;     // C8
 		NiMatrix3                                  cachedCameraRot;     // D0
 		NiFrustum                                  viewFrustum;         // F8

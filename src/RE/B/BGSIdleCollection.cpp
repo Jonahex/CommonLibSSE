@@ -38,7 +38,7 @@ namespace RE
 	{
 		std::optional<std::uint32_t> index = std::nullopt;
 		if (idles) {
-			for (std::int8_t i = 0; i < idleCount; i++) {
+			for (std::int8_t i = 0; i < idleCount; ++i) {
 				if (idles[i] == a_idle) {
 					index = i;
 					break;

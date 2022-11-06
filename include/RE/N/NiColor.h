@@ -262,8 +262,8 @@ namespace RE
 			return *this;
 		}
 
-		[[nodiscard]] static std::uint32_t ColorToInt(const NiColor& a_rhs);
-		[[nodiscard]] static std::string   ColorToString(const NiColor& a_rhs);
+		[[nodiscard]] std::uint32_t ToInt() const;
+		[[nodiscard]] std::string   ToHex() const;
 
 		// members
 		float red;    // 0

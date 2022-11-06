@@ -19,6 +19,8 @@
 
 namespace RE
 {
+	class TESRegionList;
+
 	namespace BGSWaterCollisionManager
 	{
 		class BGSWaterUpdateI;
@@ -189,44 +191,31 @@ namespace RE
 		bool        IsParentForm() override;                                                              // 34 - { return true; }
 		bool        IsFormTypeChild(FormType a_type) override;                                            // 36
 
-		TESNPC* GetActorOwner();
-
-		inline bhkWorld* GetbhkWorld() const
-		{
-			using func_t = decltype(&TESObjectCELL::GetbhkWorld);
-			REL::Relocation<func_t> func{ RELOCATION_ID(18536, 18995) };
-			return func(this);
-		}
-
+		TESNPC*        GetActorOwner();
+		bhkWorld*      GetbhkWorld() const;
 		void           ForEachReference(std::function<BSContainer::ForEachResult(TESObjectREFR&)> a_callback) const;
 		void           ForEachReferenceInRange(const NiPoint3& a_origin, float a_radius, std::function<BSContainer::ForEachResult(TESObjectREFR&)> a_callback) const;
 		EXTERIOR_DATA* GetCoordinates();
 		TESFaction*    GetFactionOwner();
 		INTERIOR_DATA* GetLighting();
-
-		inline BGSLocation* GetLocation() const
-		{
-			using func_t = decltype(&TESObjectCELL::GetLocation);
-			REL::Relocation<func_t> func{ RELOCATION_ID(18474, 18905) };
-			return func(this);
-		}
-
-		float    GetNorthRotation();
-		TESForm* GetOwner();
-		float    GetExteriorWaterHeight() const;
-		bool     GetWaterHeight(const NiPoint3& a_pos, float& a_waterHeight);
-		bool     IsAttached() const;
-		bool     IsExteriorCell() const;
-		bool     IsInteriorCell() const;
-		void     SetActorOwner(TESNPC* a_owner);
-		void     SetFactionOwner(TESFaction* a_owner);
-		void     SetFogColor(Color a_near, Color a_far);
-		void     SetFogPlanes(float a_near, float a_far);
-		void     SetFogPower(float a_power);
-		void     SetHandChanged(bool a_changed);
-		void     SetOwner(TESForm* a_owner);
-		void     SetPublic(bool a_public);
-		bool     UsesSkyLighting() const;
+		BGSLocation*   GetLocation() const;
+		float          GetNorthRotation();
+		TESForm*       GetOwner();
+		float          GetExteriorWaterHeight() const;
+		TESRegionList* GetRegionList(bool a_createIfMissing);
+		bool           GetWaterHeight(const NiPoint3& a_pos, float& a_waterHeight);
+		bool           IsAttached() const;
+		bool           IsExteriorCell() const;
+		bool           IsInteriorCell() const;
+		void           SetActorOwner(TESNPC* a_owner);
+		void           SetFactionOwner(TESFaction* a_owner);
+		void           SetFogColor(Color a_near, Color a_far);
+		void           SetFogPlanes(float a_near, float a_far);
+		void           SetFogPower(float a_power);
+		void           SetHandChanged(bool a_changed);
+		void           SetOwner(TESForm* a_owner);
+		void           SetPublic(bool a_public);
+		bool           UsesSkyLighting() const;
 
 		// members
 		mutable BSSpinLock                                   grassCreateLock;   // 030

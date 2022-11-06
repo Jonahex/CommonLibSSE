@@ -11,20 +11,13 @@ namespace RE
 		alpha(0)
 	{}
 
-	std::uint32_t Color::ColorToInt(const Color& a_rhs)
+	std::uint32_t Color::ToInt() const
 	{
-		return ((a_rhs.red & 0xFF) << 16) + ((a_rhs.green & 0xFF) << 8) + (a_rhs.blue & 0xFF);
+		return ((red & 0xFF) << 24) + ((green & 0xFF) << 16) + ((blue & 0xFF) << 8) + (alpha & 0xFF);
 	}
 
-	std::uint32_t Color::ColorToInt() const
+	std::string Color::ToHex() const
 	{
-		return ((red & 0xFF) << 16) + ((green & 0xFF) << 8) + (blue & 0xFF);
-	}
-
-	std::string Color::ColorToString(const Color& a_rhs)
-	{
-		char hexcol[16];
-		snprintf(hexcol, sizeof(hexcol), "%02x%02x%02x", a_rhs.red, a_rhs.green, a_rhs.blue);
-		return std::string(hexcol);
+		return fmt::format("{:X}{:X}{:X}{:X}", red, green, blue, alpha);
 	}
 }

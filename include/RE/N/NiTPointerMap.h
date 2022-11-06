@@ -18,7 +18,7 @@ namespace RE
 		using size_type = typename Base::size_type;
 
 		NiTPointerMap(std::uint32_t a_hashSize = 37) :
-			NiTMapBase(a_hashSize)
+			Base(a_hashSize)
 		{}
 
 		~NiTPointerMap() override  // 00

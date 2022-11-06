@@ -28,11 +28,11 @@ namespace RE
 		enum class Flags
 		{
 			kNone = 0,
-			kkIgnoreImageSpaceSwap = 1 << 4,
+			kIgnoreImageSpaceSwap = 1 << 4,
 			kInWater = 1 << 5
 		};
 
-		virtual ~Explosion();  // 00
+		~Explosion() override;  // 00
 
 		// override (TESObjectREFR)
 		void         SaveGame(BGSSaveFormBuffer* a_buf) override;                           // 0E

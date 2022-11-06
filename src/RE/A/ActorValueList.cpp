@@ -4,24 +4,21 @@
 
 namespace RE
 {
-	ActorValueInfo* ActorValueList::GetActorValue(ActorValue a_actorValue)
+	ActorValueInfo* ActorValueList::GetActorValue(ActorValue a_actorValue) const
 	{
 		return a_actorValue < ActorValue::kTotal ?
                    actorValues[stl::to_underlying(a_actorValue)] :
                    nullptr;
 	}
 
-	ActorValue ActorValueList::LookupActorValueByName(std::string_view a_enumName)
+	ActorValue ActorValueList::LookupActorValueByName(std::string_view a_enumName) const
 	{
-		ActorValue value = ActorValue::kNone;
-
-		for (std::uint32_t i = 0; i < 164; i++) {
-			if (stl::string::iequals(actorValues[i]->enumName, a_enumName)) {
-				value = static_cast<ActorValue>(i);
-				break;
+		for (std::size_t i = 0; i < stl::to_underlying(ActorValue::kTotal); ++i) {
+			if (a_enumName.size() == strlen(actorValues[i]->enumName) &&
+				_strnicmp(actorValues[i]->enumName, a_enumName.data(), a_enumName.size()) == 0) {
+				return static_cast<ActorValue>(i);
 			}
 		}
-
-		return value;
+		return ActorValue::kNone;
 	}
 }

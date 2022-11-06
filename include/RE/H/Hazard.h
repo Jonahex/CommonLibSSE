@@ -42,9 +42,9 @@ namespace RE
 		bool OnAddCellPerformQueueReference(TESObjectCELL& a_cell) const override;  // 90 - { return false; }
 
 		// add
-		virtual void Initialize();                // A2
-		virtual void Unk_A3(void);                // A3 - { return; }
-		virtual bool IsNotGeneratedForm() const;  // A4 - { return TESDataHandler::GetSingleton()->IsGeneratedFormID(formID) == 0; }
+		virtual void Initialize();         // A2
+		virtual void Unk_A3(void);         // A3 - { return; }
+		virtual bool IsPermanent() const;  // A4 - { return TESDataHandler::GetSingleton()->IsGeneratedFormID(formID) == 0; }
 
 		// members
 		void*                                  hazardDBHandle;  // 98

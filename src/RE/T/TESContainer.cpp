@@ -28,9 +28,9 @@ namespace RE
 			if (a_contObj.obj == a_object) {
 				a_contObj.count += a_count;
 				added = true;
-				return false;
+				return BSContainer::ForEachResult::kStop;
 			}
-			return true;
+			return BSContainer::ForEachResult::kContinue;
 		});
 		if (!added) {
 			std::vector<ContainerObject*> copiedData{ containerObjects, containerObjects + numContainerObjects };
@@ -57,7 +57,6 @@ namespace RE
 
 			added = true;
 		}
-
 		return added;
 	}
 
@@ -92,7 +91,7 @@ namespace RE
 			if (a_contObj.obj == a_object) {
 				count += a_contObj.count;
 			}
-			return true;
+			return BSContainer::ForEachResult::kContinue;
 		});
 		return count;
 	}
@@ -117,7 +116,6 @@ namespace RE
 
 			return true;
 		}
-
 		return false;
 	}
 }

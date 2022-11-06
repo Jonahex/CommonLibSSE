@@ -50,8 +50,7 @@ namespace RE
 			green((a_hexValue >> 8) & 0xFF),
 			blue((a_hexValue)&0xFF),
 			alpha(0)
-		{
-		}
+		{}
 
 		Color(const NiColor& a_rhs);
 		~Color() noexcept = default;
@@ -268,9 +267,8 @@ namespace RE
 			return *this;
 		}
 
-		static std::string   ColorToString(const Color& a_rhs);
-		static std::uint32_t ColorToInt(const Color& a_rhs);
-		std::uint32_t        ColorToInt() const;
+		std::uint32_t ToInt() const;
+		std::string   ToHex() const;
 
 		// members
 		std::uint8_t red;    // 0

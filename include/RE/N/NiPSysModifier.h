@@ -41,11 +41,11 @@ namespace RE
 		void          ProcessClone(NiCloningProcess& a_cloning) override;  // 1D
 
 		// add
-		virtual bool Update(float a_time, NiPSysData* a_particleData, NiPoint3* a_position, NiPoint3* a_radii, NiColorA* a_rotation) = 0;
-		virtual void Initialize(NiPSysData* a_particleData, std::uint16_t, NiPoint3*);
-		virtual void HandleReset();
-		virtual void SetActive(bool a_active);
-		virtual void SetSystemPointer(NiParticleSystem* a_target);
+		virtual bool Update(float a_time, NiPSysData* a_particleData, NiPoint3* a_position, NiPoint3* a_radii, NiColorA* a_rotation) = 0;  // 25
+		virtual void Initialize(NiPSysData* a_particleData, std::uint16_t, NiPoint3*);                                                     // 26
+		virtual void HandleReset();                                                                                                        // 27
+		virtual void SetActive(bool a_active);                                                                                             // 28
+		virtual void SetSystemPointer(NiParticleSystem* a_target);                                                                         // 29
 
 		// members
 		BSFixedString     name;    // 10

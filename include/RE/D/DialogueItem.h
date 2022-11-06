@@ -4,6 +4,7 @@
 #include "RE/B/BSIntrusiveRefCounted.h"
 #include "RE/B/BSString.h"
 #include "RE/B/BSTList.h"
+#include "RE/E/EmotionTypes.h"
 #include "RE/M/MemoryManager.h"
 
 namespace RE
@@ -20,18 +21,6 @@ namespace RE
 	class DialogueResponse
 	{
 	public:
-		enum class EmotionType
-		{
-			kNeutral = 0,
-			kAnger = 1,
-			kDisgust = 2,
-			kFear = 3,
-			kSad = 4,
-			kHappy = 5,
-			kSurprise = 6,
-			kPuzzled = 7
-		};
-
 		// members
 		BSString                                     text;              // 00
 		stl::enumeration<EmotionType, std::uint32_t> animFaceArchType;  // 10

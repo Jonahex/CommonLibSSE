@@ -5,6 +5,7 @@
 #include "RE/N/NiMath.h"
 #include "RE/T/TESFaction.h"
 #include "RE/T/TESNPC.h"
+#include "RE/T/TESRegionList.h"
 #include "RE/T/TESWorldSpace.h"
 
 namespace RE
@@ -36,6 +37,13 @@ namespace RE
 		return owner && owner->Is(FormType::NPC) ? static_cast<TESNPC*>(owner) : nullptr;
 	}
 
+	bhkWorld* TESObjectCELL::GetbhkWorld() const
+	{
+		using func_t = decltype(&TESObjectCELL::GetbhkWorld);
+		REL::Relocation<func_t> func{ RELOCATION_ID(18536, 18995) };
+		return func(this);
+	}
+
 	EXTERIOR_DATA* TESObjectCELL::GetCoordinates()
 	{
 		return IsExteriorCell() ? cellData.exterior : nullptr;
@@ -50,6 +58,13 @@ namespace RE
 	INTERIOR_DATA* TESObjectCELL::GetLighting()
 	{
 		return IsInteriorCell() ? cellData.interior : nullptr;
+	}
+
+	BGSLocation* TESObjectCELL::GetLocation() const
+	{
+		using func_t = decltype(&TESObjectCELL::GetLocation);
+		REL::Relocation<func_t> func{ RELOCATION_ID(18474, 18905) };
+		return func(this);
 	}
 
 	float TESObjectCELL::GetNorthRotation()
@@ -93,6 +108,13 @@ namespace RE
 		}
 
 		return worldSpace ? worldSpace->GetDefaultWaterHeight() : -NI_INFINITY;
+	}
+
+	TESRegionList* TESObjectCELL::GetRegionList(bool a_createIfMissing)
+	{
+		using func_t = decltype(&TESObjectCELL::GetRegionList);
+		REL::Relocation<func_t> func{ RELOCATION_ID(18540, 18999) };
+		return func(this, a_createIfMissing);
 	}
 
 	bool TESObjectCELL::GetWaterHeight(const NiPoint3& a_pos, float& a_waterHeight)
