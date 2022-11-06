@@ -18,7 +18,7 @@ find_package(binary_io REQUIRED CONFIG)
 find_package(Boost MODULE REQUIRED)
 find_package(spdlog REQUIRED CONFIG)
 
-include(cmake/sourcelist.cmake)
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "include/*.h" "src/*.cpp")
 
 source_group(
 	TREE "${CMAKE_CURRENT_SOURCE_DIR}"
