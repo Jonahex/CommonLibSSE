@@ -2,6 +2,8 @@
 
 #include "RE/C/CRC.h"
 
+#include <functional>
+
 namespace RE
 {
 	template <class T>
@@ -247,6 +249,15 @@ namespace RE
 		}
 	};
 }
+
+template <typename T>
+struct std::hash<RE::NiPointer<T>>
+{
+	std::size_t operator()(const RE::NiPointer<T>& value) const noexcept
+	{
+		return std::hash<T*>()(value.get());
+	}
+};
 
 #define NiSmartPointer(className) \
 	class className;              \

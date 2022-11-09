@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 namespace RE
 {
 	template <class T>
@@ -280,6 +282,15 @@ namespace RE
 	using BSTAutoPointer = BSTSmartPointer<T, BSTSmartPointerAutoPtr>;
 	static_assert(sizeof(BSTAutoPointer<void*>) == 0x8);
 }
+
+template <typename T>
+struct std::hash<RE::BSTSmartPointer<T>>
+{
+	std::size_t operator()(const RE::BSTSmartPointer<T>& value) const noexcept
+	{
+		return std::hash<T*>()(value.get());
+	}
+};
 
 #define BSSmartPointer(className) \
 	class className;              \

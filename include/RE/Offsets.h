@@ -157,6 +157,7 @@ namespace RE
 		{
 			inline constexpr REL::ID SelectedRef(static_cast<std::uint64_t>(405935));
 			inline constexpr REL::ID SetSelectedRef(static_cast<std::uint64_t>(51093));
+			inline constexpr REL::ID SelectReference(static_cast<std::uint64_t>(51089));
 		}
 
 		namespace ConsoleLog
@@ -507,6 +508,9 @@ namespace RE
 		inline constexpr REL::ID LookupReferenceByHandle(static_cast<std::uint64_t>(12332));
 		inline constexpr REL::ID PlaySound(static_cast<std::uint64_t>(52939));
 		inline constexpr REL::ID TlsIndex(static_cast<std::uint64_t>(415542));
+		inline constexpr REL::ID VisibilityFlag(static_cast<std::uint64_t>(400942));
+		inline constexpr REL::ID ImageSpaceEOFEffectsEnabledFlag(static_cast<std::uint64_t>(391055));
+		inline constexpr REL::ID VolumetricLightingEnabledFlag(static_cast<std::uint64_t>(414913));
 #else
 		namespace Actor
 		{
@@ -658,6 +662,7 @@ namespace RE
 		{
 			inline constexpr REL::ID SelectedRef(static_cast<std::uint64_t>(519394));
 			inline constexpr REL::ID SetSelectedRef(static_cast<std::uint64_t>(50164));
+			inline constexpr REL::ID SelectReference(static_cast<std::uint64_t>(50162));
 		}
 
 		namespace ConsoleLog
@@ -1008,6 +1013,9 @@ namespace RE
 		inline constexpr REL::ID LookupReferenceByHandle(static_cast<std::uint64_t>(12204));
 		inline constexpr REL::ID PlaySound(static_cast<std::uint64_t>(52054));
 		inline constexpr REL::ID TlsIndex(static_cast<std::uint64_t>(528600));
+		inline constexpr REL::ID VisibilityFlag(static_cast<std::uint64_t>(514793));
+		inline constexpr REL::ID ImageSpaceEOFEffectsEnabledFlag(static_cast<std::uint64_t>(513299));
+		inline constexpr REL::ID VolumetricLightingEnabledFlag(static_cast<std::uint64_t>(527940));
 #endif
 	}
 }

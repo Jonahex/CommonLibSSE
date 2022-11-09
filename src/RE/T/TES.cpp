@@ -142,4 +142,11 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(13159, 13299) };
 		return func(this);
 	}
+
+	void TES::SetVisibility(VISIBILITY visibility, bool isVisible, bool unk00)
+	{
+		using func_t = decltype(&TES::SetVisibility);
+		REL::Relocation<func_t> func{ RELOCATION_ID(13197, 13343) };
+		return func(this, visibility, isVisible, unk00);
+	}
 }

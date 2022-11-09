@@ -7,6 +7,7 @@
 #include "RE/M/MaterialIDs.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/N/NiSmartPointer.h"
+#include "RE/V/Visibility.h"
 
 namespace RE
 {
@@ -75,6 +76,7 @@ namespace RE
 		float           GetWaterHeight(const NiPoint3& a_pos, TESObjectCELL* a_cell) const;
 		NiAVObject*     Pick(bhkPickData& a_pickData);
 		void            PurgeBufferedCells();
+		void            SetVisibility(VISIBILITY visibility, bool isVisible, bool unk00);
 
 		// members
 		std::uint64_t                                       unk070;                     // 070

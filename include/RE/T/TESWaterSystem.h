@@ -38,6 +38,13 @@ namespace RE
 			return func(this, a_pos, a_scale);
 		}
 
+		void SetVisibility(bool isVisible, bool unk00, bool unk01)
+		{
+			using func_t = decltype(&TESWaterSystem::SetVisibility);
+			REL::Relocation<func_t> func{ RELOCATION_ID(31392, 32183) };
+			return func(this, isVisible, unk00, unk01);
+		}
+
 		// members
 		std::uint32_t                                pad000;                   // 000
 		BSFixedString*                               type;                     // 008
