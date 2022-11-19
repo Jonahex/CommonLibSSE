@@ -166,7 +166,7 @@ namespace RE
 
 		BSStringT& operator=(const std::basic_string_view<value_type>& a_rhs)
 		{
-			set_cstr(a_rhs.data(), a_rhs.size());
+			set_cstr(a_rhs.data(), static_cast<uint32_t>(a_rhs.size()));
 			return *this;
 		}
 

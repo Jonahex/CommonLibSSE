@@ -164,8 +164,8 @@ namespace RE
 		BSTArray<void*>                                unk1D0;                      // 1D0
 		mutable BSSpinLock                             unk1E8;                      // 1E8
 		void*                                          unk1F0;                      // 1F0 - smart ptr
-		std::uint16_t                                  unk1F8;                      // 1F8
-		std::uint16_t                                  unk1FA;                      // 1FA
+		std::uint16_t                                  leftHandType;                // 1F8
+		std::uint16_t                                  rightHandType;               // 1FA
 		std::uint32_t                                  unk1FC;                      // 1FC
 		std::uint32_t                                  unk200;                      // 200
 		float                                          headHeightOffset;            // 204

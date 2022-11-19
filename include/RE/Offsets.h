@@ -41,6 +41,11 @@ namespace RE
 			inline constexpr REL::ID Update3DModel(static_cast<std::uint64_t>(39395));
 		}
 
+		namespace AnimationSetDataSingleton
+		{
+			inline constexpr REL::ID Singleton(static_cast<std::uint64_t>(401554));
+		}
+
 		namespace BGSFootstepManager
 		{
 			inline constexpr REL::ID Singleton(static_cast<std::uint64_t>(401262));
@@ -544,6 +549,11 @@ namespace RE
 		{
 			inline constexpr REL::ID SetBaseScale(static_cast<std::uint64_t>(38568));
 			inline constexpr REL::ID Update3DModel(static_cast<std::uint64_t>(38404));
+		}
+
+		namespace AnimationSetDataSingleton
+		{
+			inline constexpr REL::ID Singleton(static_cast<std::uint64_t>(515415));
 		}
 
 		namespace BGSFootstepManager
