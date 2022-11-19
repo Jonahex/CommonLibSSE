@@ -103,7 +103,7 @@ namespace RE
 		void        UnClone3D(TESObjectREFR* a_ref) override;                                                                                                                 // 41
 		bool        GetActivateText(TESObjectREFR* a_activator, BSString& a_dst) override;                                                                                    // 4C
 
-		[[nodiscard]] constexpr bool IsMissle() const noexcept { return data.types.all(BGSProjectileData::Type::kMissile); }
+		[[nodiscard]] constexpr bool IsMissile() const noexcept { return data.types.all(BGSProjectileData::Type::kMissile); }
 		[[nodiscard]] constexpr bool IsGrenade() const noexcept { return data.types.all(BGSProjectileData::Type::kGrenade); }
 		[[nodiscard]] constexpr bool IsBeam() const noexcept { return data.types.all(BGSProjectileData::Type::kBeam); }
 		[[nodiscard]] constexpr bool IsFlamethrower() const noexcept { return data.types.all(BGSProjectileData::Type::kFlamethrower); }

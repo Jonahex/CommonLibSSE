@@ -10,11 +10,14 @@
 #include "RE/B/BSTSmartPointer.h"
 #include "RE/B/BSVisit.h"
 #include "RE/B/BSXFlags.h"
+#include "RE/B/bhkNiCollisionObject.h"
+#include "RE/B/bhkRigidBody.h"
 #include "RE/N/NiColor.h"
 #include "RE/N/NiNode.h"
 #include "RE/N/NiProperty.h"
 #include "RE/N/NiRTTI.h"
 #include "RE/S/State.h"
+#include "RE/h/hkpRigidBody.h"
 
 namespace RE
 {
@@ -37,6 +40,23 @@ namespace RE
 		using func_t = decltype(&NiAVObject::GetCollisionObject);
 		REL::Relocation<func_t> func{ RELOCATION_ID(25482, 26022) };
 		return func(this);
+	}
+
+	COL_LAYER NiAVObject::GetCollisionLayer() const
+	{
+		const auto colObj = collisionObject ? collisionObject->AsBhkNiCollisionObject() : nullptr;
+		const auto rigidBody = colObj && colObj->body ? colObj->body->AsBhkRigidBody() : nullptr;
+
+		if (rigidBody && rigidBody->referencedObject) {
+			if (const auto havokRigidBody = static_cast<hkpRigidBody*>(rigidBody->referencedObject.get())) {
+				const auto collidable = havokRigidBody->GetCollidable();
+				const auto clFilterInfo = collidable->broadPhaseHandle.collisionFilterInfo;
+
+				return static_cast<COL_LAYER>(clFilterInfo & 0x7F);
+			}
+		}
+
+		return COL_LAYER::kUnidentified;
 	}
 
 	BSGeometry* NiAVObject::GetFirstGeometryOfShaderType(BSShaderMaterial::Feature a_type)

@@ -9,6 +9,7 @@
 
 namespace RE
 {
+	class hkpConstraintInstance;
 	class hkLocalFrame;
 	class hkSpuCollisionCallbackUtil;
 	class hkpAction;

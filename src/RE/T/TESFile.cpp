@@ -30,12 +30,14 @@ namespace RE
 		return func(this);
 	}
 
-	bool TESFile::IsFormInMod(FormID formID) const
+	bool TESFile::IsFormInMod(FormID a_formID) const
 	{
-		if (!IsLight() && (formID >> 24) == compileIndex)
+		if (!IsLight() && (a_formID >> 24) == compileIndex) {
 			return true;
-		if (IsLight() && (formID >> 24) == 0xFE && ((formID & 0x00FFF000) >> 12) == smallFileCompileIndex)
+		}
+		if (IsLight() && (a_formID >> 24) == 0xFE && ((a_formID & 0x00FFF000) >> 12) == smallFileCompileIndex) {
 			return true;
+		}
 		return false;
 	}
 

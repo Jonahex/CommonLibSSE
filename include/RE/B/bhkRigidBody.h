@@ -5,6 +5,11 @@
 
 namespace RE
 {
+	class hkAabb;
+	class hkTransform;
+	class hkQuaternion;
+	class hkVector4;
+
 	class bhkRigidBody : public bhkEntity
 	{
 	public:

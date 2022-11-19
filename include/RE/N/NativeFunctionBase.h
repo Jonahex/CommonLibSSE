@@ -55,6 +55,8 @@ namespace RE
 				virtual bool HasStub() const = 0;                                                                                                                                            // 15
 				virtual bool MarshallAndDispatch(Variable& a_baseValue, Internal::VirtualMachine& a_vm, VMStackID a_stackID, Variable& a_resultValue, const StackFrame& a_frame) const = 0;  // 16
 
+				const bool GetIsLatent() const;
+
 			protected:
 				// members
 				BSFixedString        _name;                            // 10

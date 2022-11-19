@@ -93,6 +93,11 @@ namespace RE
 				return _docString;
 			}
 
+			const bool NativeFunctionBase::GetIsLatent() const
+			{
+				return _isLatent;
+			}
+
 			void NativeFunctionBase::InsertLocals(StackFrame*)
 			{
 				return;
