@@ -67,28 +67,28 @@ namespace RE
 		~hkbStateMachine() override;  // 00
 
 		// override (hkbGenerator)
-		hkClass* GetClassType() const override;                                                                     // 01
-		void     CalcContentStatistics(hkStatisticsCollector* a_collector, const hkClass* a_class) const override;  // 02
-		void     Unk_03(void) override;                                                                             // 03
-		void     Activate(const hkbContext& a_context) override;                                                    // 04
-		void     Update(const hkbContext& a_context, float a_timestep) override;                                    // 05
-		void     Unk_06(void) override;                                                                             // 06
-		void     Deactivate(const hkbContext& a_context) override;                                                  // 07
-		void     Unk_08(void) override;                                                                             // 08
-		void     Unk_09(void) override;                                                                             // 09
-		void     Unk_0A(void) override;                                                                             // 0A
-		void     Unk_0C(void) override;                                                                             // 0C
-		void     Unk_0D(void) override;                                                                             // 0D
-		void     Unk_0E(void) override;                                                                             // 0E
-		void     Unk_0F(void) override;                                                                             // 0F
-		void     Unk_10(void) override;                                                                             // 10
-		void     Unk_11(void) override;                                                                             // 11
-		void     Unk_12(void) override;                                                                             // 12
-		void     Unk_14(void) override;                                                                             // 14
-		void     Generate(const hkbContext& a_context) override;                                                    // 17
-		void     Unk_18(void) override;                                                                             // 18 - { return 1; }
-		void     UpdateSync(const hkbContext& a_context) override;                                                  // 19
-		void     Unk_1B(void) override;                                                                             // 1B - { echoNextUpdate = true; }
+		hkClass*			GetClassType() const override;																																							// 01
+		void				CalcContentStatistics(hkStatisticsCollector* a_collector, const hkClass* a_class) const override;																						// 02
+		void				CollectBindables(hkbBindableCollector& collector) override;																																// 03
+		void				Activate(const hkbContext& a_context) override;																																			// 04
+		void				Update(const hkbContext& a_context, float a_timestep) override;																															// 05
+		void				HandleEvent(const hkbContext& a_context, hkbEvent event) override;																														// 06
+		void				Deactivate(const hkbContext& a_context) override;																																		// 07
+		int					GetMaxNumChildren(stl::enumeration<GetChildrenFlagBits, std::int32_t> flags) override;																									// 08
+		void				GetChildren(stl::enumeration<GetChildrenFlagBits, std::int32_t> flags, ChildrenInfo& childrenInfo) override;																			// 09
+		bool				IsValid(const hkbCharacter* character, hkStringPtr& errorString) const override;																										// 0A
+		hkbNode*            CloneNode(hkbBehaviorGraph& rootBehavior) const override;																																// 0C
+		hkReferencedObject* CreateInternalState() override;																																							// 0D
+		void                GetInternalState(hkReferencedObject& internalState) const override;																														// 0E
+		void                GetInternalStateUser(const hkbBehaviorGraph& rootBehavior, hkReferencedObject& internalState) override;																					// 0F
+		void                SetInternalState(const hkReferencedObject& internalState) override;																														// 10
+		void                SetInternalStateUser(const hkbContext& context, const hkReferencedObject& internalState, hkPointerMap<int16_t, const hkbNodeInternalStateInfo*>& nodeIdToInternalStateMap) override;	// 11
+		void                GetActiveEvents(hkPointerMap<int, bool>& activeEvents) const override;																													// 12
+		void                GetActiveVariablesSpecial(hkPointerMap<int, bool>& activeVariables) const override;																										// 14
+		void                Generate(const hkbContext& a_context, const hkbGeneratorOutput** activeChildrenOutput, hkbGeneratorOutput& output) override;                                                            // 17
+		bool				CanRecycleOutput() override;																																							// 18 - { return 1; }
+		void				UpdateSync(const hkbContext& a_context) override;																																		// 19
+		void                PreUpdate(const hkbContext& context, float timestep) override;																															// 1B - { echoNextUpdate = true; }
 
 		// members
 		hkbEvent                                                       eventToSendWhenStateOrTransitionChanges;  // 048

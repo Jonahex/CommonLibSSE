@@ -39,7 +39,6 @@ namespace RE
 		// members
 		std::uint16_t                 memSizeAndFlags;  // 08
 		volatile mutable std::int16_t referenceCount;   // 0A
-		std::uint32_t                 pad0C;            // 0C
 	};
 	static_assert(sizeof(hkReferencedObject) == 0x10);
 }

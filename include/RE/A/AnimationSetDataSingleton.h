@@ -4,6 +4,7 @@
 #include "RE/B/BSTArray.h"
 #include "RE/B/BSTHashMap.h"
 #include "RE/B/BSTSingleton.h"
+#include "RE/S/SetEventData.h"
 
 namespace RE
 {
@@ -25,18 +26,10 @@ namespace RE
 		};
 		static_assert(sizeof(HashesData) == 0x40);
 
-		struct AttackData
-		{
-			BSFixedString							event;			// 00
-			BSTSmallArray<BSFixedString>*			clips;			// 08
-			bool									unk10;			// 10
-		};
-		static_assert(sizeof(AttackData) == 0x18);
-
 		BSTSmallArray<BSFixedString>				events;			// 00
 		BSTArray<VariableData>                      variables;		// 18
 		HashesData									hashes;			// 30
-		BSTArray<AttackData>						attacks;		// 70
+		BSTArray<SetEventData>                      attacks;        // 70
 	};
 	static_assert(sizeof(AnimationSetData) == 0x88);
 

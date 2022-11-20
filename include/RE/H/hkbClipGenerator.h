@@ -56,7 +56,7 @@ namespace RE
 		void Deactivate(const hkbContext& a_context) override;                // 07
 
 		// override (hkbGenerator)
-		void Generate(const hkbContext& a_context) override;    // 17
+		void Generate(const hkbContext& a_context, const hkbGeneratorOutput** activeChildrenOutput, hkbGeneratorOutput& output) override;  // 17
 		void UpdateSync(const hkbContext& a_context) override;  // 19
 
 		// members

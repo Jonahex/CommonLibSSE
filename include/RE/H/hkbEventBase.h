@@ -16,7 +16,6 @@ namespace RE
 
 		// members
 		SystemEventIDs            id;       // 00
-		std::uint32_t             pad04;    // 04
 		hkRefPtr<hkbEventPayload> payload;  // 08
 	};
 	static_assert(sizeof(hkbEventBase) == 0x10);
