@@ -42,8 +42,7 @@ namespace RE
 		public:
 			inline static constexpr auto RTTI = RTTI_hkbBehaviorGraph__GlobalTransitionData;
 
-			// override (hkReferencedObject)
-			~GlobalTransitionData();  // 00
+			~GlobalTransitionData() override;  // 00
 
 			hkArray<StateMachineInfo>                m_stateMachineInfos;                             // 10
 			hkArray<int>                             m_eventlessGlobalTransitionStateMachineIndices;  // 20
@@ -64,25 +63,22 @@ namespace RE
 		void     Deactivate(const hkbContext& a_context) override;																				// 07
 		void     GetChildren(stl::enumeration<GetChildrenFlagBits, std::int32_t> flags, ChildrenInfo& childrenInfo) override;					// 09
 		hkbNode* CloneNode(hkbBehaviorGraph& rootBehavior) const override;																		// 0C
-		void     Unk_16(void) override;																											// 16 - { return 1; }
+		bool     IsBehaviorGraph() const override;                                                                                              // 16 - { return 1; }
 		void     Generate(const hkbContext& a_context, const hkbGeneratorOutput** activeChildrenOutput, hkbGeneratorOutput& output) override;	// 17
 		bool     CanRecycleOutput() override;																									// 18 - { return 1; }
 		void     UpdateSync(const hkbContext& a_context) override;																				// 19
 
 		// members
 		stl::enumeration<VariableMode, std::uint8_t>			variableMode;                     // 048
-		std::uint8_t											pad49;                            // 049
-		std::uint16_t											pad4A;                            // 04A
-		std::uint32_t											pad4C;                            // 04C
-		hkArray<hkRefVariant>									uniqueIDPool;                     // 050
+		hkArray<uint16_t>										uniqueIDPool;                     // 050
 		hkPointerMap<std::uint16_t, hkbStateMachine*>*          idToStateMachineTemplateMap;      // 060
-		hkArray<hkRefVariant>									mirroredExternalIDMap;            // 068
+		hkArray<int>											mirroredExternalIDMap;            // 068
 		hkPseudoRandomGenerator*								pseudoRandomGenerator;            // 078
 		hkRefPtr<hkbGenerator>									rootGenerator;                    // 080
 		hkRefPtr<hkbBehaviorGraphData>							data;                             // 088
 		hkbGenerator*                                           rootGeneratorClone;               // 090
 		hkRefVariant											activeNodes;                      // 098
-		hkRefVariant											activeNodeTemplateToIndexMap;     // 0A0
+		hkPointerMap<hkbNode*, int>*							activeNodeTemplateToIndexMap;     // 0A0
 		hkRefVariant											activeNodesChildrenIndices;       // 0A8
 		hkRefPtr<GlobalTransitionData>                          globalTransitionData;             // 0B0
 		hkRefPtr<hkbSymbolIdMap>                                eventIDMap;                       // 0B8
@@ -95,7 +91,6 @@ namespace RE
 		hkPointerMap<hkbStateListener*, hkbStateListener*>*		stateListenerTemplateToCloneMap;  // 0F0
 		hkRefVariant											nodePartitionInfo;                // 0F8
 		std::int32_t											numIntermediateOutputs;           // 100
-		std::uint32_t											pad104;                           // 104
 		hkArray<hkRefVariant>									jobs;                             // 108
 		hkArray<hkRefVariant>									allPartitionMemory;               // 118
 		std::int16_t											numStaticNodes;                   // 128

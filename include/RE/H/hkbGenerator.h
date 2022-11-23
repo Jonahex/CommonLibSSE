@@ -12,7 +12,7 @@ namespace RE
 		~hkbGenerator() override;  // 00
 
 		// override (hkbNode)
-		void Unk_15(void) override;  // 15 - { return 1; }
+		bool IsGenerator() const override;  // 15 - { return 1; }
 
 		// add
 		virtual void Generate(const hkbContext& a_context, const hkbGeneratorOutput** activeChildrenOutput, hkbGeneratorOutput& output) = 0;	// 17

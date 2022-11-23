@@ -241,6 +241,11 @@ namespace RE
 			inline constexpr REL::ID RemoveReference(static_cast<std::uint64_t>(57011));
 		}
 
+		namespace ImageSpaceEffectManager
+		{
+			inline constexpr REL::ID Singleton(static_cast<std::uint64_t>(414660));
+		}
+
 		namespace INIPrefSettingCollection
 		{
 			inline constexpr REL::ID Singleton(static_cast<std::uint64_t>(410219));
@@ -749,6 +754,11 @@ namespace RE
 		{
 			inline constexpr REL::ID AddReference(static_cast<std::uint64_t>(56606));
 			inline constexpr REL::ID RemoveReference(static_cast<std::uint64_t>(56607));
+		}
+
+		namespace ImageSpaceEffectManager
+		{
+			inline constexpr REL::ID Singleton(static_cast<std::uint64_t>(527731));
 		}
 
 		namespace INIPrefSettingCollection

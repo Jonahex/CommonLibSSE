@@ -9,6 +9,8 @@ namespace RE
 	class hkbVariableInfo;
 	class hkbVariableValueSet;
 
+	union hkbVariableValue;
+
 	class hkbBehaviorGraphData : public hkReferencedObject
 	{
 	public:
@@ -17,15 +19,14 @@ namespace RE
 		virtual ~hkbBehaviorGraphData() = default;  // 00
 
 		// members
-		hkArray<float>                       attributeDefaults;       // 10
-		hkArray<hkbVariableInfo>             variableInfos;           // 20
-		hkArray<hkbVariableInfo>             characterPropertyInfos;  // 30
-		hkArray<hkbVariableInfo>             eventInfos;              // 40
-		hkArray<hkbVariableBounds>           variableBounds;          // 50
-		uint64_t                             unk60;                   // 60
-		uint64_t                             unk68;                   // 68
-		hkbVariableValueSet*                 variableInitialValues;   // 70
-		hkRefPtr<hkbBehaviorGraphStringData> stringData;              // 78
+		hkArray<float>                       attributeDefaults;			// 10
+		hkArray<hkbVariableInfo>             variableInfos;				// 20
+		hkArray<hkbVariableInfo>             characterPropertyInfos;	// 30
+		hkArray<hkbVariableInfo>             eventInfos;				// 40
+		hkArray<hkbVariableValue>            wordMinVariableValues;		// 50
+		hkArray<hkbVariableValue>            wordMaxVariableValues;		// 60
+		hkbVariableValueSet*                 variableInitialValues;		// 70
+		hkRefPtr<hkbBehaviorGraphStringData> stringData;				// 78
 	};
 	static_assert(sizeof(hkbBehaviorGraphData) == 0x80);
 }

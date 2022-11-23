@@ -52,13 +52,13 @@ namespace RE
 		virtual hkReferencedObject* CreateInternalState();																																			// 0D - { return 0; }
 		virtual void GetInternalState(hkReferencedObject& internalState) const;																														// 0E - { return; }
 		virtual void GetInternalStateUser(const hkbBehaviorGraph& rootBehavior, hkReferencedObject& internalState);																					// 0F - { return; }
-		virtual void SetInternalState(const hkReferencedObject& internalState);																													// 10 - { return; }
+		virtual void SetInternalState(const hkReferencedObject& internalState);																														// 10 - { return; }
 		virtual void SetInternalStateUser(const hkbContext& context, const hkReferencedObject& internalState, hkPointerMap<int16_t, const hkbNodeInternalStateInfo*>& nodeIdToInternalStateMap);	// 11 - { return; }
 		virtual void GetActiveEvents(hkPointerMap<int, bool>& activeEvents) const;																													// 12 - { return; }
-		virtual void Unk_13(void);																																									// 13 - { return 0; }
+		virtual bool IsTransitionEffect() const;																																					// 13 - { return 0; }
 		virtual void GetActiveVariablesSpecial(hkPointerMap<int, bool>& activeVariables) const;																										// 14 - { return; }
-		virtual void Unk_15(void);																																									// 15 - { return 0; }
-		virtual void Unk_16(void);																																									// 16 - { return 0; }
+		virtual bool IsGenerator() const;																																							// 15 - { return 0; }
+		virtual bool IsBehaviorGraph() const;																																						// 16 - { return 0; }
 
 		// members
 		std::uint64_t                              userData;    // 30

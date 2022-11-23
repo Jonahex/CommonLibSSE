@@ -9,7 +9,10 @@
 
 namespace RE
 {
+	class hkbCondition;
+	class hkbEventProperty;
 	class hkbStateChooser;
+	class hkbTransitionEffect;
 
 	class hkbStateMachine : public hkbGenerator
 	{
@@ -31,6 +34,78 @@ namespace RE
 			kForceTransitionToStartState = 2
 		};
 
+		class EventPropertyArray : public hkReferencedObject
+		{
+		public:
+			inline static constexpr auto RTTI = RTTI_hkbStateMachine__EventPropertyArray;
+
+			~EventPropertyArray() override;				// 00
+
+			hkArray<hkbEventProperty> m_events;			// 10
+		};
+		static_assert(sizeof(EventPropertyArray) == 0x20);
+
+		struct TimeInterval
+		{
+			int32_t m_enterEventId;		// 00
+			int32_t m_exitEventId;		// 04
+			float	m_enterTime;		// 08
+			float   m_exitTime;			// 0C
+		};
+		static_assert(sizeof(TimeInterval) == 0x10);
+
+		class TransitionInfo
+		{
+		public:
+			enum class TransitionFlags
+			{
+				FLAG_USE_TRIGGER_INTERVAL = 1,
+				FLAG_USE_INITIATE_INTERVAL = 2,
+				FLAG_UNINTERRUPTIBLE_WHILE_PLAYING = 4,
+				FLAG_UNINTERRUPTIBLE_WHILE_DELAYED = 8,
+				FLAG_DELAY_STATE_CHANGE = 16,
+				FLAG_DISABLED = 32,
+				FLAG_DISALLOW_RETURN_TO_PREVIOUS_STATE = 64,
+				FLAG_DISALLOW_RANDOM_TRANSITION = 128,
+				FLAG_DISABLE_CONDITION = 256,
+				FLAG_ALLOW_SELF_TRANSITION_BY_TRANSITION_FROM_ANY_STATE = 512,
+				FLAG_IS_GLOBAL_WILDCARD = 1024,
+				FLAG_IS_LOCAL_WILDCARD = 2048,
+				FLAG_FROM_NESTED_STATE_ID_IS_VALID = 4096,
+				FLAG_TO_NESTED_STATE_ID_IS_VALID = 8192,
+				FLAG_ABUT_AT_END_OF_FROM_GENERATOR = 16384,
+			};
+
+			enum class InternalFlagBits
+			{
+				FLAG_INTERNAL_IN_TRIGGER_INTERVAL = 1,
+				FLAG_INTERNAL_IN_INITIATE_INTERVAL = 2,
+			};
+
+			TimeInterval								m_triggerInterval;			// 00
+			TimeInterval								m_initiateInterval;			// 10
+			hkRefPtr<hkbTransitionEffect>				m_transition;				// 20
+			hkRefPtr<hkbCondition>						m_condition;				// 28
+			int32_t										m_eventId;					// 30
+			int32_t										m_toStateId;				// 34
+			int32_t										m_fromNestedStateId;		// 38
+			int32_t										m_toNestedStateId;			// 3C
+			int16_t										m_priority;					// 40
+			stl::enumeration<TransitionFlags, int16_t>	m_flags;					// 42
+		};
+		static_assert(sizeof(TransitionInfo) == 0x48);
+
+		class TransitionInfoArray : public hkReferencedObject
+		{
+		public:
+			inline static constexpr auto RTTI = RTTI_hkbStateMachine__TransitionInfoArray;
+
+			~TransitionInfoArray() override;		// 00
+
+			hkArray<TransitionInfo> m_transitions;	// 10
+		};
+		static_assert(sizeof(TransitionInfoArray) == 0x20);
+
 		class StateInfo : public hkbBindable
 		{
 		public:
@@ -38,31 +113,54 @@ namespace RE
 
 			~StateInfo() override;  // 00
 
-			// members
-			std::uint64_t unk30;  // 30
-			std::uint64_t unk38;  // 38
-			std::uint64_t unk40;  // 40
-			std::uint64_t unk48;  // 48
-			std::uint64_t unk50;  // 50
-			std::uint64_t unk58;  // 58
-			std::uint64_t unk60;  // 60
-			std::uint64_t unk68;  // 68
-			std::uint64_t unk70;  // 70
+			hkArray<hkbStateListener*>		m_listeners;			// 30
+			hkRefPtr<EventPropertyArray>	m_enterNotifyEvents;	// 40
+			hkRefPtr<EventPropertyArray>	m_exitNotifyEvents;		// 48
+			hkRefPtr<TransitionInfoArray>	m_transitions;			// 50
+			hkRefPtr<hkbGenerator>			m_generator;			// 58
+			hkStringPtr						m_name;					// 60
+			int32_t							m_stateId;				// 68
+			float							m_probability;			// 6C
+			bool							m_enable;				// 70
 		};
 		static_assert(sizeof(StateInfo) == 0x78);
 
-		class TransitionInfoArray : public hkReferencedObject
+		struct TransitionInfoReference
 		{
-		public:
-			inline static constexpr auto RTTI = RTTI_hkbStateMachine__TransitionInfoArray;
-
-			~TransitionInfoArray() override;  // 00
-
-			// members
-			std::uint64_t unk10;  // 10
-			std::uint64_t unk18;  // 18
+			int16_t m_fromStateIndex;		// 00
+			int16_t m_transitionIndex;		// 02
+			int16_t m_stateMachineId;		// 04
 		};
-		static_assert(sizeof(TransitionInfoArray) == 0x20);
+		static_assert(sizeof(TransitionInfoReference) == 0x6);
+
+		struct ActiveTransitionInfo
+		{
+			hkbTransitionEffect*		m_transitionEffect;						// 00			
+			hkbNodeInternalStateInfo*	m_transitionEffectInternalStateInfo;	// 08
+			TransitionInfoReference		m_transitionInfoReference;				// 10
+			TransitionInfoReference		m_transitionInfoReferenceForTE;			// 16
+			int32_t                     m_fromStateId;							// 1C
+			int32_t                     m_toStateId;							// 20
+			bool						m_isReturnToPreviousState;				// 24
+		};
+		static_assert(sizeof(ActiveTransitionInfo) == 0x28);
+
+		struct ProspectiveTransitionInfo
+		{
+			TransitionInfoReference		m_transitionInfoReference;				// 00
+			TransitionInfoReference		m_transitionInfoReferenceForTE;			// 06
+			int32_t						m_toStateId;							// 0C
+		};
+		static_assert(sizeof(ProspectiveTransitionInfo) == 0x10);
+
+		struct DelayedTransitionInfo
+		{
+			ProspectiveTransitionInfo	m_delayedTransition;						// 00
+			float                       m_timeDelayed;								// 10
+			bool						m_isDelayedTransitionReturnToPreviousState;	// 14
+			bool						m_wasInAbutRangeLastFrame;					// 15
+		};
+		static_assert(sizeof(DelayedTransitionInfo) == 0x18);
 
 		~hkbStateMachine() override;  // 00
 
@@ -91,38 +189,34 @@ namespace RE
 		void                PreUpdate(const hkbContext& context, float timestep) override;																															// 1B - { echoNextUpdate = true; }
 
 		// members
-		hkbEvent                                                       eventToSendWhenStateOrTransitionChanges;  // 048
-		hkRefPtr<hkbStateChooser>                                      startStateChooser;                        // 060
-		std::int32_t                                                   startStateID;                             // 068
-		std::int32_t                                                   returnToPreviousStateEventID;             // 06C
-		std::int32_t                                                   randomTransitionEventID;                  // 070
-		std::int32_t                                                   transitionToNextHigherStateEventID;       // 074
-		std::int32_t                                                   transitionToNextLowerStateEventID;        // 078
-		std::int32_t                                                   syncVariableIndex;                        // 07C
-		std::int32_t                                                   currentStateID;                           // 080
-		bool                                                           wrapAroundStateID;                        // 084
-		std::int8_t                                                    maxSimultaneousTransitions;               // 085
-		stl::enumeration<StartStateMode, std::uint8_t>                 startStateMode;                           // 086
-		stl::enumeration<StateMachineSelfTransitionMode, std::uint8_t> selfTransitionMode;                       // 087
-		bool                                                           isActive;                                 // 088
-		std::uint8_t                                                   pad41;                                    // 089
-		std::uint16_t                                                  pad42;                                    // 08A
-		std::uint32_t                                                  pad44;                                    // 08C
-		hkArray<StateInfo*>                                            states;                                   // 090
-		hkRefPtr<TransitionInfoArray>                                  wildcardTransitions;                      // 0A0
-		hkRefVariant                                                   stateIDToIndexMap;                        // 0A8
-		hkArray<hkRefVariant>                                          activeTransitions;                        // 0B0
-		hkArray<hkRefVariant>                                          transitionFlags;                          // 0C0
-		hkArray<hkRefVariant>                                          wildcardTransitionFlags;                  // 0D0
-		hkArray<hkRefVariant>                                          delayedTransitions;                       // 0E0
-		float                                                          timeInState;                              // 0F0
-		float                                                          lastLocalTime;                            // 0F4
-		std::int32_t                                                   previousStateID;                          // 0F8
-		std::int32_t                                                   nextStartStateIndexOverride;              // 0FC
-		bool                                                           stateOrTransitionChanged;                 // 100
-		bool                                                           echoNextUpdate;                           // 101
-		std::uint16_t                                                  currentStateIndexAndEntered;              // 102
-		std::uint32_t                                                  pad0BC;                                   // 104
+		hkbEvent														eventToSendWhenStateOrTransitionChanges;  // 048
+		hkRefPtr<hkbStateChooser>										startStateChooser;                        // 060
+		std::int32_t													startStateID;                             // 068
+		std::int32_t													returnToPreviousStateEventID;             // 06C
+		std::int32_t													randomTransitionEventID;                  // 070
+		std::int32_t													transitionToNextHigherStateEventID;       // 074
+		std::int32_t													transitionToNextLowerStateEventID;        // 078
+		std::int32_t													syncVariableIndex;                        // 07C
+		std::int32_t													currentStateID;                           // 080
+		bool															wrapAroundStateID;                        // 084
+		std::int8_t														maxSimultaneousTransitions;               // 085
+		stl::enumeration<StartStateMode, std::uint8_t>					startStateMode;                           // 086
+		stl::enumeration<StateMachineSelfTransitionMode, std::uint8_t>	selfTransitionMode;                       // 087
+		bool															isActive;                                 // 088
+		hkArray<StateInfo*>												states;                                   // 090
+		hkRefPtr<TransitionInfoArray>									wildcardTransitions;                      // 0A0
+		hkPointerMap<int, int>*											stateIDToIndexMap;                        // 0A8
+		hkArray<ActiveTransitionInfo>									activeTransitions;                        // 0B0
+		hkArray<uint8_t>												transitionFlags;                          // 0C0
+		hkArray<uint8_t>												wildcardTransitionFlags;                  // 0D0
+		hkArray<DelayedTransitionInfo>									delayedTransitions;                       // 0E0
+		float															timeInState;                              // 0F0
+		float															lastLocalTime;                            // 0F4
+		std::int32_t													previousStateID;                          // 0F8
+		std::int32_t													nextStartStateIndexOverride;              // 0FC
+		bool															stateOrTransitionChanged;                 // 100
+		bool															echoNextUpdate;                           // 101
+		std::uint16_t													currentStateIndexAndEntered;              // 102
 	};
 	static_assert(sizeof(hkbStateMachine) == 0x108);
 }
