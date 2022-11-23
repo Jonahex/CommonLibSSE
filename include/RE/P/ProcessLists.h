@@ -36,6 +36,7 @@ namespace RE
 		static ProcessLists* GetSingleton();
 
 		void         ClearCachedFactionFightReactions() const;
+		void         ForAllActors(std::function<BSContainer::ForEachResult(Actor&)> a_callback);
 		void         ForEachHighActor(std::function<BSContainer::ForEachResult(Actor&)> a_callback);
 		void         ForEachMagicTempEffect(std::function<BSContainer::ForEachResult(BSTempEffect&)> a_callback);
 		void         ForEachModelEffect(std::function<BSContainer::ForEachResult(ModelReferenceEffect&)> a_callback);
