@@ -1,4 +1,5 @@
 #include "RE/C/ContainerItemExtra.h"
+#include "RE/T/TESForm.h"
 
 namespace RE
 {
@@ -7,7 +8,11 @@ namespace RE
 	{}
 
 	ContainerItemExtra::ContainerItemExtra() :
-		owner(nullptr),
+		ContainerItemExtra(nullptr)
+	{}
+
+	ContainerItemExtra::ContainerItemExtra(TESForm* a_owner) :
+		owner(a_owner),
 		conditional(),
 		healthMult(100.0f),
 		pad14(0)

@@ -10,54 +10,75 @@ namespace RE
 		pad04(0),
 		obj(nullptr),
 		itemExtra()
-	{
-	}
+	{}
 
 	ContainerObject::ContainerObject(TESBoundObject* a_obj, std::int32_t a_count) :
 		count(a_count),
 		pad04(0),
 		obj(a_obj),
 		itemExtra()
+	{}
+
+	ContainerObject::ContainerObject(TESBoundObject* a_obj, std::int32_t a_count, TESForm* a_owner) :
+		count(a_count),
+		pad04(0),
+		obj(a_obj),
+		itemExtra(new ContainerItemExtra(a_owner))
+	{}
+
+	void TESContainer::CopyObjectList(const std::vector<ContainerObject*>& a_copiedData)
 	{
+		const auto oldData = containerObjects;
+
+		const auto newSize = a_copiedData.size();
+		const auto newData = calloc<ContainerObject*>(newSize);
+		std::ranges::copy(a_copiedData, newData);
+
+		numContainerObjects = static_cast<std::uint32_t>(newSize);
+		containerObjects = newData;
+
+		free(oldData);
 	}
 
 	bool TESContainer::AddObjectToContainer(TESBoundObject* a_object, std::int32_t a_count, TESForm* a_owner)
 	{
 		bool added = false;
-		ForEachContainerObject([&](ContainerObject& a_contObj) {
-			if (a_contObj.obj == a_object) {
-				a_contObj.count += a_count;
+		for (std::uint32_t i = 0; i < numContainerObjects; ++i) {
+			if (const auto entry = containerObjects[i]; entry && entry->obj == a_object) {
+				entry->count += a_count;
 				added = true;
-				return BSContainer::ForEachResult::kStop;
+				break;
 			}
-			return BSContainer::ForEachResult::kContinue;
-		});
+		}
 		if (!added) {
 			std::vector<ContainerObject*> copiedData{ containerObjects, containerObjects + numContainerObjects };
-
-			const auto newObj = new ContainerObject(a_object, a_count);
-			if (newObj) {
-				const auto itemExtra = newObj->itemExtra;
-				if (itemExtra && a_owner) {
-					itemExtra->owner = a_owner;
-				}
-				copiedData.push_back(newObj);
-			}
-
-			auto newNum = static_cast<std::uint32_t>(copiedData.size());
-			auto newData = calloc<ContainerObject*>(newNum);
-			std::ranges::copy(copiedData, newData);
-
-			auto oldData = containerObjects;
-
-			numContainerObjects = newNum;
-			containerObjects = newData;
-
-			free(oldData);
-
-			added = true;
+			const auto                    newObj = new ContainerObject(a_object, a_count, a_owner);
+			copiedData.push_back(newObj);
+			CopyObjectList(copiedData);
+			return true;
 		}
 		return added;
+	}
+
+	bool TESContainer::AddObjectsToContainer(std::map<TESBoundObject*, std::int32_t>& a_objects, TESForm* a_owner)
+	{
+		for (std::uint32_t i = 0; i < numContainerObjects; ++i) {
+			if (const auto entry = containerObjects[i]; entry && entry->obj) {
+				if (auto it = a_objects.find(entry->obj); it != a_objects.end()) {
+					entry->count += it->second;
+					a_objects.erase(it);
+				}
+			}
+		}
+		if (!a_objects.empty()) {
+			std::vector<ContainerObject*> copiedData{ containerObjects, containerObjects + numContainerObjects };
+			for (auto& [object, count] : a_objects) {
+				const auto newObj = new ContainerObject(object, count, a_owner);
+				copiedData.push_back(newObj);
+			}
+			CopyObjectList(copiedData);
+		}
+		return true;
 	}
 
 	auto TESContainer::GetContainerObjectAt(std::uint32_t a_idx) const
@@ -98,22 +119,10 @@ namespace RE
 
 	bool TESContainer::RemoveObjectFromContainer(TESBoundObject* a_object, std::int32_t a_count)
 	{
-		auto index = GetContainerObjectIndex(a_object, a_count);
-		if (index) {
+		if (auto index = GetContainerObjectIndex(a_object, a_count); index.has_value()) {
 			std::vector<ContainerObject*> copiedData{ containerObjects, containerObjects + numContainerObjects };
 			copiedData.erase(copiedData.cbegin() + *index);
-
-			auto newNum = static_cast<std::uint32_t>(copiedData.size());
-			auto newData = calloc<ContainerObject*>(newNum);
-			std::ranges::copy(copiedData, newData);
-
-			auto oldData = containerObjects;
-
-			numContainerObjects = newNum;
-			containerObjects = newData;
-
-			free(oldData);
-
+			CopyObjectList(copiedData);
 			return true;
 		}
 		return false;

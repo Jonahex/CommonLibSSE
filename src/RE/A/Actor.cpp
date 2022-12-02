@@ -765,6 +765,41 @@ namespace RE
 		return func(this, a_target, a_priority);
 	}
 
+	void Actor::SetLifeState(ACTOR_LIFE_STATE a_lifeState)
+	{
+		using func_t = decltype(&Actor::SetLifeState);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36604, 37612) };
+		return func(this, a_lifeState);
+	}
+
+	bool Actor::SetOutfit(BGSOutfit* a_outfit, bool a_sleepOutfit)
+	{
+		auto npc = GetActorBase();
+		if (!npc) {
+			return false;
+		}
+		if (a_sleepOutfit) {
+			if (npc->sleepOutfit == a_outfit) {
+				return false;
+			}
+			RemoveOutfitItems(npc->sleepOutfit);
+			npc->sleepOutfit = a_outfit;
+			npc->AddChange(TESNPC::ChangeFlags::kSleepOutfit);
+		} else {
+			if (npc->defaultOutfit == a_outfit) {
+				return false;
+			}
+			RemoveOutfitItems(npc->defaultOutfit);
+			npc->defaultOutfit = a_outfit;
+			npc->AddChange(TESNPC::ChangeFlags::kDefaultOutfit);
+		}
+		InitInventoryIfRequired();
+		if (!IsDisabled()) {
+			AddWornOutfit(a_outfit, true);
+		}
+		return true;
+	}
+
 	void Actor::SetRotationX(float a_angle)
 	{
 		using func_t = decltype(&Actor::SetRotationX);
@@ -777,13 +812,6 @@ namespace RE
 		using func_t = decltype(&Actor::SetRotationZ);
 		REL::Relocation<func_t> func{ RELOCATION_ID(36248, 37230) };
 		return func(this, a_angle);
-	}
-
-	void Actor::SetLifeState(ACTOR_LIFE_STATE a_lifeState)
-	{
-		using func_t = decltype(&Actor::SetLifeState);
-		REL::Relocation<func_t> func{ RELOCATION_ID(36604, 37612) };
-		return func(this, a_lifeState);
 	}
 
 	void Actor::StealAlarm(TESObjectREFR* a_ref, TESForm* a_object, std::int32_t a_num, std::int32_t a_total, TESForm* a_owner, bool a_allowWarning)
@@ -964,5 +992,19 @@ namespace RE
 
 		auto base = GetActorBase();
 		return base ? base->crimeFaction : nullptr;
+	}
+
+	void Actor::AddWornOutfit(BGSOutfit* a_outfit, bool a_forceUpdate)
+	{
+		using func_t = decltype(&Actor::AddWornOutfit);
+		REL::Relocation<func_t> func{ RELOCATION_ID(19266, 19692) };
+		return func(this, a_outfit, a_forceUpdate);
+	}
+
+	void Actor::RemoveOutfitItems(BGSOutfit* a_outfit)
+	{
+		using func_t = decltype(&Actor::RemoveOutfitItems);
+		REL::Relocation<func_t> func{ RELOCATION_ID(19264, 19690) };
+		return func(this, a_outfit);
 	}
 }

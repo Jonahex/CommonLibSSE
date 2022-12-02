@@ -15,6 +15,7 @@ namespace RE
 	public:
 		ContainerObject();
 		ContainerObject(TESBoundObject* a_obj, std::int32_t a_count);
+		ContainerObject(TESBoundObject* a_obj, std::int32_t a_count, TESForm* a_owner);
 
 		~ContainerObject() = default;
 
@@ -55,6 +56,7 @@ namespace RE
 		std::optional<ContainerObject*> GetContainerObjectAt(std::uint32_t a_idx) const;
 		std::optional<std::uint32_t>    GetContainerObjectIndex(TESBoundObject* a_object, std::int32_t a_count) const;
 		bool                            AddObjectToContainer(TESBoundObject* a_object, std::int32_t a_count, TESForm* a_owner);
+		bool                            AddObjectsToContainer(std::map<TESBoundObject*, std::int32_t>& a_objects, TESForm* a_owner);
 		std::int32_t                    CountObjectsInContainer(TESBoundObject* a_object) const;
 		bool                            RemoveObjectFromContainer(TESBoundObject* a_object, std::int32_t a_count);
 
@@ -62,6 +64,9 @@ namespace RE
 		ContainerObject** containerObjects;     // 08
 		std::uint32_t     numContainerObjects;  // 10
 		std::uint32_t     pad14;                // 14
+
+	private:
+		void CopyObjectList(const std::vector<ContainerObject*>& a_copiedData);
 	};
 	static_assert(sizeof(TESContainer) == 0x18);
 }

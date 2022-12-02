@@ -335,6 +335,7 @@
 #include "RE/B/BSThread.h"
 #include "RE/B/BSThreadEvent.h"
 #include "RE/B/BSTimer.h"
+#include "RE/B/BSTreeManager.h"
 #include "RE/B/BSTriShape.h"
 #include "RE/B/BSUIMessageData.h"
 #include "RE/B/BSUIScaleformData.h"

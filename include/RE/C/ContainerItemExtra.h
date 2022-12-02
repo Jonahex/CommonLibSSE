@@ -21,6 +21,7 @@ namespace RE
 		static_assert(sizeof(Conditional) == 0x8);
 
 		ContainerItemExtra();
+		ContainerItemExtra(TESForm* a_owner);
 		~ContainerItemExtra() = default;
 
 		TES_HEAP_REDEFINE_NEW();

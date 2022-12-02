@@ -4,27 +4,39 @@
 
 namespace RE
 {
+	void BGSKeywordForm::CopyKeywords(const std::vector<RE::BGSKeyword*>& a_copiedData)
+	{
+		const auto oldData = keywords;
+
+		const auto newSize = a_copiedData.size();
+		const auto newData = calloc<BGSKeyword*>(newSize);
+		std::ranges::copy(a_copiedData, newData);
+
+		numKeywords = static_cast<std::uint32_t>(newSize);
+		keywords = newData;
+
+		free(oldData);
+	}
+
 	bool BGSKeywordForm::AddKeyword(BGSKeyword* a_keyword)
 	{
 		if (!GetKeywordIndex(a_keyword)) {
 			std::vector<BGSKeyword*> copiedData{ keywords, keywords + numKeywords };
 			copiedData.push_back(a_keyword);
-
-			auto newNum = static_cast<std::uint32_t>(copiedData.size());
-			auto newData = calloc<BGSKeyword*>(newNum);
-			std::ranges::copy(copiedData, newData);
-
-			auto oldData = keywords;
-
-			numKeywords = newNum;
-			keywords = newData;
-
-			free(oldData);
-
+			CopyKeywords(copiedData);
 			return true;
 		}
-
 		return false;
+	}
+
+	bool BGSKeywordForm::AddKeywords(const std::vector<BGSKeyword*>& a_keywords)
+	{
+		std::vector<BGSKeyword*> copiedData{ keywords, keywords + numKeywords };
+		std::ranges::remove_copy_if(a_keywords, std::back_inserter(copiedData), [&](auto& keyword) {
+			return std::ranges::find(copiedData, keyword) != copiedData.end();
+		});
+		CopyKeywords(copiedData);
+		return true;
 	}
 
 	bool BGSKeywordForm::ContainsKeywordString(std::string_view a_editorID) const
@@ -107,24 +119,23 @@ namespace RE
 	{
 		std::vector<BGSKeyword*> copiedData{ keywords, keywords + numKeywords };
 		copiedData.erase(copiedData.cbegin() + a_index);
-
-		auto newNum = static_cast<std::uint32_t>(copiedData.size());
-		auto newData = calloc<BGSKeyword*>(newNum);
-		std::ranges::copy(copiedData, newData);
-
-		auto oldData = keywords;
-
-		numKeywords = newNum;
-		keywords = newData;
-
-		free(oldData);
-
+		CopyKeywords(copiedData);
 		return true;
 	}
 
 	bool BGSKeywordForm::RemoveKeyword(BGSKeyword* a_keyword)
 	{
-		auto index = GetKeywordIndex(a_keyword);
+		const auto index = GetKeywordIndex(a_keyword);
 		return index ? RemoveKeyword(*index) : false;
+	}
+
+	bool BGSKeywordForm::RemoveKeywords(const std::vector<RE::BGSKeyword*>& a_keywords)
+	{
+		std::vector<BGSKeyword*> copiedData{ keywords, keywords + numKeywords };
+		if (std::erase_if(copiedData, [&](auto& keyword) { return std::ranges::find(a_keywords, keyword) != a_keywords.end(); }) > 0) {
+			CopyKeywords(copiedData);
+			return true;
+		}
+		return false;
 	}
 }

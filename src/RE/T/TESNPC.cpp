@@ -9,29 +9,44 @@ namespace RE
 		faceDetails(nullptr)
 	{}
 
+	void TESNPC::CopyPerkRankArray(const std::vector<PerkRankData>& a_copiedData)
+	{
+		const auto oldData = perks;
+
+		const auto newSize = a_copiedData.size();
+		const auto newData = calloc<PerkRankData>(newSize);
+		std::ranges::copy(a_copiedData, newData);
+
+		perkCount = static_cast<std::uint32_t>(newSize);
+		perks = newData;
+
+		free(oldData);
+	}
+
 	bool TESNPC::AddPerk(BGSPerk* a_perk, std::int8_t a_rank)
 	{
 		if (!GetPerkIndex(a_perk)) {
+			const auto                newPerk = new PerkRankData(a_perk, a_rank);
 			std::vector<PerkRankData> copiedData{ perks, perks + perkCount };
-
-			auto newPerk = new PerkRankData(a_perk, a_rank);
 			copiedData.push_back(*newPerk);
-
-			auto newCount = static_cast<std::uint32_t>(copiedData.size());
-			auto newData = calloc<PerkRankData>(newCount);
-			std::ranges::copy(copiedData, newData);
-
-			auto oldData = perks;
-
-			perkCount = newCount;
-			perks = newData;
-
-			free(oldData);
-
+			CopyPerkRankArray(copiedData);
 			return true;
 		}
 
 		return false;
+	}
+
+	bool TESNPC::AddPerks(const std::vector<BGSPerk*>& a_perks, std::int8_t a_rank)
+	{
+		std::vector<PerkRankData> copiedData{ perks, perks + perkCount };
+		std::ranges::for_each(a_perks, [&](auto& perk) {
+			if (!GetPerkIndex(perk)) {
+				const auto newPerk = new PerkRankData(perk, a_rank);
+				copiedData.push_back(*newPerk);
+			}
+		});
+		CopyPerkRankArray(copiedData);
+		return true;
 	}
 
 	void TESNPC::ChangeHeadPart(BGSHeadPart* a_target)
@@ -186,35 +201,29 @@ namespace RE
 
 	bool TESNPC::IsInFaction(TESFaction* a_faction) const
 	{
-		for (auto& faction : factions) {
-			if (faction.faction == a_faction && faction.rank > -1) {
-				return true;
-			}
-		}
-		return false;
+		return std::ranges::any_of(factions, [&](const auto& faction) {
+			return faction.faction == a_faction && faction.rank > -1;
+		});
 	}
 
 	bool TESNPC::RemovePerk(BGSPerk* a_perk)
 	{
-		auto index = GetPerkIndex(a_perk);
-		if (index) {
+		if (const auto index = GetPerkIndex(a_perk); index.has_value()) {
 			std::vector<PerkRankData> copiedData{ perks, perks + perkCount };
 			copiedData.erase(copiedData.cbegin() + *index);
-
-			auto newCount = static_cast<std::uint32_t>(copiedData.size());
-			auto newData = calloc<PerkRankData>(newCount);
-			std::ranges::copy(copiedData, newData);
-
-			auto oldData = perks;
-
-			perkCount = newCount;
-			perks = newData;
-
-			free(oldData);
-
+			CopyPerkRankArray(copiedData);
 			return true;
 		}
+		return false;
+	}
 
+	bool TESNPC::RemovePerks(const std::vector<BGSPerk*>& a_perks)
+	{
+		std::vector<PerkRankData> copiedData{ perks, perks + perkCount };
+		if (std::erase_if(copiedData, [&](auto& perkRank) { return std::ranges::find(a_perks, perkRank.perk) != a_perks.end(); }) > 0) {
+			CopyPerkRankArray(copiedData);
+			return true;
+		}
 		return false;
 	}
 
