@@ -33,7 +33,7 @@ namespace RE
 	};
 	static_assert(sizeof(AnimationSetData) == 0x88);
 
-	class AnimationSetDataSingleton : public BSTSingletonSDM<AnimationSetDataSingleton>
+	class AnimationSetDataSingleton
 	{
 	public:
 		[[nodiscard]] static AnimationSetDataSingleton* GetSingleton()
@@ -42,6 +42,7 @@ namespace RE
 			return *singleton;
 		}
 
+		uint64_t												pad00;			// 00
 		BSTHashMap<BSFixedString, BSTArray<AnimationSetData>*>	projects;		// 08
 	};
 	static_assert(sizeof(AnimationSetDataSingleton) == 0x38);
