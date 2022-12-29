@@ -18,13 +18,16 @@ namespace RE
 				kDiffuse = 0,
 				kNormal,
 				kGloss = kNormal,
-				kEnvironmentMask,
-				kSubsurfaceTint = kEnvironmentMask,
 				kGlowMap,
-				kDetailMap = kGlowMap,
+				kSubsurface = kGlowMap,
+				kRimlightMask = kGlowMap,
+				kSoftlightMask = kGlowMap,
+				kDetail = kGlowMap,
 				kHeight,
 				kEnvironment,
+				kEnvironmentMask,
 				kMultilayer,
+				kTint = kMultilayer,
 				kBacklightMask,
 				kSpecular = kBacklightMask,
 				kUnused08,
@@ -46,9 +49,9 @@ namespace RE
 		bool          IsEqual(NiObject* a_object) override;              // 1C
 
 		// add
-		virtual const char* GetTexturePath(Texture a_texture) = 0;                             // 25
-		virtual void        SetTexture(Texture a_texture, NiSourceTexture* a_srcTexture) = 0;  // 26
-		virtual void        SetTexturePath(Texture a_texture, const char* a_path) = 0;         // 27
+		virtual const char* GetTexturePath(Texture a_texture) = 0;								// 25
+		virtual void        SetTexture(Texture a_texture, NiSourceTexture*& a_srcTexture) = 0;  // 26
+		virtual void        SetTexturePath(Texture a_texture, const char* a_path) = 0;			// 27
 	};
 	static_assert(sizeof(BSTextureSet) == 0x10);
 }

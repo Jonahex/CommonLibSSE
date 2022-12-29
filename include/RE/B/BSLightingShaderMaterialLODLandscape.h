@@ -27,9 +27,9 @@ namespace RE
 		NiPointer<NiSourceTexture> parentDiffuseTexture;   // A0
 		NiPointer<NiSourceTexture> parentNormalTexture;    // A8
 		NiPointer<NiSourceTexture> landscapeNoiseTexture;  // B0
-		float                      terrainTexOffsetX;      // B4
-		float                      terrainTexOffsetY;      // B8
-		float                      terrainTexFade;         // BC
+		float                      terrainTexOffsetX;      // B8
+		float                      terrainTexOffsetY;      // BC
+		float                      terrainTexFade;         // C0
 
 	protected:
 		BSLightingShaderMaterialLODLandscape* Ctor()

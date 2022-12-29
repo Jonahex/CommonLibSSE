@@ -33,7 +33,7 @@ namespace RE
 		std::uint32_t           unk40;                   // 40
 		std::uint32_t           pad44;                   // 44
 		BSTArray<void*>         unk48;                   // 48
-		float                   unk60;                   // 60
+		float                   fadeDistance;            // 60
 		std::uint32_t           pad64;                   // 64
 		NiPointer<NiNode>       grassNode;               // 68
 		std::uint32_t           grassEvalSize;           // 70

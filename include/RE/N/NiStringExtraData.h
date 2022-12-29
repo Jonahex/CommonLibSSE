@@ -23,7 +23,7 @@ namespace RE
 		bool          IsEqual(NiObject* a_object) override;               // 1C
 
 		// members
-		char* value;  // 18
+		BSFixedString value;  // 18
 	};
 	static_assert(sizeof(NiStringExtraData) == 0x20);
 }

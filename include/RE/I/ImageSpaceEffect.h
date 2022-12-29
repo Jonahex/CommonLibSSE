@@ -21,13 +21,13 @@ namespace RE
 		virtual void Unk_03(void);										// 03 - { return; }
 		virtual void Unk_04(ImageSpaceEffectParam* param);				// 04 - { return; }
 		virtual void Unk_05();											// 05 - { return; }
-		virtual uint16_t Unk_06();										// 06
+		virtual bool IsEnabled();										// 06
 		virtual void Unk_07(ImageSpaceEffectParam* param);				// 07 - { return 0; }
 		virtual void Unk_08(ImageSpaceEffectParam* param);				// 08 - { return 0; }
 		virtual void Unk_09(ImageSpaceEffectParam* param);				// 09 - { return 0; }
 
 		// members
-		uint16_t												unk08;					// 08
+		bool													isEnabled;				// 08
 		NiTPrimitiveArray<ImageSpaceEffect*>					imageSpaceShaders;		// 10
 		NiTPrimitiveArray<ImageSpaceEffectParam*>				params;					// 28
 		NiTPrimitiveArray<ImageSpaceTexture*>					textures;				// 40

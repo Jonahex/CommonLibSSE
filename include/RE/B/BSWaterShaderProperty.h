@@ -9,12 +9,14 @@ namespace RE
 	class BSWaterShaderProperty : public BSShaderProperty
 	{
 	public:
+		inline static constexpr auto VTABLE = VTABLE_BSWaterShaderProperty;
 		inline static constexpr auto RTTI = RTTI_BSWaterShaderProperty;
 		inline static constexpr auto Ni_RTTI = NiRTTI_BSWaterShaderProperty;
 
 		enum class WaterFlag
 		{
 			kNone = 0,
+			kInitialized = 1 << 1,
 			kUnderwater = 1 << 5,
 			kUseReflections = 1 << 6,
 			kUseCubemapReflections = 1 << 14,
@@ -46,8 +48,8 @@ namespace RE
 		stl::enumeration<WaterFlag, std::uint32_t> waterFlags;            // 88
 		std::uint32_t                              unk8C;                 // 8C
 		std::uint32_t                              cellX;                 // 90
-		std::uint32_t                              unk94;                 // 94
-		std::uint32_t                              cellY;                 // 98
+		std::uint32_t                              cellY;                 // 94
+		std::uint32_t                              unk98;                 // 98
 		std::uint32_t                              unk9C;                 // 9C
 		NiPlane                                    plane;                 // A0
 		std::uint64_t                              unkB0;                 // B0
@@ -65,6 +67,26 @@ namespace RE
 		std::uint8_t                               padF9;                 // F9
 		std::uint16_t                              padFA;                 // FA
 		std::uint16_t                              padFC;                 // FC
+
+		static BSWaterShaderProperty* Create()
+		{
+			auto property = malloc<BSWaterShaderProperty>();
+			std::memset(property, 0, sizeof(BSWaterShaderProperty));
+			if (property) {
+				property->Ctor();
+			}
+			return property;
+		}
+
+	private:
+		BSWaterShaderProperty* Ctor()
+		{
+			using func_t = decltype(&BSWaterShaderProperty::Ctor);
+			REL::Relocation<func_t> func{ Offset::BSWaterShaderProperty::Ctor };
+			BSWaterShaderProperty*  property = func(this);
+			stl::emplace_vtable<BSWaterShaderProperty>(property);
+			return property;
+		}
 	};
 	static_assert(sizeof(BSWaterShaderProperty) == 0x100);
 }

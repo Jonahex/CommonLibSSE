@@ -143,14 +143,19 @@ namespace RE
 			inline constexpr REL::ID Set_CStr(static_cast<std::uint64_t>(11044));
 		}
 
-		namespace BucketTable
+		namespace BSWaterShaderProperty
 		{
-			inline constexpr REL::ID GetSingleton(static_cast<std::uint64_t>(69200));
+			inline constexpr REL::ID Ctor(static_cast<std::uint64_t>(106942));
 		}
 
 		namespace BSWin32SaveDataSystemUtility
 		{
 			inline constexpr REL::ID GetSingleton(static_cast<std::uint64_t>(109278));
+		}
+
+		namespace BucketTable
+		{
+			inline constexpr REL::ID GetSingleton(static_cast<std::uint64_t>(69200));
 		}
 
 		namespace Calendar
@@ -410,6 +415,12 @@ namespace RE
 			inline constexpr REL::ID SetWeather(static_cast<std::uint64_t>(26241));
 			inline constexpr REL::ID ForceWeather(static_cast<std::uint64_t>(26243));
 			inline constexpr REL::ID ResetWeather(static_cast<std::uint64_t>(26242));
+			inline constexpr REL::ID SunriseBeginTime(static_cast<std::uint64_t>(401655));
+			inline constexpr REL::ID SunriseEndTime(static_cast<std::uint64_t>(401656));
+			inline constexpr REL::ID SunsetBeginTime(static_cast<std::uint64_t>(401657));
+			inline constexpr REL::ID SunsetEndTime(static_cast<std::uint64_t>(401658));
+			inline constexpr REL::ID DayBeginTime(static_cast<std::uint64_t>(401659));
+			inline constexpr REL::ID NightBeginTime(static_cast<std::uint64_t>(401660));
 		}
 
 		namespace SkyrimVM
@@ -475,6 +486,8 @@ namespace RE
 			inline constexpr REL::ID InitInventoryIfRequired(static_cast<std::uint64_t>(16038));
 			inline constexpr REL::ID MoveTo(static_cast<std::uint64_t>(56626));
 			inline constexpr REL::ID PlayAnimation(static_cast<std::uint64_t>(14297));
+			inline constexpr REL::ID SetScale(static_cast<std::uint64_t>(19665));
+			inline constexpr REL::ID Enable(static_cast<std::uint64_t>(19800));
 		}
 
 		namespace TESQuest
@@ -520,7 +533,12 @@ namespace RE
 		inline constexpr REL::ID TlsIndex(static_cast<std::uint64_t>(415542));
 		inline constexpr REL::ID VisibilityFlag(static_cast<std::uint64_t>(400942));
 		inline constexpr REL::ID ImageSpaceEOFEffectsEnabledFlag(static_cast<std::uint64_t>(391055));
-		inline constexpr REL::ID VolumetricLightingEnabledFlag(static_cast<std::uint64_t>(414913));
+		inline constexpr REL::ID Texture3dAccumulationVolumetricLightingEnabledFlag(static_cast<std::uint64_t>(414913));
+		inline constexpr REL::ID ScreenRaymarchingVolumetricLightingEnabledFlag(static_cast<std::uint64_t>(415135));
+		inline constexpr REL::ID SAOApplyFogEnabledFlag(static_cast<std::uint64_t>(415070));
+		inline constexpr REL::ID HDREnabledFlag(static_cast<std::uint64_t>(391301));
+		inline constexpr REL::ID OnQuitGame(static_cast<std::uint64_t>(36551));
+		inline constexpr REL::ID WinMain(static_cast<std::uint64_t>(36544));
 #else
 		namespace Actor
 		{
@@ -658,14 +676,19 @@ namespace RE
 			inline constexpr REL::ID Set_CStr(static_cast<std::uint64_t>(10979));
 		}
 
-		namespace BucketTable
+		namespace BSWaterShaderProperty
 		{
-			inline constexpr REL::ID GetSingleton(static_cast<std::uint64_t>(67855));
+			inline constexpr REL::ID Ctor(static_cast<std::uint64_t>(100235));
 		}
 
 		namespace BSWin32SaveDataSystemUtility
 		{
 			inline constexpr REL::ID GetSingleton(static_cast<std::uint64_t>(101884));
+		}
+
+		namespace BucketTable
+		{
+			inline constexpr REL::ID GetSingleton(static_cast<std::uint64_t>(67855));
 		}
 
 		namespace Calendar
@@ -925,6 +948,12 @@ namespace RE
 			inline constexpr REL::ID SetWeather(static_cast<std::uint64_t>(25694));
 			inline constexpr REL::ID ForceWeather(static_cast<std::uint64_t>(25696));
 			inline constexpr REL::ID ResetWeather(static_cast<std::uint64_t>(25695));
+			inline constexpr REL::ID SunriseBeginTime(static_cast<std::uint64_t>(515516));
+			inline constexpr REL::ID SunriseEndTime(static_cast<std::uint64_t>(515517));
+			inline constexpr REL::ID SunsetBeginTime(static_cast<std::uint64_t>(515518));
+			inline constexpr REL::ID SunsetEndTime(static_cast<std::uint64_t>(515519));
+			inline constexpr REL::ID DayBeginTime(static_cast<std::uint64_t>(515520));
+			inline constexpr REL::ID NightBeginTime(static_cast<std::uint64_t>(515521));
 		}
 
 		namespace SkyrimVM
@@ -990,6 +1019,8 @@ namespace RE
 			inline constexpr REL::ID InitInventoryIfRequired(static_cast<std::uint64_t>(15800));
 			inline constexpr REL::ID MoveTo(static_cast<std::uint64_t>(56227));
 			inline constexpr REL::ID PlayAnimation(static_cast<std::uint64_t>(14189));
+			inline constexpr REL::ID SetScale(static_cast<std::uint64_t>(19239));
+			inline constexpr REL::ID Enable(static_cast<std::uint64_t>(19373));
 		}
 
 		namespace TESQuest
@@ -1035,7 +1066,12 @@ namespace RE
 		inline constexpr REL::ID TlsIndex(static_cast<std::uint64_t>(528600));
 		inline constexpr REL::ID VisibilityFlag(static_cast<std::uint64_t>(514793));
 		inline constexpr REL::ID ImageSpaceEOFEffectsEnabledFlag(static_cast<std::uint64_t>(513299));
-		inline constexpr REL::ID VolumetricLightingEnabledFlag(static_cast<std::uint64_t>(527940));
+		inline constexpr REL::ID Texture3dAccumulationVolumetricLightingEnabledFlag(static_cast<std::uint64_t>(527940));
+		inline constexpr REL::ID ScreenRaymarchingVolumetricLightingEnabledFlag(static_cast<std::uint64_t>(528190));
+		inline constexpr REL::ID SAOApplyFogEnabledFlag(static_cast<std::uint64_t>(528125));
+		inline constexpr REL::ID HDREnabledFlag(static_cast<std::uint64_t>(513463));
+		inline constexpr REL::ID OnQuitGame(static_cast<std::uint64_t>(35552));
+		inline constexpr REL::ID WinMain(static_cast<std::uint64_t>(35545));
 #endif
 	}
 }

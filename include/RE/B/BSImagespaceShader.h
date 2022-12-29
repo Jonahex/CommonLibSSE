@@ -17,7 +17,7 @@ namespace RE
 		// override (BSShader)
 		void     InitShaders(ImageSpaceEffectManager* manager) override;  // 02
 		void     Unk_03(void) override;                                   // 03
-		uint16_t Unk_06(void) override;                                   // 06
+		bool     IsEnabled(void) override;                                // 06
 		void     Unk_07(ImageSpaceEffectParam* param) override;           // 07
 		void     Unk_09(ImageSpaceEffectParam* param) override;           // 09
 

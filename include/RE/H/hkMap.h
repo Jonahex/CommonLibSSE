@@ -357,7 +357,10 @@ namespace RE
 	protected:
 		hkResult resizeTable(hkMemoryAllocator& alloc, int newcap)
 		{
-			newcap = std::max(newcap, s_minimumCapacity);
+			if (newcap < s_minimumCapacity) 
+			{
+				newcap = s_minimumCapacity;
+			}
 
 			bool dontDeallocate = m_numElems & static_cast<int>(DONT_DEALLOCATE_FLAG);
 			int      oldcap = m_hashMod + 1;

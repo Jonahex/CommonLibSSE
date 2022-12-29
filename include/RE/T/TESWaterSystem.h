@@ -20,7 +20,15 @@ namespace RE
 	class TESWaterNormals;
 	class TESWaterObject;
 	class TESWaterReflections;
-	class WadingWaterData;
+
+	struct WadingWaterData
+	{
+	public:
+		NiPoint2 playerOffsetEdge;			// 00
+		NiPoint2 playerOffsetCenter;		// 08
+		NiPoint3 position;					// 10
+	};
+	static_assert(sizeof(WadingWaterData) == 0x1C);
 
 	class TESWaterSystem : public BSTSingletonSDM<TESWaterSystem>
 	{
@@ -50,8 +58,8 @@ namespace RE
 		BSFixedString*                               type;                     // 008
 		std::uint32_t                                unk010;                   // 010
 		std::uint32_t                                pad014;                   // 014
-		float                                        unk018;                   // 018
-		float                                        unk01C;                   // 01C
+		std::uint32_t                                unk018;                   // 018
+		std::uint32_t                                unk01C;                   // 01C
 		BSTArray<NiPointer<TESWaterObject>>          waterObjects;             // 020
 		BSTArray<NiPointer<TESWaterReflections>>     waterReflections;         // 038
 		BSTArray<NiPointer<TESWaterDisplacement>>    waterDisplacement;        // 050

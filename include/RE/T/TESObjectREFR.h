@@ -80,23 +80,29 @@ namespace RE
 	struct LOADED_REF_DATA
 	{
 	public:
+		enum class Flag : uint16_t
+		{
+			kHavokInitialized = 0x1,
+			kWaterLoaded = 0x8,
+		};
+
 		// members
-		BSTSmallArray<void*>  unk00;                // 00 - handleList?
-		TESWaterForm*         currentWaterType;     // 18
-		float                 relevantWaterHeight;  // 20
-		float                 cachedRadius;         // 24
-		std::uint16_t         flags;                // 28
-		std::int16_t          underwaterCount;      // 2A
-		std::uint32_t         pad2C;                // 2C
-		std::uint64_t         unk30;                // 30 - AIProcess::Data0B8
-		std::uint64_t         unk38;                // 38
-		std::uint64_t         unk40;                // 40
-		std::uint64_t         unk48;                // 48
-		std::uint64_t         unk50;                // 50
-		std::uint64_t         unk58;                // 58
-		std::uint64_t         unk60;                // 60
-		NiPointer<NiAVObject> data3D;               // 68
-		void*                 unk70;                // 70 - smart ptr
+		BSTSmallArray<void*>				unk00;                // 00 - handleList?
+		TESWaterForm*						currentWaterType;     // 18
+		float								relevantWaterHeight;  // 20
+		float								cachedRadius;         // 24
+		stl::enumeration<Flag, uint16_t>    flags;                // 28
+		std::int16_t						underwaterCount;      // 2A
+		std::uint32_t						pad2C;                // 2C
+		std::uint64_t						unk30;                // 30 - AIProcess::Data0B8
+		std::uint64_t						unk38;                // 38
+		std::uint64_t						unk40;                // 40
+		std::uint64_t						unk48;                // 48
+		std::uint64_t						unk50;                // 50
+		std::uint64_t						unk58;                // 58
+		std::uint64_t						unk60;                // 60
+		NiPointer<NiAVObject>				data3D;               // 68
+		void*								unk70;                // 70 - smart ptr
 	};
 	static_assert(sizeof(LOADED_REF_DATA) == 0x78);
 
@@ -447,6 +453,9 @@ namespace RE
 		bool                                    SetMotionType(MotionType a_motionType, bool a_allowActivate = true);
 		void                                    SetPosition(float a_x, float a_y, float a_z);
 		void                                    SetPosition(NiPoint3 a_pos);
+		void                                    SetScale(float scale);
+		void                                    SetTransform(const RE::NiTransform& transform);
+		void                                    Enable();
 
 		// members
 		OBJ_REFR         data;          // 40
@@ -459,10 +468,11 @@ namespace RE
 		bool             preDestroyed;  // 93
 		std::uint32_t    pad94;         // 94
 
+		void             MoveTo_Impl(const ObjectRefHandle& a_targetHandle, TESObjectCELL* a_targetCell, TESWorldSpace* a_selfWorldSpace, const NiPoint3& a_position, const NiPoint3& a_rotation);
+	
 	private:
 		InventoryChanges* ForceInitInventoryChanges();
 		InventoryChanges* MakeInventoryChanges();
-		void              MoveTo_Impl(const ObjectRefHandle& a_targetHandle, TESObjectCELL* a_targetCell, TESWorldSpace* a_selfWorldSpace, const NiPoint3& a_position, const NiPoint3& a_rotation);
 		void              PlayAnimation_Impl(NiControllerManager* a_manager, NiControllerSequence* a_toSeq, NiControllerSequence* a_fromSeq, bool a_arg4 = false);
 	};
 #ifndef SKYRIM_SUPPORT_AE
