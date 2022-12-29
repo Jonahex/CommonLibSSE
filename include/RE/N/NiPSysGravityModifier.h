@@ -1,17 +1,23 @@
 #pragma once
 
 #include "RE/N/NiPSysModifier.h"
+#include "RE/N/NiPoint3.h"
 
 namespace RE
 {
-	class BSWindModifier : public NiPSysModifier
+	class NiPSysGravityModifier : public NiPSysModifier
 	{
 	public:
-		inline static constexpr auto RTTI = RTTI_BSWindModifier;
-		inline static constexpr auto Ni_RTTI = NiRTTI_BSWindModifier;
-		inline static constexpr auto VTABLE = VTABLE_BSWindModifier;
+		inline static constexpr auto RTTI = RTTI_NiPSysGravityModifier;
+		inline static constexpr auto Ni_RTTI = NiRTTI_NiPSysGravityModifier;
 
-		~BSWindModifier() override;  // 00
+		enum class ForceType
+		{
+			kPlanar = 0,
+			kSpherical
+		};
+
+		~NiPSysGravityModifier() override;  // 00
 
 		// override (NiPSysModifier)
 		const NiRTTI* GetRTTI() const override;                                                                                                  // 02
@@ -24,14 +30,18 @@ namespace RE
 		void          ProcessClone(NiCloningProcess& a_cloning) override;                                                                        // 1D
 		bool          Update(float a_time, NiPSysData* a_particleData, NiPoint3* a_position, NiPoint3* a_radii, NiColorA* a_rotation) override;  // 25
 
-		static BSWindModifier* Create(const BSFixedString& a_name, float a_strength);
-
 		// members
-		float         strength;  // 30
-		std::uint32_t pad34;     // 34
-
-	private:
-		BSWindModifier* Ctor();
+		NiAVObject*                                gravityObj;    // 30
+		NiPoint3                                   gravityAxis;   // 38
+		float                                      decay;         // 44
+		float                                      strength;      // 48
+		stl::enumeration<ForceType, std::uint32_t> forceType;     // 4C
+		float                                      turbulence;    // 50
+		float                                      scale;         // 54
+		bool                                       worldAligned;  // 58
+		std::uint8_t                               pad59;         // 59
+		std::uint16_t                              pad5A;         // 5A
+		std::uint32_t                              pad5C;         // 5C
 	};
-	static_assert(sizeof(BSWindModifier) == 0x38);
+	static_assert(sizeof(NiPSysGravityModifier) == 0x60);
 }

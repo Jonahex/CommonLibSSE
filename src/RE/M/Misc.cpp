@@ -60,9 +60,9 @@ namespace RE
 		return func(a_armorEntryData, a_armorPerks, a_skillMultiplier);
 	}
 
-	float GetDurationOfApplicationRunTime()
+	std::uint32_t GetDurationOfApplicationRunTime()
 	{
-		REL::Relocation<float*> runtime{ RELOCATION_ID(523662, 410201) };
+		REL::Relocation<std::uint32_t*> runtime{ RELOCATION_ID(523662, 410201) };
 		return *runtime;
 	}
 

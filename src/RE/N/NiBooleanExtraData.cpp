@@ -9,7 +9,6 @@ namespace RE
 			data->name = a_name;
 			data->data = a_value;
 		}
-
 		return data;
 	}
 }

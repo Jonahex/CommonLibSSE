@@ -47,10 +47,10 @@ namespace RE
 		case Feature::kDefault:
 			{
 				auto material = malloc<BSLightingShaderMaterial>();
+				std::memset(material, 0, sizeof(BSLightingShaderMaterial));
 				if (material) {
-					std::memset(material, 0, sizeof(BSLightingShaderMaterial));
 					material->Ctor();
-					reinterpret_cast<std::uintptr_t*>(material)[0] = BSLightingShaderMaterial::VTABLE[0].address();
+					stl::emplace_vtable<BSLightingShaderMaterial>(material);
 				}
 				return material;
 			}

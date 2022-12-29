@@ -49,6 +49,7 @@ namespace RE
 			REL::Relocation<func_t> func{ RELOCATION_ID(14127, 14227) };
 			return func(this);
 		}
+		void CopyIdles(const std::vector<TESIdleForm*>& a_copiedData);
 	};
 	static_assert(sizeof(BGSIdleCollection) == 0x20);
 }
