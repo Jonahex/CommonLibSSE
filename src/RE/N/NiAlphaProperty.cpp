@@ -12,6 +12,11 @@ namespace RE
 		return (alphaFlags >> 9) & 1;
 	}
 
+	bool NiAlphaProperty::GetNoSorter() const
+	{
+		return (alphaFlags >> 13) & 1;
+	}
+
 	NiAlphaProperty::AlphaFunction NiAlphaProperty::GetDestBlendMode() const
 	{
 		return static_cast<AlphaFunction>((alphaFlags >> 5) & 15);
@@ -20,6 +25,11 @@ namespace RE
 	NiAlphaProperty::AlphaFunction NiAlphaProperty::GetSrcBlendMode() const
 	{
 		return static_cast<AlphaFunction>((alphaFlags >> 1) & 15);
+	}
+
+	NiAlphaProperty::TestFunction NiAlphaProperty::GetAlphaTestMode() const
+	{
+		return static_cast<TestFunction>((alphaFlags >> 10) & 7);
 	}
 
 	void NiAlphaProperty::SetAlphaBlending(bool a_enable)
@@ -40,6 +50,15 @@ namespace RE
 		}
 	}
 
+	void NiAlphaProperty::SetNoSorter(bool a_enable)
+	{
+		if (a_enable) {
+			alphaFlags |= 8192;
+		} else {
+			alphaFlags &= ~8192;
+		}
+	}
+
 	void NiAlphaProperty::SetDestBlendMode(AlphaFunction a_mode)
 	{
 		alphaFlags &= ~480;
@@ -50,5 +69,10 @@ namespace RE
 	{
 		alphaFlags &= ~30;
 		alphaFlags |= 2 * stl::to_underlying(a_mode);
+	}
+	void NiAlphaProperty::SetAlphaTestMode(TestFunction a_mode)
+	{
+		alphaFlags &= ~7168;
+		alphaFlags |= 1024 * stl::to_underlying(a_mode);
 	}
 }

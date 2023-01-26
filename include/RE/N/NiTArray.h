@@ -170,6 +170,25 @@ namespace RE
 			allocator_type::Deallocate(_data);
 		}
 
+		template<typename PushT>
+		void push_back(PushT&& value)
+		{
+			if (_freeIdx >= _capacity)
+			{
+				auto oldData = _data;
+				_capacity += _growthSize;
+				_data = allocator_type::Allocate(_capacity);
+				for (size_type index = 0; index < _freeIdx; ++index) 
+				{
+					_data[index] = oldData[index];
+				}
+				allocator_type::Deallocate(oldData);
+			}
+			_data[_freeIdx] = std::forward<T>(value);
+			++_size;
+			++_freeIdx;
+		}
+
 		reference operator[](size_type a_pos)
 		{
 			assert(a_pos < size());

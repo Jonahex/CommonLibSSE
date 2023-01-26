@@ -16,6 +16,14 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_BSLightingShaderMaterialBase;
 		inline static constexpr auto VTABLE = VTABLE_BSLightingShaderMaterialBase;
 
+		enum class TextureClampMode : std::int32_t
+		{
+			ClampSClampT,
+			ClampSWrapT,
+			WrapSClampT,
+			WrapSWrapT,
+		};
+
 		~BSLightingShaderMaterialBase() override;  // 00
 
 		// override (BSShaderMaterial)
@@ -44,24 +52,24 @@ namespace RE
 		void                    SetTextureSet(NiPointer<BSTextureSet> a_textureSet);
 
 		// members
-		NiColor                    specularColor;                   // 38
-		std::uint32_t              pad44;                           // 44
-		NiPointer<NiSourceTexture> diffuseTexture;                  // 48
-		std::int32_t               diffuseRenderTargetSourceIndex;  // 50
-		std::uint32_t              pad54;                           // 54
-		NiPointer<NiSourceTexture> normalTexture;                   // 58
-		NiPointer<NiSourceTexture> rimSoftLightingTexture;          // 60
-		NiPointer<NiSourceTexture> specularBackLightingTexture;     // 68
-		std::int32_t               textureClampMode;                // 70
-		std::int32_t               pad74;                           // 70
-		NiPointer<BSTextureSet>    textureSet;                      // 78
-		float                      materialAlpha;                   // 80
-		float                      refractionPower;                 // 84
-		float                      specularPower;                   // 88
-		float                      specularColorScale;              // 8C
-		float                      subSurfaceLightRolloff;          // 90
-		float                      rimLightPower;                   // 94
-		std::uint64_t              unk98;                           // 98
+		NiColor															specularColor;                   // 38
+		std::uint32_t													pad44;                           // 44
+		NiPointer<NiSourceTexture>										diffuseTexture;                  // 48
+		std::int32_t													diffuseRenderTargetSourceIndex;  // 50
+		std::uint32_t													pad54;                           // 54
+		NiPointer<NiSourceTexture>										normalTexture;                   // 58
+		NiPointer<NiSourceTexture>										rimSoftLightingTexture;          // 60
+		NiPointer<NiSourceTexture>										specularBackLightingTexture;     // 68
+		stl::enumeration<TextureClampMode, std::int32_t>				textureClampMode;                // 70
+		std::int32_t													pad74;                           // 70
+		NiPointer<BSTextureSet>											textureSet;                      // 78
+		float															materialAlpha;                   // 80
+		float															refractionPower;                 // 84
+		float															specularPower;                   // 88
+		float															specularColorScale;              // 8C
+		float															subSurfaceLightRolloff;          // 90
+		float															rimLightPower;                   // 94
+		std::uint64_t													unk98;                           // 98
 	};
 	static_assert(sizeof(BSLightingShaderMaterialBase) == 0xA0);
 

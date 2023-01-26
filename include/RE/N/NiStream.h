@@ -3,13 +3,19 @@
 #include "RE/B/BSFixedString.h"
 #include "RE/B/BSTArray.h"
 #include "RE/N/NiObjectGroup.h"
+#include "RE/N/NiSmartPointer.h"
 #include "RE/N/NiTArray.h"
 #include "RE/N/NiTPointerMap.h"
+
+#ifdef MAX_PATH
+#undef MAX_PATH
+#endif
 
 namespace RE
 {
 	class NiBinaryStream;
 	class NiObjectGroup;
+	class NiObject;
 
 	struct BSStreamHeader
 	{
@@ -29,7 +35,9 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_NiStream;
 		inline static constexpr auto VTABLE = VTABLE_NiStream;
 
-		virtual ~NiStream();  // 00
+		static NiStream* Create();
+
+		virtual ~NiStream();
 
 		// add
 		virtual bool          Load1(NiBinaryStream* a_stream);                          // 01
@@ -91,6 +99,9 @@ namespace RE
 		std::uint32_t                                 lastError;                           // 410
 		char                                          lastErrorMessage[WinAPI::MAX_PATH];  // 414
 		char                                          filePath[WinAPI::MAX_PATH];          // 518
+
+	protected:
+		NiStream* ctor();
 	};
 	static_assert(sizeof(NiStream) == 0x620);
 }

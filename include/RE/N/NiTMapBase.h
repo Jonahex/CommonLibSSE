@@ -217,10 +217,38 @@ namespace RE
 		}
 
 	protected:
-		virtual std::uint32_t hash_function(key_type a_key) const;                                      // 01 - { return a_key % _capacity; }
-		virtual bool          key_eq(key_type a_lhs, key_type a_rhs) const;                             // 02 - { return stricmp(a_lhs == a_rhs); }
-		virtual void          assign_value(value_type* a_value, key_type a_key, mapped_type a_mapped);  // 03 - { a_value->key = a_key; a_value->mapped = a_mapped; }
-		virtual void          clear_value(value_type* a_value);                                         // 04 - { return; }
+		virtual std::uint32_t hash_function(key_type a_key) const										// 01
+		{
+			if constexpr (std::is_pointer_v<key_type>) 
+			{
+				return reinterpret_cast<std::ptrdiff_t>(a_key) % _capacity;
+			} 
+			else if constexpr (sizeof(key_type) == sizeof(std::uint32_t))
+			{
+				return *reinterpret_cast<std::uint32_t*>(&a_key) % _capacity;
+			} 
+			else if constexpr (sizeof(key_type) == sizeof(std::uint64_t))
+			{
+				return *reinterpret_cast<std::uint64_t*>(&a_key) % _capacity;
+			}
+		}
+
+		virtual bool key_eq(key_type a_lhs, key_type a_rhs) const										// 02
+		{
+			return a_lhs == a_rhs;
+		}
+
+		virtual void assign_value(value_type* a_value, key_type a_key, mapped_type a_mapped)			// 03
+		{ 
+			a_value->first = a_key; 
+			a_value->second = a_mapped; 
+		}
+
+		virtual void clear_value([[maybe_unused]] value_type* a_value)									// 04
+		{
+			return;
+		}
+
 		virtual value_type*   malloc_value() = 0;                                                       // 05
 		virtual void          free_value(value_type* a_value) = 0;                                      // 06
 

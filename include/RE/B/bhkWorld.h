@@ -27,10 +27,10 @@ namespace RE
 		virtual void          AdjustRefCount(bool a_increment) override;                   // 26
 		virtual hkpWorld*     GetWorld1() override;                                        // 27 - { return referencedObject.ptr; }
 		virtual ahkpWorld*    GetWorld2() override;                                        // 28 - { return referencedObject.ptr; }
-		virtual void          Unk_2B(void) override;                                       // 2B
+		virtual void          Unk_2B(bool) override;                                       // 2B
 		virtual void          Unk_2C(void) override;                                       // 2C - { return 1; }
 		virtual void          Unk_2E(void) override;                                       // 2E
-		virtual void          Unk_2F(void) override;                                       // 2F
+		virtual void*         Unk_2F(bool& out) override;                                  // 2F
 
 		// add
 		virtual void Unk_32(void);                                              // 32

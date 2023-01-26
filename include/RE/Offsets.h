@@ -539,6 +539,8 @@ namespace RE
 		inline constexpr REL::ID HDREnabledFlag(static_cast<std::uint64_t>(391301));
 		inline constexpr REL::ID OnQuitGame(static_cast<std::uint64_t>(36551));
 		inline constexpr REL::ID WinMain(static_cast<std::uint64_t>(36544));
+		inline constexpr REL::ID D3D11Device(static_cast<std::uint64_t>(411348));
+		inline constexpr REL::ID RendererShadowStateInstance(static_cast<std::uint64_t>(388819));
 #else
 		namespace Actor
 		{
@@ -1072,6 +1074,8 @@ namespace RE
 		inline constexpr REL::ID HDREnabledFlag(static_cast<std::uint64_t>(513463));
 		inline constexpr REL::ID OnQuitGame(static_cast<std::uint64_t>(35552));
 		inline constexpr REL::ID WinMain(static_cast<std::uint64_t>(35545));
+		inline constexpr REL::ID D3D11Device(static_cast<std::uint64_t>(524729));
+		inline constexpr REL::ID RendererShadowStateInstance(static_cast<std::uint64_t>(524773));
 #endif
 	}
 }

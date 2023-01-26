@@ -7,7 +7,7 @@ namespace RE
 	class hkpMaterial
 	{
 	public:
-		enum class ResponseType
+		enum class ResponseType : std::uint8_t
 		{
 			kInvalid,
 			kSimpleContact,

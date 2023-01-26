@@ -22,7 +22,7 @@ namespace RE
 			kNumInactiveFramesToDeactivate = 5
 		};
 
-		enum class MotionType
+		enum class MotionType : uint8_t
 		{
 			kInvalid,
 			kDynamic,
@@ -75,10 +75,9 @@ namespace RE
 		hkVector4                                  angularVelocity;                   // 0F0
 		hkVector4                                  deactivationRefPosition[2];        // 100
 		std::uint32_t                              deactivationRefOrientation[2];     // 120
-		hkpMaxSizeMotion*                          mavedMotion;                       // 128
+		hkpMaxSizeMotion*                          savedMotion;                       // 128
 		std::uint16_t                              savedQualityTypeIndex;             // 130
-		std::uint16_t                              pad132;                            // 132
-		hkHalf                                     gravityFactor;                     // 134
+		hkHalf                                     gravityFactor;                     // 132
 		std::uint64_t                              pad138;                            // 138
 	};
 	static_assert(sizeof(hkpMotion) == 0x140);

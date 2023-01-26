@@ -52,12 +52,16 @@ namespace RE
 
 		[[nodiscard]] bool          GetAlphaBlending() const;
 		[[nodiscard]] bool          GetAlphaTesting() const;
+		[[nodiscard]] bool          GetNoSorter() const;
 		[[nodiscard]] AlphaFunction GetDestBlendMode() const;
 		[[nodiscard]] AlphaFunction GetSrcBlendMode() const;
+		[[nodiscard]] TestFunction  GetAlphaTestMode() const;
 		void                        SetAlphaBlending(bool a_enable);
 		void                        SetAlphaTesting(bool a_enable);
+		void                        SetNoSorter(bool a_enable);
 		void                        SetDestBlendMode(AlphaFunction a_mode);
 		void                        SetSrcBlendMode(AlphaFunction a_mode);
+		void                        SetAlphaTestMode(TestFunction a_mode);
 
 		// members
 		std::uint16_t alphaFlags;      // 30
