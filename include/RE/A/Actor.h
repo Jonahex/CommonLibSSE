@@ -250,6 +250,17 @@ namespace RE
 			};
 		};
 
+		class ForEachSpellVisitor
+		{
+		public:
+			inline static constexpr auto RTTI = RTTI_Actor__ForEachSpellVisitor;
+
+			virtual ~ForEachSpellVisitor() = default;  // 00
+
+			// add
+			virtual BSContainer::ForEachResult Visit(SpellItem* a_spell) = 0;  // 01
+		};
+
 		~Actor() override;  // 000
 
 		// override (TESObjectREFR)
@@ -354,7 +365,7 @@ namespace RE
 		virtual void                    Unk_B4(void);                                                                                                                                                                    // 0B4
 		virtual void                    SetCrimeGoldValue(TESFaction* a_faction, bool a_violent, std::uint32_t a_amount);                                                                                                // 0B5
 		virtual void                    ModCrimeGoldValue(TESFaction* a_faction, bool a_violent, std::int32_t a_amount);                                                                                                 // 0B6
-		virtual void                    RemoveCrimeGoldValue(TESFaction* a_faction, std::int32_t a_amount, bool a_violent);                                                                                              // 0B7
+		virtual void                    RemoveCrimeGoldValue(TESFaction* a_faction, bool a_violent, std::int32_t a_amount);                                                                                              // 0B7
 		virtual std::uint32_t           GetCrimeGoldValue(const TESFaction* a_faction) const;                                                                                                                            // 0B8
 		virtual void                    GoToPrison(TESFaction* a_faction, bool a_removeInventory, bool a_realJail);                                                                                                      // 0B9 - { return; }
 		virtual void                    ServePrisonTime();                                                                                                                                                               // 0BA - { return; }
@@ -578,6 +589,7 @@ namespace RE
 		void                         UpdateWeaponAbility(TESForm* a_weapon, ExtraDataList* a_extraData, bool a_leftHand);
 		void                         VisitArmorAddon(TESObjectARMO* a_armor, TESObjectARMA* a_arma, std::function<void(bool a_firstPerson, NiAVObject& a_obj)> a_visitor);
 		bool                         VisitFactions(std::function<bool(TESFaction* a_faction, std::int8_t a_rank)> a_visitor);
+		void                         VisitSpells(ForEachSpellVisitor& a_visitor);
 		bool                         WouldBeStealing(const TESObjectREFR* a_target) const;
 
 		// members

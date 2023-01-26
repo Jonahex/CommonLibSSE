@@ -79,6 +79,13 @@ namespace RE
 		});
 	}
 
+	float ProcessLists::GetSystemTimeClock()
+	{
+		using func_t = decltype(&ProcessLists::GetSystemTimeClock);
+		REL::Relocation<func_t> func{ RELOCATION_ID(40327, 41337) };
+		return func(this);
+	}
+
 	std::int16_t ProcessLists::RequestHighestDetectionLevelAgainstActor(Actor* a_actor, std::uint32_t& a_LOSCount)
 	{
 		using func_t = decltype(&ProcessLists::RequestHighestDetectionLevelAgainstActor);

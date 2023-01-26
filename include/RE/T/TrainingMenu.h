@@ -31,7 +31,7 @@ namespace RE
 		BSEventNotifyControl ProcessEvent(const MenuOpenCloseEvent* a_event, BSTEventSource<MenuOpenCloseEvent>* a_eventSource) override;  // 01
 
 		// members
-		void*         unk38;            // 38 - smart ptr
+		Actor*        trainer;          // 38 - smart ptr
 		ActorValue    skill;            // 40
 		std::uint32_t unk44;            // 44
 		GFxValue      trainingMenuObj;  // 48 - MovieClip

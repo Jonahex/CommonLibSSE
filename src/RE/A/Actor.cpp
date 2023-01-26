@@ -967,6 +967,13 @@ namespace RE
 		return false;
 	}
 
+	void Actor::VisitSpells(ForEachSpellVisitor& a_visitor)
+	{
+		using func_t = decltype(&Actor::VisitSpells);
+		REL::Relocation<func_t> func{ RELOCATION_ID(37827, 38781) };
+		return func(this, a_visitor);
+	}
+
 	bool Actor::WouldBeStealing(const TESObjectREFR* a_target) const
 	{
 		return a_target != nullptr && !a_target->IsAnOwner(this, true, false);

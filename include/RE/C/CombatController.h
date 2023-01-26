@@ -33,7 +33,7 @@ namespace RE
 		CombatInventory*               inventory;             // 10
 		CombatBlackboard*              blackboard;            // 18
 		CombatBehaviorController*      behaviorController;    // 20
-		ActorHandle                    actorHandle;           // 28
+		ActorHandle                    attackerHandle;        // 28
 		ActorHandle                    targetHandle;          // 2C
 		ActorHandle                    previousTargetHandle;  // 30
 		std::uint8_t                   unk34;                 // 34
@@ -60,7 +60,7 @@ namespace RE
 		CombatTargetSelectorStandard*           previousTargetSelector;  // B8
 		std::uint32_t                           handleCount;             // C0
 		std::int32_t                            unkC4;                   // C4
-		NiPointer<Actor>                        cachedActor;             // C8 - actorHandle
+		NiPointer<Actor>                        cachedAttacker;          // C8 - attackerHandle
 		NiPointer<Actor>                        cachedTarget;            // D0 - targetHandle
 	};
 #ifndef SKYRIM_SUPPORT_AE
