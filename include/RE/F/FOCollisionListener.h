@@ -22,7 +22,7 @@ namespace RE
 		{
 		public:
 			// members
-			NiPointer<bhkRigidBody> targetBody;  // 00
+			NiPointer<bhkRigidBody> body;        // 00
 			float                   damage;      // 04
 			std::uint32_t           pad08;       // 08
 			NiPointer<ActorCause>   actorCause;  // 10
