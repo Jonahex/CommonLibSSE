@@ -15,13 +15,17 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_NiTimeController;
 		inline static constexpr auto Ni_RTTI = NiRTTI_NiTimeController;
 
+		enum class AnimType
+		{
+			kAppTime,
+			kAppInit,
+		};
+
 		enum class CycleType
 		{
 			kLoop,
 			kReverse,
 			kClamp,
-
-			kTotal
 		};
 
 		enum class Flag
