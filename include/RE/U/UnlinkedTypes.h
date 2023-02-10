@@ -5,11 +5,69 @@
 #include "RE/B/BSTHashMap.h"
 #include "RE/L/LinkerProcessor.h"
 #include "RE/T/TypeInfo.h"
+#include "RE/V/VirtualMachine.h"
 
 namespace RE
 {
 	namespace BSScript
 	{
+		namespace ByteCode
+		{
+#pragma pack(push, 4)
+			struct Argument
+			{
+				enum class Type : std::uint32_t
+				{
+					kNone,
+					kIdentifier,  // Identifier of object variables (Forms, Actors, etc.)
+					kString,
+					kInt,
+					kFloat,
+					kBool,
+					kLocalVarIdx,   // index of local variable in function
+					kMemberVarIdx,  // index of member variable in script instance
+				};
+				static_assert(sizeof(Type) == 0x4);
+
+				union Value
+				{
+					int           i;
+					float         f;
+					bool          b;
+					std::uint32_t idx;
+					BSFixedString string;
+
+					~Value(){};
+				};
+				static_assert(sizeof(Value) == 0x8);
+
+				~Argument()
+				{
+					if (type == Type::kIdentifier || type == Type::kString) {
+						value.string.~BSFixedString();
+					}
+				};
+				// members
+				Type  type;   // 00
+				Value value;  // 04
+			};
+			static_assert(sizeof(Argument) == 0xC);
+#pragma pack(pop)
+
+			struct InstructionDefinition
+			{
+			public:
+				// members
+				std::uint64_t unk00;         // 00
+				const char*   opCodeName;    // 08 - ex: iadd
+				const char*   opCodeArgs;    // 10 - ex: SII
+				std::byte     majorVersion;  // 18 - Papyrus major version when opCode was made
+				std::byte     minorVersion;  // 19 - Papyrus minor version when opCode was made
+				std::uint16_t pad1A;         // 1A
+				std::uint32_t pad1C;         // 1C
+			};
+			static_assert(sizeof(InstructionDefinition) == 0x20);
+		}
 		namespace UnlinkedTypes
 		{
 			class ConvertTypeFunctor
@@ -36,27 +94,40 @@ namespace RE
 			};
 			static_assert(sizeof(LinkerConvertTypeFunctor) == 0x10);
 
+			class VMTypeResolveFunctor : public ConvertTypeFunctor
+			{
+			public:
+				inline static constexpr auto RTTI = RTTI_BSScript____VMTypeResolveFunctor;
+				inline static constexpr auto VTABLE = VTABLE_BSScript____VMTypeResolveFunctor;
+				~VMTypeResolveFunctor() override;  // 00
+
+				bool ConvertVariableType(BSFixedString* a_typeAsString, TypeInfo& a_typeOut) override;  // 01
+				// members
+				Internal::VirtualMachine* vm;  // 08
+			};
+			static_assert(sizeof(VMTypeResolveFunctor) == 0x10);
+
+			class InstructionStream
+			{
+			public:
+				// members
+				ScrapHeap*    threadScrapHeap;   // 00
+				std::uint32_t functionCodeSize;  // 08
+				std::uint32_t unk0C;             // 0C
+				std::uint32_t pad10;             // 10
+				std::uint32_t unk14;             // 14
+				void*         unk18;             // 18 - Holds arguments
+				void*         unk20;             // 20
+				void*         unk28;             // 28
+				std::uint64_t unk30;             // 30
+				void*         unk38;             // 38
+				std::uint64_t unk40;             // 40
+			};
+			static_assert(sizeof(InstructionStream) == 0x48);
+
 			class Function
 			{
 			public:
-				struct InstructionStream
-				{
-				public:
-					// members
-					std::uint64_t unk00;  // 00
-					std::uint32_t unk08;  // 08
-					std::uint32_t unk0C;  // 0C
-					std::uint32_t pad10;  // 10
-					std::uint32_t unk14;  // 14
-					std::uint64_t unk18;  // 18
-					std::uint64_t unk20;  // 20
-					std::uint64_t unk28;  // 28
-					std::uint64_t unk30;  // 30
-					std::uint64_t unk38;  // 38
-					std::uint64_t unk40;  // 40
-				};
-				static_assert(sizeof(InstructionStream) == 0x48);
-
 				// members
 				BSFixedString               returnTypeName;      // 00
 				BSFixedString               docString;           // 08
@@ -143,7 +214,7 @@ namespace RE
 				BSTScrapHashMap<BSFixedString, BSTScrapHashMap<BSFixedString, Function*>*> stateMap;               // 160 - Does not include the empty state functions
 				std::uint32_t                                                              totalFunctions;         // 190 - staticFunctions size + memberFunctions size + all the state function variants in stateMap
 				std::uint32_t                                                              pad_194;                // 194
-				BSTScrapHashMap<BSFixedString, UnkValue[2]>                                initialVariableValues;  // 198
+				BSTScrapHashMap<BSFixedString, ByteCode::Argument>                         initialVariableValues;  // 198
 				BSFixedString                                                              autoStateName;          // 1C8 - Is blank if no auto state in script
 
 			private:
