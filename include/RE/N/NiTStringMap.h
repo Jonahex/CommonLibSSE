@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RE/N/NiTMap.h"
+#include "RE/N/NiTPointerMap.h"
 
 namespace RE
 {
@@ -55,5 +56,21 @@ namespace RE
 		using size_type = typename Base::size_type;
 
 		virtual ~NiTStringMap();  // 00
+	};
+
+	// 28
+	template <class T>
+	class NiTStringPointerMap : public NiTStringTemplateMap<NiTPointerMap<const char*, T>, T>
+	{
+	private:
+		using Base = NiTStringTemplateMap<NiTPointerMap<const char*, T>, T>;
+
+	public:
+		using key_type = typename Base::key_type;
+		using mapped_type = typename Base::mapped_type;
+		using value_type = typename Base::value_type;
+		using size_type = typename Base::size_type;
+
+		virtual ~NiTStringPointerMap();  // 00
 	};
 }
