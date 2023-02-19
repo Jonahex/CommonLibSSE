@@ -1402,6 +1402,7 @@
 #include "RE/T/TESWeightForm.h"
 #include "RE/T/TESWordOfPower.h"
 #include "RE/T/TESWorldSpace.h"
+#include "RE/T/TLSData.h"
 #include "RE/T/TargetValueModifierEffect.h"
 #include "RE/T/TaskQueueInterface.h"
 #include "RE/T/TempEffectTraits.h"
