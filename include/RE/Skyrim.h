@@ -1166,6 +1166,7 @@
 #include "RE/P/PathingCell.h"
 #include "RE/P/PerkEntryVisitor.h"
 #include "RE/P/PerkRankVisitor.h"
+#include "RE/P/PermanentMagicFunctor.h"
 #include "RE/P/PlayerCamera.h"
 #include "RE/P/PlayerCameraTransitionState.h"
 #include "RE/P/PlayerCharacter.h"
