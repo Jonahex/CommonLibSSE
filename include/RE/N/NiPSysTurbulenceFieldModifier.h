@@ -23,6 +23,12 @@ namespace RE
 		void          ProcessClone(NiCloningProcess& a_cloning) override;                                                                        // 1D
 		bool          Update(float a_time, NiPSysData* a_particleData, NiPoint3* a_position, NiPoint3* a_radii, NiColorA* a_rotation) override;  // 25
 
+		void SetFrequency(float aFrequency)
+		{
+			frequency = aFrequency;
+			invFrequency = aFrequency >= 0.0001f ? 1.f / aFrequency : 10000.f;
+		}
+
 		// members
 		float frequency;       // 50
 		float invFrequency;    // 54

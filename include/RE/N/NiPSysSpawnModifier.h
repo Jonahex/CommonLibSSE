@@ -23,7 +23,7 @@ namespace RE
 		bool          Update(float a_time, NiPSysData* a_particleData, NiPoint3* a_position, NiPoint3* a_radii, NiColorA* a_rotation) override;  // 25
 		
 		// add
-		virtual void Unk2A(void* unk00, NiPSysData* particleData, uint16_t numVertices, NiParticleSystem* target, NiPoint3* position, NiColorA* rotation);  // 2A
+		virtual void Spawn(void* unk00, NiPSysData* particleData, uint16_t particleIndex, NiParticleSystem* target, NiPoint3* position, NiColorA* rotation);  // 2A
 		
 		// members
 		uint16_t numSpawnGenerations;  // 30

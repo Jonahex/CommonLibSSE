@@ -23,6 +23,13 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_NiSourceTexture;
 		inline static constexpr auto Ni_RTTI = NiRTTI_NiSourceTexture;
 
+		static void Load(const BSFixedString& path, bool unk01, NiPointer<NiSourceTexture>& texture, bool isCubemap)
+		{
+			using func_t = decltype(&NiSourceTexture::Load);
+			REL::Relocation<func_t> func{ RELOCATION_ID(98986, 105640) };
+			func(path, unk01, texture, isCubemap);
+		}
+
 		~NiSourceTexture() override;  // 00
 
 		// override (NiTexture)

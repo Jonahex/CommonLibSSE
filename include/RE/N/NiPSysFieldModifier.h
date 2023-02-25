@@ -23,6 +23,12 @@ namespace RE
 		bool          IsEqual(NiObject* a_object) override;                                                                                      // 1C
 		void          ProcessClone(NiCloningProcess& a_cloning) override;                                                                        // 1D
 		
+		void SetMaxDistance(float aMaxDistance)
+		{
+			maxDistance = aMaxDistance;
+			maxDistanceSquared = aMaxDistance * aMaxDistance;
+		}
+
 		// members
 		NiAVObject* fieldObject;         // 30
 		float       magnitude;           // 38

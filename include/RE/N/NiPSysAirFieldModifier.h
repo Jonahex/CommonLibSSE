@@ -24,6 +24,13 @@ namespace RE
 		void          ProcessClone(NiCloningProcess& a_cloning) override;                                                                        // 1D
 		bool          Update(float a_time, NiPSysData* a_particleData, NiPoint3* a_position, NiPoint3* a_radii, NiColorA* a_rotation) override;  // 25
 
+		void SetDirection(const NiPoint3& aDirection)
+		{
+			using func_t = decltype(&NiPSysAirFieldModifier::SetDirection);
+			REL::Relocation<func_t> func{ RELOCATION_ID(73098, 74796) };
+			func(this, aDirection);
+		}
+
 		// members
 		NiPoint3 unk50;            // 50
 		float    lastUpdateTime;   // 5C

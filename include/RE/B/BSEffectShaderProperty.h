@@ -34,9 +34,9 @@ namespace RE
 		BSShaderMaterial::Type GetMaterialType() override;                                                                                  // 3E - { return 1; }
 
 		// members
-		NiColor*      unk88;  // 88
-		std::uint64_t unk90;  // 90
-		std::uint64_t unk98;  // 98
+		NiColor*        unk88;  // 88
+		RenderPassArray unk90;  // 90
+		std::uint64_t   unk98;  // 98
 	};
 	static_assert(sizeof(BSEffectShaderProperty) == 0xA0);
 }
