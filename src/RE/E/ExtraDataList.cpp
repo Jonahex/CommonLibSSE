@@ -282,6 +282,13 @@ namespace RE
                    ObjectRefHandle();
 	}
 
+	void ExtraDataList::SetCount(std::uint16_t a_count)
+	{
+		using func_t = decltype(&ExtraDataList::SetCount);
+		REL::Relocation<func_t> func{ Offset::ExtraDataList::SetCount };
+		return func(this, a_count);
+	}
+
 	void ExtraDataList::SetEncounterZone(BGSEncounterZone* a_zone)
 	{
 		if (auto xZone = GetByType<ExtraEncounterZone>()) {

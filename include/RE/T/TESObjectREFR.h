@@ -7,6 +7,7 @@
 #include "RE/B/BSTEvent.h"
 #include "RE/B/BSTList.h"
 #include "RE/B/BSTSmartPointer.h"
+#include "RE/B/BipedObjects.h"
 #include "RE/E/ExtraDataList.h"
 #include "RE/F/FormTypes.h"
 #include "RE/H/hkVector4.h"
@@ -123,6 +124,8 @@ namespace RE
 		using InventoryCountMap = std::map<TESBoundObject*, Count>;
 		using InventoryItemMap = std::map<TESBoundObject*, std::pair<Count, std::unique_ptr<InventoryEntryData>>>;
 		using InventoryDropMap = std::map<TESBoundObject*, std::pair<Count, std::vector<ObjectRefHandle>>>;
+
+		static inline constexpr auto DEFAULT_INVENTORY_FILTER = [](TESBoundObject&) { return true; };
 
 		enum class MotionType  // hkpMotion::MotionType
 		{
@@ -324,7 +327,7 @@ namespace RE
 		virtual const BSTSmartPointer<BipedAnim>& GetBiped2() const;                                                                                                                                                                                           // 7F
 		virtual const BSTSmartPointer<BipedAnim>& GetCurrentBiped() const;                                                                                                                                                                                     // 80 - { return GetBiped2(); }
 		virtual void                              SetBiped(const BSTSmartPointer<BipedAnim>& a_biped);                                                                                                                                                         // 81 - { return; }
-		virtual void                              Unk_82(void);                                                                                                                                                                                                // 82 - { return; }
+		virtual void                              RemoveWeapon(BIPED_OBJECT equipIndex);                                                                                                                                                                       // 82 - { return; }
 		virtual void                              Unk_83(void);                                                                                                                                                                                                // 83 - { return; }
 		virtual void                              SetObjectReference(TESBoundObject* a_object);                                                                                                                                                                // 84 - sets flag 24 if the object has destructibles
 		virtual void                              MoveHavok(bool a_forceRec);                                                                                                                                                                                  // 85
@@ -354,7 +357,7 @@ namespace RE
 		virtual bool                              ApplyCurrent(float a_velocityTime, const hkVector4& a_velocity);                                                                                                                                             // 9D - { return 0; }
 		virtual TESAmmo*                          GetCurrentAmmo() const;                                                                                                                                                                                      // 9E - { return 0; }
 		virtual BGSDecalGroup*                    GetDecalGroup() const;                                                                                                                                                                                       // 9F
-		virtual void                              Unk_A0(void);                                                                                                                                                                                                // A0
+		virtual bool                              Unk_A0(NiAVObject* a_node, float& a_angleX, float& a_angleZ, NiPoint3& a_pos) const;                                                                                                                         // A0
 		virtual void                              UnequipItem(std::uint64_t a_arg1, TESBoundObject* a_object);                                                                                                                                                 // A1 - { return; }
 
 		static NiPointer<TESObjectREFR> LookupByHandle(RefHandle a_refHandle);
@@ -362,6 +365,8 @@ namespace RE
 		static TESObjectREFR*           FindReferenceFor3D(NiAVObject* a_object3D);
 
 		bool                                    ActivateRef(TESObjectREFR* a_activator, uint8_t a_arg2, TESBoundObject* a_object, int32_t a_count, bool a_defaultProcessingOnly);
+		ModelReferenceEffect*                   ApplyArtObject(BGSArtObject* a_artObject, float a_duration = -1.0f, TESObjectREFR* a_facingRef = nullptr, bool a_faceTarget = false, bool a_attachToCamera = false, NiAVObject* a_attachNode = nullptr, bool a_interfaceEffect = false);
+		ShaderReferenceEffect*                  ApplyEffectShader(TESEffectShader* a_effectShader, float a_duration = -1.0f, TESObjectREFR* a_facingRef = nullptr, bool a_faceTarget = false, bool a_attachToCamera = false, NiAVObject* a_attachNode = nullptr, bool a_interfaceEffect = false);
 		bool                                    CanBeMoved();
 		ObjectRefHandle                         CreateRefHandle();
 		void                                    DoTrap(TrapData& a_data);
@@ -392,11 +397,11 @@ namespace RE
 		float                                   GetHeadingAngle(const RE::NiPoint3& a_pos, bool a_abs);
 		float                                   GetHeight() const;
 		InventoryItemMap                        GetInventory();
-		InventoryItemMap                        GetInventory(std::function<bool(TESBoundObject&)> a_filter);
-		std::int32_t                            GetInventoryCount();
+		InventoryItemMap                        GetInventory(std::function<bool(TESBoundObject&)> a_filter, bool a_noInit = false);
+		std::int32_t                            GetInventoryCount(bool no_init = false);
 		InventoryCountMap                       GetInventoryCounts();
-		InventoryCountMap                       GetInventoryCounts(std::function<bool(TESBoundObject&)> a_filter);
-		InventoryChanges*                       GetInventoryChanges();
+		InventoryCountMap                       GetInventoryCounts(std::function<bool(TESBoundObject&)> a_filter, bool a_noInit = false);
+		InventoryChanges*                       GetInventoryChanges(bool a_noInit = false);
 		TESObjectREFR*                          GetLinkedRef(BGSKeyword* a_keyword);
 		REFR_LOCK*                              GetLock() const;
 		LOCK_LEVEL                              GetLockLevel() const;
@@ -425,8 +430,6 @@ namespace RE
 		bool                                    HasQuestObject() const;
 		void                                    InitChildActivates(TESObjectREFR* a_actionRef);
 		bool                                    InitInventoryIfRequired(bool a_ignoreContainerExtraData = false);
-		ModelReferenceEffect*                   InstantiateHitArt(BGSArtObject* a_art, float a_dur, TESObjectREFR* a_facingRef, bool a_faceTarget, bool a_attachToCamera, NiAVObject* a_attachNode = nullptr, bool a_interfaceEffect = false);
-		ShaderReferenceEffect*                  InstantiateHitShader(TESEffectShader* a_shader, float a_dur, TESObjectREFR* a_facingRef = nullptr, bool a_faceTarget = false, bool a_attachToCamera = false, NiAVObject* a_attachNode = nullptr, bool a_interfaceEffect = false);
 		bool                                    Is3DLoaded() const;
 		bool                                    IsActivationBlocked() const;
 		bool                                    IsAnOwner(const Actor* a_testOwner, bool a_useFaction, bool a_requiresOwner) const;
