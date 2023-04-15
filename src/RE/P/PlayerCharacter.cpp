@@ -17,6 +17,12 @@ namespace RE
 		return singleton->get();
 	}
 
+	bool PlayerCharacter::IsGodMode()
+	{
+		REL::Relocation<bool*> singleton{ RELOCATION_ID(517711, 404238) };
+		return *singleton;
+	}
+
 	void PlayerCharacter::ActivatePickRef()
 	{
 		using func_t = decltype(&PlayerCharacter::ActivatePickRef);
@@ -43,9 +49,30 @@ namespace RE
 		return CenterOnCell_Impl(a_cellName, nullptr);
 	}
 
-	bool PlayerCharacter::CenterOnCell(RE::TESObjectCELL* a_cell)
+	bool PlayerCharacter::CenterOnCell(TESObjectCELL* a_cell)
 	{
 		return CenterOnCell_Impl(nullptr, a_cell);
+	}
+
+	bool PlayerCharacter::CheckCast(MagicItem* a_spell, Effect* a_effect, MagicSystem::CannotCastReason& a_reason)
+	{
+		using func_t = decltype(&PlayerCharacter::CheckCast);
+		REL::Relocation<func_t> func{ RELOCATION_ID(39409, 40484) };
+		return func(this, a_spell, a_effect, a_reason);
+	}
+
+	void PlayerCharacter::DestroyMouseSprings()
+	{
+		using func_t = decltype(&PlayerCharacter::DestroyMouseSprings);
+		REL::Relocation<func_t> func{ RELOCATION_ID(39480, 40557) };
+		return func(this);
+	}
+
+	void PlayerCharacter::EndGrabObject()
+	{
+		if (grabType == GrabbingType::kNormal) {
+			DestroyMouseSprings();
+		}
 	}
 
 	NiPointer<Actor> PlayerCharacter::GetActorDoingPlayerCommand() const

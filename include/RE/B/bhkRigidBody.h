@@ -103,6 +103,11 @@ namespace RE
 		virtual void GetAabbWorldspace(hkAabb& a_outAabb);                                     // 3B
 		virtual void Unk_3C(void);                                                             // 3C
 
+		void SetAngularImpulse(const hkVector4& a_impulse);
+		void SetAngularVelocity(const hkVector4& a_newVel);
+		void SetLinearImpulse(const hkVector4& a_impulse);
+		void SetLinearVelocity(const hkVector4& a_newVel);
+
 		// members
 		BSTArray<NiPointer<NiRefObject>> constraints;  // 28 - array of smart ptrs to bhkConstraints
 	};
