@@ -9,8 +9,8 @@ namespace RE
 		using ValueType = Val;
 
 		// members
-		uint64_t unk00;  // 00
-		T*       type;   // ??
+		float actualDirection;  // 00
+		T*    type;             // ??
 	};
 	static_assert(sizeof(ActorDirectionChannel<void, float>) == 0x10);
 }

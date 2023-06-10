@@ -12,6 +12,7 @@
 #include "RE/B/BSTTuple.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/N/NiSmartPointer.h"
+#include "RE/P/PathingPoint.h"
 #include "RE/P/PlayerCharacter.h"
 #include "RE/T/TESShout.h"
 
@@ -27,6 +28,7 @@ namespace RE
 	class NiAVObject;
 	class NiPointLight;
 	class NiRefObject;
+	class RunActionAnimationLoadedCallback;
 	class TESObjectREFR;
 	class TESObjectWEAP;
 	class StandardDetectionListener;
@@ -209,21 +211,7 @@ namespace RE
 		ActorHandle                                           reanimateCaster;                           // 0E0
 		std::uint32_t                                         unk0E4;                                    // 0E4
 		MagicItem*                                            reanimateSpell;                            // 0E8
-		BSFixedString                                         voiceSubtitle;                             // 0F0
-		float                                                 unk0F8;                                    // 0F8
-		float                                                 unk0FC;                                    // 0FC
-		float                                                 unk100;                                    // 100
-		float                                                 unk104;                                    // 104
-		float                                                 unk108;                                    // 108
-		float                                                 unk10C;                                    // 10C
-		float                                                 unk110;                                    // 110
-		float                                                 unk114;                                    // 114
-		float                                                 unk118;                                    // 118
-		float                                                 unk11C;                                    // 11C
-		float                                                 unk120;                                    // 120
-		float                                                 unk124;                                    // 124
-		float                                                 unk128;                                    // 128
-		float                                                 unk12C;                                    // 12C
+		Movement::TypeData                                    movementTypeData;                          // 0F0
 		stl::enumeration<FADE_STATE, std::uint32_t>           fadeState;                                 // 130
 		float                                                 unk134;                                    // 134
 		TESObjectREFR*                                        fadeTrigger;                               // 138
@@ -240,16 +228,9 @@ namespace RE
 		void*                                                 unk188;                                    // 188 - smart ptr
 		BSTSmartPointer<Data190>                              unk190;                                    // 190
 		BSTSmartPointer<Data190>                              unk198;                                    // 198
-		float                                                 unk1A0;                                    // 1A0
-		float                                                 unk1A4;                                    // 1A4
-		float                                                 unk1A8;                                    // 1A8
-		std::uint32_t                                         unk1AC;                                    // 1AC
-		std::uint64_t                                         unk1B0;                                    // 1B0
-		std::uint64_t                                         unk1B8;                                    // 1B8
-		std::uint64_t                                         unk1C0;                                    // 1C0
-		std::uint64_t                                         unk1C8;                                    // 1C8
+		PathingPoint                                          unk1A0;                                    // 1A0
 		std::uint64_t                                         unk1D0;                                    // 1D0
-		std::uint64_t                                         unk1D8;                                    // 1D8
+		BSSpinLock                                            unk1D8;                                    // 1D8
 		float                                                 unk1E0;                                    // 1E0
 		float                                                 cachedActorHeight;                         // 1E4
 		NiPointer<NiRefObject>                                unk1E8;                                    // 1E8
@@ -335,10 +316,10 @@ namespace RE
 		std::uint64_t                                         unk3E8;                                    // 3E8
 		void*                                                 unk3F0;                                    // 3F0 - smart ptr
 		std::uint64_t                                         unk3F8;                                    // 3F8
-		BSTSmallArray<std::uint64_t>                          unk400;                                    // 400
+		BSTSmallArray<DEFAULT_OBJECT, 2>                      movementActionsQueue;                      // 400
 		NiPoint3                                              animationDelta;                            // 418
 		NiPoint3                                              animationAngleMod;                         // 424
-		BSTSmartPointer<IAnimationSetCallbackFunctor>         unk430;                                    // 430
+		BSTSmartPointer<RunActionAnimationLoadedCallback>     runActionAnimationLoadedCallback;          // 430
 		float                                                 absorbTimer;                               // 438
 		float                                                 unk43C;                                    // 43C
 		Crime*                                                crimeToReactTo;                            // 440
@@ -372,9 +353,9 @@ namespace RE
 		bool                                                  unk46A;                                    // 46A
 		bool                                                  deathDialogue;                             // 46B
 		bool                                                  fistsDrawn;                                // 46C
-		bool                                                  unk46D;                                    // 46D
+		bool                                                  canUpdateMovementGraphVariables;           // 46D
 		bool                                                  unk46E;                                    // 46E
-		bool                                                  unk46F;                                    // 46F
+		bool                                                  isAllowRotation;                           // 46F
 		bool                                                  unk470;                                    // 470
 		bool                                                  unk471;                                    // 471
 		bool                                                  aggroRadiusStarted;                        // 472
