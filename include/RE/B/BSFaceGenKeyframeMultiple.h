@@ -34,7 +34,7 @@ namespace RE
 			assert(a_idx < count);
 			assert(values != nullptr);
 			values[a_idx] = a_value;
-			isUpdated = true;
+			isUpdated = false;
 		}
 
 		// members

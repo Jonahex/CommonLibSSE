@@ -29,7 +29,7 @@ namespace RE
 		public:
 			static BSShaderManager::State& GetSingleton()
 			{
-				REL::Relocation<BSShaderManager::State*> singleton{ RELOCATION_ID(514167, 400315) };
+				REL::Relocation<BSShaderManager::State*> singleton{ RELOCATION_ID(513211, 390951) };
 				return *singleton;
 			}
 

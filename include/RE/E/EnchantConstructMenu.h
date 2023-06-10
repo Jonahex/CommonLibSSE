@@ -198,8 +198,8 @@ namespace RE
 			std::uint32_t                                pad114;                  // 114
 			BSTArray<BSTSmartPointer<CategoryListEntry>> listEntries;             // 118
 			BSString                                     customName;              // 130
-			GFxValue                                     inventoryLists;          // 140
-			GFxValue                                     categories;              // 158
+			GFxValue                                     categories;              // 140
+			GFxValue                                     inventoryLists;          // 158
 			Selections                                   selected;                // 170
 			InventoryEntryData*                          craftItemPreview;        // 1A0
 			CreateEffectFunctor                          createEffectFunctor;     // 1A8

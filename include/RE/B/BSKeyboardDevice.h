@@ -56,7 +56,7 @@ namespace RE
 				kL = 0x26,
 				kSemicolon = 0x27,
 				kApostrophe = 0x28,
-				kTilda = 0x29,
+				kTilde = 0x29,
 				kLeftShift = 0x2A,
 				kBackslash = 0x2B,
 				kZ = 0x2C,
@@ -125,7 +125,10 @@ namespace RE
 				kDown = 0xD0,
 				kPageDown = 0xD1,
 				kInsert = 0xD2,
-				kDelete = 0xD3
+				kDelete = 0xD3,
+
+				kLeftWin = 0xDB,
+				kRightWin = 0xDC
 			};
 		};
 		using Key = Keys::Key;

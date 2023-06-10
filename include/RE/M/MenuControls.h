@@ -53,6 +53,7 @@ namespace RE
 		[[nodiscard]] constexpr bool InBeastForm() const noexcept { return beastForm; }
 		void                         RegisterHandler(MenuEventHandler* a_handler);
 		void                         RemoveHandler(MenuEventHandler* a_handler);
+		bool                         QueueScreenshot();
 		void                         UnregisterHandler(MenuEventHandler* a_handler);
 
 		// members

@@ -495,6 +495,7 @@ namespace RE
 		bool                         CanOfferServices() const;
 		bool                         CanPickpocket() const;
 		bool                         CanTalkToPlayer() const;
+		bool                         CanUseIdle(TESIdleForm* a_idle) const;
 		void                         ClearArrested();
 		void                         ClearExpressionOverride();
 		inline void                  ClearExtraArrows() { RemoveExtraArrows3D(); }

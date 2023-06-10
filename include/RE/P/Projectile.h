@@ -102,7 +102,7 @@ namespace RE
 			bool                       alwaysHit;              // 9C
 			bool                       noDamageOutsideCombat;  // 9D
 			bool                       autoAim;                // 9E
-			bool                       unk9F;                  // 9F
+			bool                       chainShatter;           // 9F
 			bool                       useOrigin;              // A0
 			bool                       deferInitialization;    // A1
 			bool                       forceConeOfFire;        // A2
@@ -141,7 +141,7 @@ namespace RE
 			kGravityUpdateModel = 1 << 6,
 			kUnk7 = 1 << 7,
 			kInited = 1 << 8,
-			kUnk9 = 1 << 9,
+			kChainShatter = 1 << 9,
 			kUnk10 = 1 << 10,
 			kUnk11 = 1 << 11,
 			kAlwaysHit = 1 << 12,

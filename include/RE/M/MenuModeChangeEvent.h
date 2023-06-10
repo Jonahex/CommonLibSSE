@@ -6,6 +6,7 @@ namespace RE
 {
 	class MenuModeChangeEvent
 	{
+	public:
 		enum class Mode
 		{
 			kNone = static_cast<std::underlying_type_t<Mode>>(-1),

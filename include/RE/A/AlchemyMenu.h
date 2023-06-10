@@ -67,17 +67,20 @@ namespace RE
 			bool ProcessUserEvent(BSFixedString* a_control) override;  // 05
 
 			// members
-			BSTArray<MenuIngredientEntry> ingredientEntries;      // 100
-			BSTArray<void*>               unk118;                 // 118
-			std::uint64_t                 unk130;                 // 130
-			PotionCreationData            potionCreationData;     // 138
-			GFxValue                      unk158;                 // 158
-			std::uint64_t                 unk170;                 // 170
-			TESForm*                      unk178;                 // 178
-			TESForm*                      unk180;                 // 180
-			std::uint64_t                 unk188;                 // 188
-			BSFixedString                 newRecipeFormatString;  // 190
-			std::uint64_t                 playerHasPurityPerk;    // 198
+			BSTArray<MenuIngredientEntry>   ingredientEntries;      // 100
+			BSTSmallArray<std::uint32_t, 4> selectedIndexes;        // 118
+			PotionCreationData              potionCreationData;     // 138
+			GFxValue                        categories;             // 158
+			InventoryEntryData*             resultPotionEntry;      // 170
+			AlchemyItem*                    unknownPotion;          // 178 - displayed when player does not know effects
+			AlchemyItem*                    resultPotion;           // 180
+			std::uint32_t                   currentIngredientIdx;   // 188
+			std::uint32_t                   pad18C;                 // 18C
+			BSFixedString                   newRecipeFormatString;  // 190
+			bool                            playerHasPurityPerk;    // 198
+			std::uint8_t                    pad199;                 // 199
+			std::uint16_t                   pad19A;                 // 19A
+			std::uint32_t                   pad19C;                 // 19C
 		};
 		static_assert(sizeof(AlchemyMenu) == 0x1A0);
 	}

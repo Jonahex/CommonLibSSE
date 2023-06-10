@@ -196,7 +196,7 @@ namespace RE
 		float                                          unk29C;                         // 29C
 		float                                          unk2A0;                         // 2A0
 		float                                          unk2A4;                         // 2A4
-		float                                          unk2A8;                         // 2A8
+		float                                          currentMovementSpeed;           // 2A8
 		float                                          forwardSpeed;                   // 2AC
 		float                                          unk2B0;                         // 2B0
 		float                                          bleedoutRate;                   // 2B4

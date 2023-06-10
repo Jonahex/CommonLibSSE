@@ -2,6 +2,14 @@
 
 namespace RE
 {
+	hkStringPtr::hkStringPtr(const char* a_data) :
+		_data(nullptr)
+	{
+		using func_t = std::add_pointer_t<void(hkStringPtr&, const char*)>;
+		REL::Relocation<func_t> func{ RELOCATION_ID(56801, 57231) };
+		func(*this, a_data);
+	}
+
 	const char* hkStringPtr::data() const noexcept
 	{
 		return reinterpret_cast<const char*>(reinterpret_cast<std::uintptr_t>(_data) & ~kManaged);

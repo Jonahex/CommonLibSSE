@@ -7,7 +7,7 @@ namespace RE
 	Sky* Sky::GetSingleton()
 	{
 		using func_t = decltype(&Sky::GetSingleton);
-		REL::Relocation<func_t> func{ Offset::Sky::GetSingleton };
+		REL::Relocation<func_t> func{ RELOCATION_ID(13789, 13878) };
 		return func();
 	}
 
@@ -30,18 +30,18 @@ namespace RE
 		static REL::Relocation<float*> sunriseBeginTime{ Offset::Sky::SunriseBeginTime };
 		static REL::Relocation<float*> dayBeginTime{ Offset::Sky::DayBeginTime };
 
-		if (flags.any(kDayBeginTimeNeedsUpdate)) 
+		if (flags.any(kUpdateColorsSunriseBegin)) 
 		{
-			if (flags.any(kSunriseBeginTimeNeedsUpdate)) 
+			if (flags.any(kUpdateSunriseBegin)) 
 			{
 				if (currentClimate) 
 				{
 					*sunriseBeginTime = currentClimate->timing.sunrise.begin * 0.16666667f;
-					flags.reset(kSunriseBeginTimeNeedsUpdate);
+					flags.reset(kUpdateSunriseBegin);
 				}
 			}
 			*dayBeginTime = std::max(*sunriseBeginTime - 0.5f, 0.f);
-			flags.reset(kDayBeginTimeNeedsUpdate);
+			flags.reset(kUpdateColorsSunriseBegin);
 		}
 		return *dayBeginTime;
 	}
@@ -53,18 +53,18 @@ namespace RE
 		static REL::Relocation<float*> sunsetEndTime{ Offset::Sky::SunsetEndTime };
 		static REL::Relocation<float*> nightBeginTime{ Offset::Sky::NightBeginTime };
 
-		if (flags.any(kNightBeginTimeNeedsUpdate)) 
+		if (flags.any(kUpdateColorsSunsetEnd)) 
 		{
-			if (flags.any(kSunsetEndTimeNeedsUpdate)) 
+			if (flags.any(kUpdateSunsetEnd)) 
 			{
 				if (currentClimate) 
 				{
 					*sunsetEndTime = currentClimate->timing.sunset.end * 0.16666667f;
-					flags.reset(kSunsetEndTimeNeedsUpdate);
+					flags.reset(kUpdateSunsetEnd);
 				}
 			}
 			*nightBeginTime = std::max(*sunsetEndTime + 0.5f, 23.99f);
-			flags.reset(kNightBeginTimeNeedsUpdate);
+			flags.reset(kUpdateColorsSunsetEnd);
 		}
 		return *nightBeginTime;
 	}
@@ -75,12 +75,12 @@ namespace RE
 
 		static REL::Relocation<float*> sunriseEndTime{ Offset::Sky::SunriseEndTime };
 
-		if (flags.any(kSunriseEndTimeNeedsUpdate)) 
+		if (flags.any(kUpdateSunriseEnd)) 
 		{
 			if (currentClimate) 
 			{
 				*sunriseEndTime = currentClimate->timing.sunrise.end * 0.16666667f;
-				flags.reset(kSunriseEndTimeNeedsUpdate);
+				flags.reset(kUpdateSunriseEnd);
 			}
 		}
 		return *sunriseEndTime;
@@ -92,12 +92,12 @@ namespace RE
 
 		static REL::Relocation<float*> sunsetBeginTime{ Offset::Sky::SunsetBeginTime };
 
-		if (flags.any(kSunsetBeginTimeNeedsUpdate)) 
+		if (flags.any(kUpdateSunsetBegin)) 
 		{
 			if (currentClimate) 
 			{
 				*sunsetBeginTime = currentClimate->timing.sunset.begin * 0.16666667f;
-				flags.reset(kSunsetBeginTimeNeedsUpdate);
+				flags.reset(kUpdateSunsetBegin);
 			}
 		}
 		return *sunsetBeginTime;
@@ -106,21 +106,29 @@ namespace RE
 	void Sky::SetWeather(TESWeather* a_weather, bool a_override, bool a_accelerate)
 	{
 		using func_t = decltype(&Sky::SetWeather);
-		REL::Relocation<func_t> func{ Offset::Sky::SetWeather };
+		REL::Relocation<func_t> func{ RELOCATION_ID(25694, 26241) };
 		func(this, a_weather, a_override, a_accelerate);
 	}
 
 	void Sky::ForceWeather(TESWeather* a_weather, bool a_override)
 	{
 		using func_t = decltype(&Sky::ForceWeather);
-		REL::Relocation<func_t> func{ Offset::Sky::ForceWeather };
+		REL::Relocation<func_t> func{ RELOCATION_ID(25696, 26243) };
 		func(this, a_weather, a_override);
+	}
+
+	void Sky::ReleaseWeatherOverride()
+	{
+		if (overrideWeather) {
+			flags.set(Flags::kReleaseWeatherOverride);
+			overrideWeather = nullptr;
+		}
 	}
 
 	void Sky::ResetWeather()
 	{
 		using func_t = decltype(&Sky::ResetWeather);
-		REL::Relocation<func_t> func{ Offset::Sky::ResetWeather };
+		REL::Relocation<func_t> func{ RELOCATION_ID(25695, 26242) };
 		func(this);
 	}
 

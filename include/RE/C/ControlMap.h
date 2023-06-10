@@ -64,22 +64,23 @@ namespace RE
 
 		static ControlMap* GetSingleton();
 
-		std::int8_t      AllowTextInput(bool a_allow);
-		constexpr bool   AreControlsEnabled(UEFlag a_flags) const noexcept { return enabledControls.all(a_flags); }
-		std::uint32_t    GetMappedKey(std::string_view a_eventID, INPUT_DEVICE a_device, InputContextID a_context = InputContextID::kGameplay) const;
-		std::string_view GetUserEventName(std::uint32_t a_buttonID, INPUT_DEVICE a_device, InputContextID a_context = InputContextID::kGameplay) const;
-		constexpr bool   IsActivateControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kActivate); }
-		constexpr bool   IsConsoleControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kConsole); }
-		constexpr bool   IsFightingControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kFighting); }
-		constexpr bool   IsLookingControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kLooking); }
-		constexpr bool   IsMenuControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kMenu); }
-		constexpr bool   IsMainFourControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kMainFour); }
-		constexpr bool   IsMovementControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kMovement); }
-		constexpr bool   IsPOVSwitchControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kPOVSwitch); }
-		constexpr bool   IsSneakingControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kSneaking); }
-		constexpr bool   IsVATSControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kVATS); }
-		constexpr bool   IsWheelZoomControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kWheelZoom); }
-		void             ToggleControls(UEFlag a_flags, bool a_enable);
+		std::int8_t               AllowTextInput(bool a_allow);
+		constexpr bool            AreControlsEnabled(UEFlag a_flags) const noexcept { return enabledControls.all(a_flags); }
+		std::uint32_t             GetMappedKey(std::string_view a_eventID, INPUT_DEVICE a_device, InputContextID a_context = InputContextID::kGameplay) const;
+		std::string_view          GetUserEventName(std::uint32_t a_buttonID, INPUT_DEVICE a_device, InputContextID a_context = InputContextID::kGameplay) const;
+		constexpr PC_GAMEPAD_TYPE GetGamePadType() const noexcept { return gamePadMapType.get(); }
+		constexpr bool            IsActivateControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kActivate); }
+		constexpr bool            IsConsoleControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kConsole); }
+		constexpr bool            IsFightingControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kFighting); }
+		constexpr bool            IsLookingControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kLooking); }
+		constexpr bool            IsMenuControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kMenu); }
+		constexpr bool            IsMainFourControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kMainFour); }
+		constexpr bool            IsMovementControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kMovement); }
+		constexpr bool            IsPOVSwitchControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kPOVSwitch); }
+		constexpr bool            IsSneakingControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kSneaking); }
+		constexpr bool            IsVATSControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kVATS); }
+		constexpr bool            IsWheelZoomControlsEnabled() const noexcept { return enabledControls.all(UEFlag::kWheelZoom); }
+		void                      ToggleControls(UEFlag a_flags, bool a_enable);
 
 		// members
 		InputContext*                                    controlMap[InputContextID::kTotal];  // 060

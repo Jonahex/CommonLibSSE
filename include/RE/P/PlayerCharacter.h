@@ -164,6 +164,7 @@ namespace RE
 		enum class ByCharGenFlag
 		{
 			kNone = 0,
+			kDisableSaving = 1 << 0,
 			kHandsBound = 1 << 2
 		};
 

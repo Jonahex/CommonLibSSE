@@ -23,15 +23,6 @@ namespace RE
 		return (it != deviceButtons.end()) && (it->second->heldDownSecs > 0.0f);
 	}
 
-	BSInputDevice::BSInputDevice() :
-		BSIInputDevice(),
-		pad0C(0),
-		deviceButtons(),
-		buttonNameIDMap()
-	{
-		device = INPUT_DEVICE::kNone;
-	}
-
 	bool BSInputDevice::LoadControlsDefinitionFile(const char* a_fileName)
 	{
 		using func_t = decltype(&BSInputDevice::LoadControlsDefinitionFile);

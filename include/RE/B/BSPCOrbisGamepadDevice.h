@@ -16,27 +16,27 @@ namespace RE
 			enum Key : std::uint32_t
 			{
 				// Masks for buttonState
-				// Key hardware value.  Matches SCE_PAD_BUTTON_* enum values on ORBIS
-				KUp = 0x0010,
-				kDown = 0x0040,
-				kLeft = 0x0080,
-				kRight = 0x0020,
-				kPS3_Start = 0x0008,
-				kPS3_Back = 0x00100000,  // This is mapped to the touchpad on the PS4 controller
-				kPS3_L3 = 0x0002,
-				kPS3_R3 = 0x0004,
-				kPS3_LB = 0x0400,
-				kPS3_RB = 0x0800,
-				kPS3_A = 0x4000,
-				kPS3_B = 0x2000,
-				kPS3_X = 0x8000,
-				kPS3_Y = 0x1000,
+				// Key hardware value
+				kUp = ScePad::ScePadButton::SCE_PAD_BUTTON_UP,
+				kDown = ScePad::ScePadButton::SCE_PAD_BUTTON_DOWN,
+				kLeft = ScePad::ScePadButton::SCE_PAD_BUTTON_LEFT,
+				kRight = ScePad::ScePadButton::SCE_PAD_BUTTON_RIGHT,
+				kPS3_Start = ScePad::ScePadButton::SCE_PAD_BUTTON_OPTIONS,
+				kPS3_Back = ScePad::ScePadButton::SCE_PAD_BUTTON_TOUCH_PAD,  // This is mapped to the touchpad on the PS4 controller
+				kPS3_L3 = ScePad::ScePadButton::SCE_PAD_BUTTON_L3,
+				kPS3_R3 = ScePad::ScePadButton::SCE_PAD_BUTTON_R3,
+				kPS3_LB = ScePad::ScePadButton::SCE_PAD_BUTTON_L1,
+				kPS3_RB = ScePad::ScePadButton::SCE_PAD_BUTTON_R1,
+				kPS3_A = ScePad::ScePadButton::SCE_PAD_BUTTON_CROSS,
+				kPS3_B = ScePad::ScePadButton::SCE_PAD_BUTTON_CIRCLE,
+				kPS3_X = ScePad::ScePadButton::SCE_PAD_BUTTON_SQUARE,
+				kPS3_Y = ScePad::ScePadButton::SCE_PAD_BUTTON_TRIANGLE,
 
 				// Unused by Skyrim
-				kPS4_Share = 0x0001,   // Skyrim uses the touchpad for Back and leaves the Share button unused
-				kPS4_L2 = 0x0100,      // Skyrim uses trigger axis read instead of button press
-				kPS4_R2 = 0x0200,      // Skyrim uses trigger axis read instead of button press
-				kPS4_PSBtn = 0x10000,  // Playstation button
+				kPS4_Share = ScePad::ScePadButton::SCE_PAD_BUTTON_SHARE,        // Skyrim uses the touchpad for Back and leaves the Share button unused
+				kPS4_L2 = ScePad::ScePadButton::SCE_PAD_BUTTON_L2,              // Skyrim uses trigger axis read instead of button press
+				kPS4_R2 = ScePad::ScePadButton::SCE_PAD_BUTTON_R2,              // Skyrim uses trigger axis read instead of button press
+				kPS4_PSBtn = ScePad::ScePadButton::SCE_PAD_BUTTON_PLAYSTATION,  // Playstation button
 
 				// arbitrary values
 				// IDs meant to be used with ButtonEvent
@@ -105,19 +105,19 @@ namespace RE
 
 		struct PadTouch
 		{
-			std::uint16_t x;          // 00
-			std::uint16_t y;          // 02
-			std::uint8_t  touch_id;   // 04
-			std::uint8_t  pad_05[3];  // 05
+			std::uint16_t x;         // 00
+			std::uint16_t y;         // 02
+			std::uint8_t  touch_id;  // 04
+			std::uint8_t  pad05[3];  // 05
 		};
 		static_assert(sizeof(PadTouch) == 0x08);
 
 		struct TouchPadData
 		{
-			std::uint8_t  touchNum;   // 00 - Number of touch reports
-			std::uint8_t  pad_01[3];  // 01
-			std::uint32_t pad_04;     // 04
-			PadTouch      touch[2];   // 08 - Touch Data for max number of touch points = 2
+			std::uint8_t  touchNum;  // 00 - Number of touch reports
+			std::uint8_t  pad01[3];  // 01
+			std::uint32_t pad04;     // 04
+			PadTouch      touch[2];  // 08 - Touch Data for max number of touch points = 2
 		};
 		static_assert(sizeof(TouchPadData) == 0x18);
 
@@ -139,19 +139,19 @@ namespace RE
 			std::byte           rawRightStickY;   // 07
 			std::byte           rawLeftTrigger;   // 08
 			std::byte           rawRightTrigger;  // 09
-			std::byte           pad_0A[2];        // 0A
+			std::byte           pad0A[2];         // 0A
 			Vector4             orientation;      // 0C
 			Vector3             acceleration;     // 1C
 			Vector3             angularVelocity;  // 28
 			TouchPadData        touchPadData;     // 34
 			bool                padConnected;     // 4C
-			std::byte           pad_4D[3];        // 4D
+			std::byte           pad4D[3];         // 4D
 			std::uint64_t       timestamp;        // 50
 			UnusedExtensionData unusedExtData;    // 58 -- unused
-			uint8_t             connectedCount;   // 68 -- Controller handle connected count
-			uint8_t             pad_69[2];        // 69 -- nice.
-			uint8_t             specialDataLen;   // 6B
-			uint8_t             specialData[12];  // 6C -- Device data for special controllers
+			std::uint8_t        connectedCount;   // 68 -- Controller handle connected count
+			std::uint8_t        pad69[2];         // 69
+			std::uint8_t        specialDataLen;   // 6B
+			std::uint8_t        specialData[12];  // 6C -- Device data for special controllers
 		};
 		static_assert(sizeof(GamepadData) == 0x78);
 
@@ -172,14 +172,13 @@ namespace RE
 		{
 			return stl::unrestricted_cast<ButtonState>(previousPadState.buttonState);
 		}
-
 		ButtonState GetCurrentButtonState() const
 		{
 			return stl::unrestricted_cast<ButtonState>(currentPadState.buttonState);
 		}
 
 		// members
-		GamepadData previousPadState;  // D8
+		GamepadData previousPadState;  // 0D8
 		float       previousLT;        // 150
 		float       previousRT;        // 154
 		float       previousLX;        // 158

@@ -22,6 +22,7 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_ActorMagicCaster;
+		inline static constexpr auto VTABLE = VTABLE_ActorMagicCaster;
 
 		using InterruptHandler_t = void(Actor*);
 

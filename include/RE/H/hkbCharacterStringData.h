@@ -25,7 +25,7 @@ namespace RE
 		// members
 		hkArray<FileNameMeshNamePair>     deformableSkinNames;                 // 10
 		hkArray<FileNameMeshNamePair>     rigidSkinNames;                      // 20
-		hkArray<hkbAssetBundleStringData> animationNames;                      // 30
+		hkArray<hkStringPtr>              animationNames;                      // 30
 		hkArray<hkbAssetBundleStringData> animationBundleFilenameData;         // 40 - unused by Skyrim?
 		hkArray<hkStringPtr>              characterPropertyNames;              // 50
 		hkArray<hkStringPtr>              retargetingSkeletonMapperFilenames;  // 60

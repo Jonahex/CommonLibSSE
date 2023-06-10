@@ -5,6 +5,7 @@
 namespace RE
 {
 	class hkbClipGenerator;
+	class BSSynchronizedClipGenerator;
 
 	class IAnimationClipLoaderSingleton
 	{
@@ -15,10 +16,10 @@ namespace RE
 		virtual ~IAnimationClipLoaderSingleton();  // 00
 
 		// add
-		virtual void          Unk_01(void);                                                                                // 01
-		virtual std::uint64_t Load(const hkbContext& a_context, hkbClipGenerator* a_clipGenerator, std::uint64_t a_arg4);  // 02
-		virtual void          Unk_03(void);                                                                                // 03
-		virtual void          Unk_04(void);                                                                                // 04
-		virtual void          Unk_05(void);                                                                                // 05
+		virtual std::int32_t Queue(const hkbContext& a_hkbContext, hkbClipGenerator* a_clipGenerator, BSSynchronizedClipGenerator* a_synchronizedClipGenerator);   // 01
+		virtual bool         Load(const hkbContext& a_hkbContext, hkbClipGenerator* a_clipGenerator, BSSynchronizedClipGenerator* a_synchronizedClipGenerator);    // 02
+		virtual std::int32_t Unload(const hkbContext& a_hkbContext, hkbClipGenerator* a_clipGenerator, BSSynchronizedClipGenerator* a_synchronizedClipGenerator);  // 03
+		virtual void         Unk_04(const hkbContext& a_context, std::int16_t a_animationBindingIndex);                                                            // 04
+		virtual void         Unk_05(const hkbContext& a_context, std::int16_t a_animationBindingIndex);                                                            // 05
 	};
 }

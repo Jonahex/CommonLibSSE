@@ -5,6 +5,8 @@ namespace RE
 	class hkStringPtr
 	{
 	public:
+		hkStringPtr(const char* a_data);
+
 		// member types
 		using size_type = std::int32_t;
 

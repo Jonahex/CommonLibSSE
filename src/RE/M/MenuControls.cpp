@@ -1,6 +1,7 @@
 #include "RE/M/MenuControls.h"
 
 #include "RE/M/MenuEventHandler.h"
+#include "RE/S/ScreenshotHandler.h"
 
 namespace RE
 {
@@ -51,6 +52,15 @@ namespace RE
 	void MenuControls::RemoveHandler(MenuEventHandler* a_handler)
 	{
 		return UnregisterHandler(a_handler);
+	}
+
+	bool MenuControls::QueueScreenshot()
+	{
+		if (!screenshotHandler || screenshotHandler->screenshotQueued) {
+			return false;
+		}
+		screenshotHandler->screenshotQueued = true;
+		return true;
 	}
 
 	void MenuControls::UnregisterHandler(MenuEventHandler* a_handler)

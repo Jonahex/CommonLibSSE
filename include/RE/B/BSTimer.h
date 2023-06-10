@@ -5,7 +5,7 @@ namespace RE
 	class BSTimer
 	{
 	public:
-		static float GetCurrentGlobalTimeMult()
+		static float& GetCurrentGlobalTimeMult()
 		{
 			REL::Relocation<float*> value{ RELOCATION_ID(511883, 388443) };
 			return *value;

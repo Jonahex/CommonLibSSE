@@ -1,11 +1,14 @@
 #pragma once
 
+#include "RE/B/BSTPoint.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/P/PlayerInputHandler.h"
 #include "RE/T/TESCameraState.h"
 
 namespace RE
 {
+	class NiNode;
+
 	class FreeCameraState :
 		public TESCameraState,     // 00
 		public PlayerInputHandler  // 20
@@ -28,14 +31,12 @@ namespace RE
 		void ProcessButton(ButtonEvent* a_event, PlayerControlsData* a_movementData) override;  // 04
 
 		// members
-		NiPoint3 position;				// 30
-		float    eulerX;				// 3C
-		float    eulerZ;				// 40
-		float    zUp;					// 44
-		float    zDown;					// 48
-		int16_t  verticalDirection;		// 4C
-		bool     isFast;				// 4E
-		bool     lockToZPlane;			// 4F
+		NiPoint3         translation;        // 30
+		BSTPoint2<float> rotationInput;      // 3C
+		BSTPoint2<float> zUpDown;            // 44
+		int16_t          verticalDirection;  // 4C
+		bool             useRunSpeed;        // 4E
+		bool             lockToZPlane;       // 4F
 	};
 	static_assert(sizeof(FreeCameraState) == 0x50);
 }

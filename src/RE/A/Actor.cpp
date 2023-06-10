@@ -155,6 +155,13 @@ namespace RE
 		}
 	}
 
+	bool Actor::CanUseIdle(TESIdleForm* a_idle) const
+	{
+		using func_t = decltype(&Actor::CanUseIdle);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36224, 37205) };
+		return func(this, a_idle);
+	}
+
 	void Actor::ClearArrested()
 	{
 		if (currentProcess && currentProcess->IsArrested()) {

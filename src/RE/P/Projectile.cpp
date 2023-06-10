@@ -38,7 +38,7 @@ namespace RE
 		alwaysHit(false),
 		noDamageOutsideCombat(false),
 		autoAim(true),
-		unk9F(false),
+		chainShatter(false),
 		useOrigin(false),
 		deferInitialization(false),
 		forceConeOfFire(false)

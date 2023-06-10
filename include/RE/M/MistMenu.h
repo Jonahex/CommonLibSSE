@@ -13,6 +13,8 @@ namespace RE
 	class NiControllerManager;
 	class NiControllerSequence;
 
+	struct ImageSpaceBaseData;
+
 	// menuDepth = 8
 	// flags = kDisablePauseMenu | kAllowSaving | kDontHideCursorWhenTopmost
 	// context = kNone
@@ -74,7 +76,7 @@ namespace RE
 		NiPointer<NiControllerManager>  cameraPathController;           // 0E0 - smart ptr
 		BSLightingShaderProperty*       logoShaderProperty;             // 0E8 - default logo only
 		NiPointer<BSFadeNode>           loadScreenModel;                // 0F0
-		std::uint64_t                   unk0F8;                         // 0F8 - imagespacedata?
+		ImageSpaceBaseData*             originalImageSpace;             // 0F8
 		float                           cameraFOV;                      // 100
 		float                           angleZ;                         // 104
 		float                           unk108;                         // 108

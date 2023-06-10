@@ -66,7 +66,7 @@ namespace RE
 		float                                 percentBlocked;          // 5C
 		float                                 resistedPhysicalDamage;  // 60
 		float                                 resistedTypedDamage;     // 64
-		std::uint32_t                         stagger;                 // 68
+		float                                 stagger;                 // 68
 		float                                 sneakAttackBonus;        // 6C
 		float                                 bonusHealthDamageMult;   // 70
 		float                                 pushBack;                // 74

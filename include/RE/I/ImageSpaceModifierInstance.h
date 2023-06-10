@@ -8,7 +8,7 @@ namespace RE
 	class NiAVObject;
 	class ImageSpaceModifierInstanceForm;
 
-	class ImageSpaceModifierInstance : NiObject
+	class ImageSpaceModifierInstance : public NiObject
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_ImageSpaceModifierInstance;
