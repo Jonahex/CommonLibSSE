@@ -32,9 +32,9 @@ namespace RE
 
 		// members
 		NiPoint3         translation;        // 30
-		BSTPoint2<float> rotationInput;      // 3C
+		BSTPoint2<float> rotation;           // 3C
 		BSTPoint2<float> zUpDown;            // 44
-		int16_t          verticalDirection;  // 4C
+		std::int16_t     verticalDirection;  // 4C
 		bool             useRunSpeed;        // 4E
 		bool             lockToZPlane;       // 4F
 	};

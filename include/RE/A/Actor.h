@@ -45,6 +45,8 @@ namespace RE
 	class TrespassPackage;
 	struct ActorMotionFeedbackData;
 	struct ActorMotionFeedbackOutput;
+	struct HighProcessData;
+	struct MiddleHighProcessData;
 
 	enum class ACTOR_CRITICAL_STAGE
 	{
@@ -532,8 +534,10 @@ namespace RE
 		ActorHandle                  GetHandle();
 		[[nodiscard]] NiAVObject*    GetHeadPartObject(BGSHeadPart::HeadPartType a_type);
 		float                        GetHeight();
+		HighProcessData*             GetHighProcess() const;
 		Actor*                       GetKiller() const;
 		std::uint16_t                GetLevel() const;
+		MiddleHighProcessData*       GetMiddleHighProcess() const;
 		bool                         GetMount(NiPointer<Actor>& a_outMount);
 		bool                         GetMountedBy(NiPointer<Actor>& a_outRider);
 		double                       GetMoveDirectionRelativeToFacing();
