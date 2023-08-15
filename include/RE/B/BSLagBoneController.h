@@ -21,7 +21,7 @@ namespace RE
 		bool               RegisterStreamables(NiStream& a_stream) override;   // 1A
 		void               SaveBinary(NiStream& a_stream) override;            // 1B
 		bool               IsEqual(NiObject* a_object) override;               // 1C
-		void               Update(float a_time) override;                      // 27
+		void               Update(float* a_time) override;                      // 27
 		void               SetTarget(NiObjectNET* a_target) override;          // 28
 		[[nodiscard]] bool TargetIsRequiredType() const override;              // 2E
 

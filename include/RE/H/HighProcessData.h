@@ -255,7 +255,7 @@ namespace RE
 		NiPoint3                                              deathForceDirection;                       // 27C
 		float                                                 deathForce;                                // 288
 		float                                                 unk28C;                                    // 28C
-		float                                                 unk290;                                    // 290
+		float                                                 AITalkToNPCTimer;                          // 290
 		float                                                 unk294;                                    // 294
 		float                                                 unk298;                                    // 298
 		float                                                 clearTalkToListTimer;                      // 29C
