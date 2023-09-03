@@ -1,7 +1,11 @@
 #pragma once
 
+#include "RE/B/BSFixedString.h"
+
 namespace RE
 {
+	class IMovementInterface;
+
 	class IMovementControllerRegisterInterface
 	{
 	public:
@@ -10,10 +14,10 @@ namespace RE
 		virtual ~IMovementControllerRegisterInterface();  // 00
 
 		// add
-		virtual void Unk_01(void) = 0;  // 01
-		virtual void Unk_02(void) = 0;  // 02
-		virtual void Unk_03(void) = 0;  // 03
-		virtual void Unk_04(void) = 0;  // 04
+		virtual void                      AddInterface(const BSFixedString& name, IMovementInterface* interface) = 0;  // 01
+		virtual const IMovementInterface* GetInterface(const BSFixedString& name) const = 0;                           // 02
+		virtual IMovementInterface*       GetInterface(const BSFixedString& name) = 0;                                 // 03
+		virtual void                      DeleteInterface(const BSFixedString& name) = 0;                              // 04
 	};
 	static_assert(sizeof(IMovementControllerRegisterInterface) == 0x8);
 }

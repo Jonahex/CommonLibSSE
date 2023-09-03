@@ -315,7 +315,9 @@ namespace RE
 		NiPointer<StandardDetectionListener>                  detectionListener;                         // 3E0
 		std::uint64_t                                         unk3E8;                                    // 3E8
 		void*                                                 unk3F0;                                    // 3F0 - smart ptr
-		std::uint64_t                                         unk3F8;                                    // 3F8
+		std::uint16_t                                         replacedLeftHandItemType;                  // 3F8
+		std::uint16_t                                         replacedRightHandItemType;                 // 3FA
+		std::uint32_t                                         unk3FC;                                    // 3FC
 		BSTSmallArray<DEFAULT_OBJECT, 2>                      movementActionsQueue;                      // 400
 		NiPoint3                                              animationDelta;                            // 418
 		NiPoint3                                              animationAngleMod;                         // 424
@@ -338,7 +340,7 @@ namespace RE
 		std::uint8_t                                          unk45B;                                    // 45B
 		std::uint8_t                                          unk45C;                                    // 45C
 		std::uint8_t                                          unk45D;                                    // 45D
-		std::uint8_t                                          unk45E;                                    // 45E
+		bool                                                  isInLoadingMenu;                           // 45E
 		bool                                                  isDualCasting;                             // 45F
 		bool                                                  getPlantedExplosive;                       // 460
 		bool                                                  approachingAutoTeleportDoor;               // 461

@@ -168,7 +168,7 @@ namespace RE
 		BSTSmartPointer<WeaponAnimationLoadedCallback> weaponAnimationLoadedCallback;  // 1F0
 		std::uint16_t                                  leftHandType;                   // 1F8
 		std::uint16_t                                  rightHandType;                  // 1FA
-		std::uint32_t                                  unk1FC;                         // 1FC
+		float                                          weaponChangeClearTimer;         // 1FC
 		std::uint32_t                                  unk200;                         // 200
 		float                                          headHeightOffset;               // 204
 		ObjectRefHandle                                occupiedFurniture;              // 208

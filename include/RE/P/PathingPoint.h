@@ -10,13 +10,13 @@ namespace RE
 
 	struct PathingPoint
 	{
-		NiPoint3                  position;
-		BSNavmeshInfo*            navmeshInfo;
-		BSTArray<BSNavmeshInfo*>* cellNavmeshInfos;
-		PathingCell*              pathingCell;
-		std::int16_t              triIndex;
-		bool                      unk2A;
-		bool                      unk2B;
+		NiPoint3                  position;          // 00
+		BSNavmeshInfo*            navmeshInfo;       // 10
+		BSTArray<BSNavmeshInfo*>* cellNavmeshInfos;  // 18
+		PathingCell*              pathingCell;       // 20
+		std::int16_t              triIndex;          // 28
+		bool                      unk2A;             // 2A
+		bool                      unk2B;             // 2B
 	};
 	static_assert(sizeof(PathingPoint) == 0x30);
 }
