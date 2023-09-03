@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RE/B/BGSDefaultObjectManager.h"
 #include "RE/B/BSFixedString.h"
 #include "RE/B/BSHandleRefObject.h"
 #include "RE/B/BSPointerHandle.h"
@@ -427,18 +428,23 @@ namespace RE
 		bool                                    HasKeyword(const BGSKeyword* a_keyword) const;
 		bool                                    HasKeywordInArray(const std::vector<BGSKeyword*>& a_keywords, bool a_matchAll) const;
 		bool                                    HasKeywordInList(BGSListForm* a_keywordList, bool a_matchAll) const;
+		bool                                    HasKeywordWithType(DEFAULT_OBJECT keywordType) const;
 		bool                                    HasQuestObject() const;
 		void                                    InitChildActivates(TESObjectREFR* a_actionRef);
 		bool                                    InitInventoryIfRequired(bool a_ignoreContainerExtraData = false);
 		bool                                    Is3DLoaded() const;
 		bool                                    IsActivationBlocked() const;
+		bool                                    IsAnimal() const;
 		bool                                    IsAnOwner(const Actor* a_testOwner, bool a_useFaction, bool a_requiresOwner) const;
 		bool                                    IsCrimeToActivate();
 		bool                                    IsDisabled() const;
+		bool                                    IsDragon() const;
 		bool                                    IsEnchanted() const;
 		bool                                    IsHorse() const;
+		bool                                    IsHumanoid() const;
 		bool                                    IsInitiallyDisabled() const;
 		bool                                    IsInWater() const;
+		bool                                    IsJewelry() const;
 		bool                                    IsLocked() const;
 		bool                                    IsMarkedForDeletion() const;
 		bool                                    IsOffLimits();
@@ -448,6 +454,7 @@ namespace RE
 		void                                    MoveTo(TESObjectREFR* a_target);
 		bool                                    MoveToNode(TESObjectREFR* a_target, const BSFixedString& a_nodeName);
 		bool                                    MoveToNode(TESObjectREFR* a_target, NiAVObject* a_node);
+		bool                                    NameIncludes(std::string a_word);
 		NiPointer<TESObjectREFR>                PlaceObjectAtMe(TESBoundObject* a_baseToPlace, bool a_forcePersist) const;
 		void                                    PlayAnimation(stl::zstring a_from, stl::zstring a_to);
 		void                                    PlayAnimation(NiControllerManager* a_manager, NiControllerSequence* a_toSeq, NiControllerSequence* a_fromSeq);
