@@ -63,7 +63,7 @@ namespace RE
 			Tweener = 0x4,
 		};
 
-		~MovementArbiter() override;  // 00
+		virtual ~MovementArbiter();  // 00
 
 		// add
 		virtual const BSFixedString& GetPipelineStageName() const = 0;                             // 01
@@ -87,5 +87,5 @@ namespace RE
 		// members
 		IMovementState* managedMovementState;  // 10
 	};
-	static_assert(sizeof(MovementArbiter) == 0x90);
+	static_assert(sizeof(MovementArbiter) == 0x18);
 }

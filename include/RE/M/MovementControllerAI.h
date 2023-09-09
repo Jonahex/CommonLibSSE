@@ -30,9 +30,9 @@ namespace RE
 		// add
 		virtual IMovementState* GetMovementState();                                           // 05
 		virtual void            InitDefaultInterfaces();                                      // 06
-		virtual void            CalculateMovementData(void* a2, MovementData& movementData);  // 07
+		virtual void            CalculateMovementData(void* a2, MovementData& movementData);  // 07 - Called in Actor::OnFrame
 		virtual void            Unk_08(void);                                                 // 08
-		virtual void            Unk_09(void);                                                 // 09 - { return 1; }
+		virtual void            IsActive(void);                                               // 09 - { return 1; } - MovementControllerAI in Actor::CalculateMovementData
 
 		// members
 		BSTSmallArray<BSTSmartPointer<MovementArbiter>, 2>               movementArbiters;  // 010
