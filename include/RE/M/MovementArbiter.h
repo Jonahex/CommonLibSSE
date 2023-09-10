@@ -40,7 +40,7 @@ namespace RE
 		virtual void                 Activate();                                                   // 06
 		virtual void                 SetProcessingOrder(BSPathingStreamSimpleBufferRead* buffer);  // 07
 		virtual void                 CalculateMovementData(MovementArbitersContext& context) = 0;  // 08
-		virtual void                 Unk_09(MovementArbitersContext& context) = 0;                 // 09
+		virtual void                 Unk_09(MovementArbitersContext& context) = 0;                 // 09 - called in MovementControllerAI::Unk_08
 		virtual bool                 Unk_0A();                                                     // 0A
 		virtual bool                 Unk_0B();                                                     // 0B
 		virtual void                 RemoveMovementController();                                   // 0C

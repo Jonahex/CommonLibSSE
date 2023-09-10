@@ -1,9 +1,14 @@
 #pragma once
 
+#include "RE/B/BSTSmartPointer.h"
 #include "RE/I/IMovementInterface.h"
 
 namespace RE
 {
+	class MovementMessage;
+	class NiPoint3;
+	struct PathingPoint;
+
 	class IMovementMessageInterface : public IMovementInterface
 	{
 	public:
@@ -12,9 +17,9 @@ namespace RE
 		~IMovementMessageInterface() override;  // 00
 
 		// add
-		virtual void Unk_01(void) = 0;  // 01
-		virtual void Unk_02(void) = 0;  // 02
-		virtual void Unk_03(void) = 0;  // 03
+		virtual void EnqueueWarp(const PathingPoint& pathingPoint, const NiPoint3& angle) = 0;        // 01
+		virtual void EnqueueMessage(const BSTSmartPointer<MovementMessage>& message) = 0;             // 02
+		virtual void ImmediatelyProcessMessage(const BSTSmartPointer<MovementMessage>& message) = 0;  // 03
 	};
 	static_assert(sizeof(IMovementMessageInterface) == 0x8);
 }

@@ -31,7 +31,7 @@ namespace RE
 			WeightedValue<NiPoint3>                            angle;               // 14
 			WeightedValue<BSTSmartPointer<MovementParameters>> movementParameters;  // 28
 			MovementControllerContext*                         controllerContext;   // 38
-			BSScrapArray<void>                                 unk40;               // 40
+			BSScrapArray<void*>*                               unk40;               // 40
 			uint64_t                                           unk48;               // 48
 			uint16_t                                           unk50;               // 50
 		};
@@ -40,7 +40,7 @@ namespace RE
 		// add
 		virtual const BSFixedString& GetPlannerAgentName() = 0;                                   // 01
 		virtual void                 PlanMovement(float deltaTime, PlannerContext& context) = 0;  // 02
-		virtual void                 Unk_03() = 0;                                                // 03 - nonempty only in MovementAgentPathFollowerFlight and MovementAgentPathFollowerVirtual
+		virtual void                 Unk_03() = 0;                                                // 03 - nonempty only in MovementAgentPathFollowerFlight and MovementAgentPathFollowerVirtual, called in MovementPlannerArbiter::Unk_09
 	};
 	static_assert(sizeof(IMovementPlannerAgent) == 0x8);
 }

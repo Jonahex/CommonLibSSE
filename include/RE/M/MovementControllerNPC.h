@@ -50,6 +50,21 @@ namespace RE
 		void InitDefaultInterfaces() override;  // 06
 		void IsActive() override;               // 09
 
+		// override (IMovementMessageInterface)
+		void EnqueueWarp(const PathingPoint& pathingPoint, const NiPoint3& angle) override;        // 01
+		void EnqueueMessage(const BSTSmartPointer<MovementMessage>& message) override;             // 02
+		void ImmediatelyProcessMessage(const BSTSmartPointer<MovementMessage>& message) override;  // 03
+
+		// override (IMovementMotionDrivenControl)
+		void InitWithHighProcessLevel() override;     // 01
+		void InitWithoutHighProcessLevel() override;  // 02
+		void StartAnimationDriven() override;         // 03
+		void StartMotionDriven() override;            // 04
+		void StartAllowRotation() override;           // 05
+		bool IsMotionDriven() override;               // 06
+		bool IsNonMotionDriven() override;            // 07
+		bool IsAllowRotation() override;              // 08
+
 		// override (IMovementDirectControl)
 		void EnableDirectControl() override;                                                                // 01
 		void SetDirectControlAngle(const NiPoint3& angle) override;                                         // 02
