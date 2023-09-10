@@ -1,6 +1,5 @@
 #pragma once
 
-#include "RE/B/BSAtomic.h"
 #include "RE/B/BSTArray.h"
 #include "RE/I/IMovementPlannerSetArbitration.h"
 #include "RE/M/MovementArbiter.h"
@@ -52,7 +51,7 @@ namespace RE
 		BSTSmartPointer<MovementArbitrationMaxWeightPoint>      movementArbitrationMaxWeightPoint;       // 50
 		BSTSmartPointer<MovementArbitrationMaxWeightParameters> movementArbitrationMaxWeightParameters;  // 58
 		MovementControllerAI*                                   controller;                              // 60
-		void*                                                   plannerAgentReturnDataTracker;           // 68
+		void*                                                   returnDataSmallDeltaTracker;             // 68
 	};
 	static_assert(sizeof(MovementPlannerArbiter) == 0x70);
 }

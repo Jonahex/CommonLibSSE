@@ -16,8 +16,6 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_IMovementPlannerAgent;
 
-		~IMovementPlannerAgent() override;  // 00
-
 		template <typename ValueType>
 		struct WeightedValue
 		{
@@ -36,6 +34,8 @@ namespace RE
 			uint16_t                                           unk50;               // 50
 		};
 		static_assert(sizeof(PlannerContext) == 0x58);
+
+		~IMovementPlannerAgent() override;  // 00
 
 		// add
 		virtual const BSFixedString& GetPlannerAgentName() = 0;                                   // 01
