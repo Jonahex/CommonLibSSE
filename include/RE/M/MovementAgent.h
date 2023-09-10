@@ -53,14 +53,14 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_MovementAgent;
 
-		~MovementAgent() override;  // 00
+		virtual ~MovementAgent();  // 00
 
 		// add
 		virtual const BSFixedString& GetName() const = 0;                                          // 01
 		virtual MovementAgentType    GetType() = 0;                                                // 02
 		virtual IMovementInterface*  GetInterfaceByName(BSFixedString* name) = 0;                  // 03
 		virtual void                 SetMovementController(MovementControllerAI* controller);      // 04
-		virtual bool                 Unk_04();                                                     // 05
+		virtual bool                 Unk_05();                                                     // 05
 		virtual void                 Activate();                                                   // 06
 		virtual void                 SetProcessingOrder(BSPathingStreamSimpleBufferRead* buffer);  // 07
 		virtual void                 ResetOwner();                                                 // 08

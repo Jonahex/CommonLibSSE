@@ -2,6 +2,7 @@
 
 #include "RE/B/BSIntrusiveRefCounted.h"
 #include "RE/I/IMovementControllerRegisterInterface.h"
+#include "RE/M/MovementData.h"
 
 namespace RE
 {
@@ -17,22 +18,14 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_MovementControllerAI;
 
-		struct MovementData
-		{
-			NiPoint3 angle;          // 00
-			float    speed;          // 0C
-			NiPoint3 rotationSpeed;  // 10
-		};
-		static_assert(sizeof(MovementData) == 0x1C);
-
 		~MovementControllerAI() override;  // 00
 
 		// add
-		virtual IMovementState* GetMovementState();                                           // 05
-		virtual void            InitDefaultInterfaces();                                      // 06
-		virtual void            CalculateMovementData(void* a2, MovementData& movementData);  // 07 - Called in Actor::OnFrame
-		virtual void            Unk_08(void);                                                 // 08
-		virtual void            IsActive(void);                                               // 09 - { return 1; } - MovementControllerAI in Actor::CalculateMovementData
+		virtual IMovementState* GetMovementState();                                                  // 05
+		virtual void            InitDefaultInterfaces();                                             // 06
+		virtual void            CalculateMovementData(float deltaTime, MovementData& movementData);  // 07 - Called in Actor::OnFrame
+		virtual void            Unk_08(void);                                                        // 08
+		virtual void            IsActive();                                                          // 09 - { return 1; } - MovementControllerAI in Actor::CalculateMovementData
 
 		// members
 		BSTSmallArray<BSTSmartPointer<MovementArbiter>, 2>               movementArbiters;  // 010

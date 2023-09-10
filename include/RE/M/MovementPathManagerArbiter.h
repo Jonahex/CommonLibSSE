@@ -28,8 +28,8 @@ namespace RE
 		MovementArbiterType  GetType() override;                                                // 03
 		void                 SetMovementController(MovementControllerAI* controller) override;  // 04
 		void                 Activate() override;                                               // 06
-		void                 Unk_08(void* context) override;                                    // 08
-		void                 Unk_09(void* context) override;                                    // 09
+		void                 CalculateMovementData(MovementArbitersContext& context) override;  // 08
+		void                 Unk_09(MovementArbitersContext& context) override;                 // 09
 		void                 RemoveMovementController() override;                               // 0C
 		void                 OnSaveGame(BSPathingStreamWrite* saveBuffer) override;             // 0D
 		void                 OnLoadGame(BSPathingStreamRead* loadBuffer) override;              // 0E
@@ -61,7 +61,7 @@ namespace RE
 		// members
 		BSTArray<BSTSmartPointer<IMovementPathManagerAgent>> pathManagerAgents;          // 028
 		MovementControllerAI*                                movementController;         // 040
-		PathingState                                         pathingState;               // 048
+		stl::enumeration<PathingState, uint32_t>             pathingState;               // 048
 		BSTSmartPointer<BSPathingRequest>                    pathingRequest;             // 050
 		BSTSmartPointer<BSPathingSolution>                   chosenPathingSolution;      // 058
 		BSTSmartPointer<BSPathingSolutionsContainer>         availablePathingSolutions;  // 060

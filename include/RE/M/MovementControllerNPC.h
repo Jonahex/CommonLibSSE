@@ -46,6 +46,27 @@ namespace RE
 
 		~MovementControllerNPC() override;  // 00
 
+		// override (MovementControllerAI)
+		void InitDefaultInterfaces() override;  // 06
+		void IsActive() override;               // 09
+
+		// override (IMovementDirectControl)
+		void EnableDirectControl() override;                                                                // 01
+		void SetDirectControlAngle(const NiPoint3& angle) override;                                         // 02
+		void SetDirectControlSpeed(float speed) override;                                                   // 03
+		void SetDirectControlRotationSpeed(const NiPoint3& rotationSpeed) override;                         // 04
+		void SetDirectControlAngleAtTime(const NiPoint3& angle, float deltaTime) override;                  // 05
+		void SetDirectControlSpeedAtTime(float speed, float deltaTime) override;                            // 06
+		void SetDirectControlRotationSpeedAtTime(const NiPoint3& rotationSpeed, float deltaTime) override;  // 07
+		void DisableDirectControl() override;                                                               // 08
+
+		// override (IMovementPlannerDirectControl)
+		void EnablePlannerDirectControl() override;                                       // 01
+		void SetPlannerDirectControlMovementVectorAngle(const NiPoint3& angle) override;  // 02
+		void SetPlannerDirectControlMovementVectorSpeed(float speed) override;            // 03
+		void SetPlannerDirectControlMovementAngle(const NiPoint3& angle) override;        // 04
+		void DisablePlannerDirectControl() override;                                      // 05
+
 		// add
 		virtual void SetIsSprinting(bool isSprinting);           // 0A
 		virtual bool GetIsSprinting() const;                     // 0B
