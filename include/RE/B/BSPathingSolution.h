@@ -9,6 +9,8 @@
 
 namespace RE
 {
+	class MovementMessageActivateDoor;
+
 	struct BSPathingSolution : public BSIntrusiveRefCounted
 	{
 	public:
@@ -16,7 +18,7 @@ namespace RE
 		{
 		public:
 			// members
-			uint64_t unk30;  // 30
+			BSTSmartPointer<MovementMessageActivateDoor> movementMessage;  // 30
 		};
 		static_assert(sizeof(HighLevelPathingPoint) == 0x38);
 
@@ -24,8 +26,8 @@ namespace RE
 		{
 		public:
 			// members
-			uint64_t unk30;  // 30
-			NiPoint3 unk38;  // 38
+			BSTSmartPointer<MovementMessageActivateDoor> movementMessage;  // 30
+			NiPoint3                                     unk38;            // 38
 		};
 		static_assert(sizeof(DetailedPathingPoint) == 0x48);
 
