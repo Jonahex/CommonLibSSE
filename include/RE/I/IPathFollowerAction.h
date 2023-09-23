@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RE/I/IPathFollowerState.h"
+
 namespace RE
 {
 	class IPathFollowerAction
@@ -10,9 +12,9 @@ namespace RE
 		virtual ~IPathFollowerAction();  // 00
 
 		// add
-		virtual void Unk01(void);      // 01
-		virtual void Unk02(void) = 0;  // 02
-		virtual void Unk03(void) = 0;  // 03
+		virtual bool OnStartSlowingDown(IPathFollowerState::Context& context, float pathParameter, float& outPathParameter);  // 01
+		virtual bool OnStopSlowingDown(IPathFollowerState::Context& context, float& outPathSpeed) = 0;                        // 02
+		virtual bool OnStopMovingAlongPath(IPathFollowerState::Context& context, float& outPathParameter) = 0;                // 03
 	};
 	static_assert(sizeof(IPathFollowerAction) == 0x8);
 }

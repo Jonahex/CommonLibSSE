@@ -23,9 +23,9 @@ namespace RE
 		~IMovementHandlerAgent() override;  // 00
 
 		// add
-		virtual const BSFixedString& GetHandlerAgentName() = 0;                                     // 01
-		virtual void                 HandleMovement(float deltaTime, HandlerContext& context) = 0;  // 02
-		virtual void                 Unk_03() = 0;                                                  // 03 - empty in all implementations, called in MovementHandlerArbiter::Unk_09
+		virtual const BSFixedString& GetHandlerAgentName() = 0;                    // 01
+		virtual void                 HandleMovement(HandlerContext& context) = 0;  // 02
+		virtual void                 HandleMovementVirtual(float* deltaTime) = 0;  // 03 - empty in all implementations
 	};
 	static_assert(sizeof(IMovementHandlerAgent) == 0x8);
 }

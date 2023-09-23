@@ -15,11 +15,11 @@ namespace RE
 		virtual ~IMovementParameters();  // 00
 
 		// add
-		virtual float    GetSpeedFactor() = 0;                          // 01
-		virtual float    GetDecelerationRate() = 0;                     // 02
-		virtual float    GetAccelerationRate() = 0;                     // 03
+		virtual float    GetNormalizedSpeed() = 0;                      // 01
+		virtual float    GetAccelerationRate() = 0;                     // 02
+		virtual float    GetDecelerationRate() = 0;                     // 03
 		virtual float    GetAngularAccelerationRate() = 0;              // 04
-		virtual float    GetRotationSpeedFactor() = 0;                  // 05
+		virtual float    GetNormalizedRotationSpeed() = 0;         // 05
 		virtual uint32_t GetNameHash() = 0;                             // 06
 		virtual void     OnSaveGame(BSPathingStreamWrite* stream) = 0;  // 07
 		virtual void     OnLoadGame(BSPathingStreamRead* stream) = 0;   // 08

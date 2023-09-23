@@ -19,20 +19,20 @@ namespace RE
 		~MovementPlannerArbiter() override;  // 00
 
 		// override (MovementArbiter)
-		const BSFixedString& GetPipelineStageName() const override;                                 // 01
-		const BSFixedString& GetArbiterName() const override;                                       // 02
-		MovementArbiterType  GetType() override;                                                    // 03
-		void                 SetMovementController(MovementControllerAI* controller) override;      // 04
-		void                 Activate() override;                                                   // 06
-		void                 SetProcessingOrder(BSPathingStreamSimpleBufferRead* buffer) override;  // 07
-		void                 CalculateMovementData(MovementArbitersContext& context) override;      // 08
-		void                 Unk_09(MovementArbitersContext& context) override;                     // 09
-		void                 RemoveMovementController() override;                                   // 0C
-		void                 OnSaveGame(BSPathingStreamWrite* saveBuffer) override;                 // 0D
-		void                 OnLoadGame(BSPathingStreamRead* loadBuffer) override;                  // 0E
-		void                 AddAgent(MovementAgent** agent) override;                              // 0F
-		void                 RemoveAgent(MovementAgent** agent) override;                           // 10
-		void                 ClearAgents() override;                                                // 11
+		const BSFixedString& GetPipelineStageName() const override;                                  // 01
+		const BSFixedString& GetArbiterName() const override;                                        // 02
+		MovementArbiterType  GetType() override;                                                     // 03
+		void                 SetMovementController(MovementControllerAI* controller) override;       // 04
+		void                 Activate() override;                                                    // 06
+		void                 Initialize(BSPathingStreamSimpleBufferRead* buffer) override;           // 07
+		void                 CalculateMovementData(MovementArbitersContext& context) override;       // 08
+		void                 UpdateMovementVirtual(UpdateMovementVirtualContext& context) override;  // 09
+		void                 RemoveMovementController() override;                                    // 0C
+		void                 OnSaveGame(BSPathingStreamWrite* saveBuffer) override;                  // 0D
+		void                 OnLoadGame(BSPathingStreamRead* loadBuffer) override;                   // 0E
+		void                 AddAgent(MovementAgent** agent) override;                               // 0F
+		void                 RemoveAgent(MovementAgent** agent) override;                            // 10
+		void                 ClearAgents() override;                                                 // 11
 
 		// override (IMovementPlannerSetArbitration)
 		void  SetMovementArbitrationVectorAdd(const BSTSmartPointer<MovementArbitrationVectorAdd>& arbitration) override;                      // 01

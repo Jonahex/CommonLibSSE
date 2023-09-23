@@ -9,7 +9,7 @@ namespace RE
 		using ValueType = Val;
 
 		// members
-		std::uint32_t actualSpeed;  // 00
+		Val           graphSpeed;   // 00
 		Val           actorHeight;  // 04
 		T*            type;         // ??
 	};

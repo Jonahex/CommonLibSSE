@@ -65,6 +65,13 @@ namespace RE
 		bool IsNonMotionDriven() override;            // 07
 		bool IsAllowRotation() override;              // 08
 
+		// override (IMovementSelectIdle)
+		bool SelectIdle(const PathingParameters& pathingParameters, ISelectIdleFilter* selectIdleFilter, IdleAnimationData& outIdleData) override;  // 01
+		bool EstimateRotationVelocityInIdle(const IdleAnimationData& idleData, NiPoint3& outRotationVelocity) const override;                       // 02
+		void PlayIdle(const BSFixedString& eventName, const Tweener& tweener, IMovementPlayIdleResult*& playIdleResult) override;                   // 03
+		void ClearIdles() override;                                                                                                                 // 04
+		bool HasIdleToPlay() const override;                                                                                                        // 05
+
 		// override (IMovementDirectControl)
 		void EnableDirectControl() override;                                                                // 01
 		void SetDirectControlAngle(const NiPoint3& angle) override;                                         // 02
@@ -96,23 +103,23 @@ namespace RE
 		virtual void OnMessage(const MovementMessage& message);  // 14
 
 		// members
-		BSSpinLock                 messageQueueLock;             // 150
-		BSTArray<MovementMessage*> messageQueue;                 // 158
-		BSTArray<WarpPoint>        warpQueue;                    // 170
-		BSTArray<void*>            unk188;                       // 188
-		BSSpinLock                 unk1A0;                       // 1A0
-		std::uint64_t              unk1A8;                       // 1A8
-		MovementMessage*           unk1B0;                       // 1B0
-		Actor*                     owner;                        // 1B8
-		State                      currentState;                 // 1C0
-		bool                       isFlying;                     // 1C4
-		bool                       isControlsDriven;             // 1C5
-		bool                       directControlEnabled;         // 1C6
-		bool                       plannerDirectControlEnabled;  // 1C7
-		bool                       isLowLevel;                   // 1C8
-		bool                       isHighLevel;                  // 1C9
-		bool                       isStaticPath;                 // 1CA
-		bool                       keepOffsetFromActor;          // 1CB
+		BSSpinLock                       messageQueueLock;             // 150
+		BSTArray<MovementMessage*>       messageQueue;                 // 158
+		BSTArray<WarpPoint>              warpQueue;                    // 170
+		BSTArray<void*>                  unk188;                       // 188
+		BSSpinLock                       unk1A0;                       // 1A0
+		std::uint64_t                    unk1A8;                       // 1A8
+		BSTSmartPointer<MovementMessage> playIdleMessage;              // 1B0
+		Actor*                           owner;                        // 1B8
+		State                            currentState;                 // 1C0
+		bool                             isFlying;                     // 1C4
+		bool                             isControlsDriven;             // 1C5
+		bool                             directControlEnabled;         // 1C6
+		bool                             plannerDirectControlEnabled;  // 1C7
+		bool                             isLowLevel;                   // 1C8
+		bool                             isHighLevel;                  // 1C9
+		bool                             isStaticPath;                 // 1CA
+		bool                             keepOffsetFromActor;          // 1CB
 	};
 	static_assert(sizeof(MovementControllerNPC) == 0x1D0);
 }

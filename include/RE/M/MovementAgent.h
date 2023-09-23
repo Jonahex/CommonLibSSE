@@ -62,7 +62,7 @@ namespace RE
 		virtual void                 SetMovementController(MovementControllerAI* controller);      // 04
 		virtual bool                 Unk_05();                                                     // 05
 		virtual void                 Activate();                                                   // 06
-		virtual void                 SetProcessingOrder(BSPathingStreamSimpleBufferRead* buffer);  // 07
+		virtual void                 Initialize(BSPathingStreamSimpleBufferRead* buffer);          // 07
 		virtual void                 ResetOwner();                                                 // 08
 		virtual void                 Deactivate();                                                 // 09
 		virtual void                 RemoveMovementController();                                   // 0A

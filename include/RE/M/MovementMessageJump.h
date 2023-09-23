@@ -20,6 +20,10 @@ namespace RE
 		void                 OnLoadGame(BSPathingStreamRead* stream) override;   // 03
 		IPathFollowerAction* GetPathFollowerAction() override;                   // 05
 
+		// override (IPathFollowerAction)
+		bool OnStopSlowingDown(IPathFollowerState::Context& context, float& outPathSpeed) override;                            // 02
+		bool OnStopMovingAlongPath(IPathFollowerState::Context& context, float& outPathParameter) override;                    // 03
+
 		// members
 		float jumpHeight;  // 18
 	};

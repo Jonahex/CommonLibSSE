@@ -27,7 +27,7 @@ namespace RE
 		public:
 			// members
 			BSTSmartPointer<MovementMessageActivateDoor> movementMessage;  // 30
-			NiPoint3                                     unk38;            // 38
+			NiPoint3                                     pathTangent;      // 38
 		};
 		static_assert(sizeof(DetailedPathingPoint) == 0x48);
 

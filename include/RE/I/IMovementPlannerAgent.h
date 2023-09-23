@@ -20,7 +20,7 @@ namespace RE
 		struct WeightedValue
 		{
 			float     weight;
-			ValueType value;   
+			ValueType value;
 		};
 
 		struct PlannerContext
@@ -38,9 +38,9 @@ namespace RE
 		~IMovementPlannerAgent() override;  // 00
 
 		// add
-		virtual const BSFixedString& GetPlannerAgentName() = 0;                                   // 01
-		virtual void                 PlanMovement(float deltaTime, PlannerContext& context) = 0;  // 02
-		virtual void                 Unk_03() = 0;                                                // 03 - nonempty only in MovementAgentPathFollowerFlight and MovementAgentPathFollowerVirtual, called in MovementPlannerArbiter::Unk_09
+		virtual const BSFixedString& GetPlannerAgentName() = 0;                                    // 01
+		virtual void                 PlanMovement(float* deltaTime, PlannerContext& context) = 0;  // 02
+		virtual void                 PlanMovementVirtual(float* deltaTime, bool&) = 0;             // 03 - nonempty only in MovementAgentPathFollowerFlight and MovementAgentPathFollowerVirtual
 	};
 	static_assert(sizeof(IMovementPlannerAgent) == 0x8);
 }

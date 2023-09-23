@@ -12,15 +12,16 @@ namespace RE
 		BSScrapArray<void> unk20;                        // 20
 		MovementVector     plannedMovementVector;        // 40
 		NiPoint3           plannedAngle;                 // 50
-		bool               unk5C;                        // 5C
-		void*              unk60;                        // 60
-		bool               unk68;                        // 68
+		bool               isMovingAlongPath;            // 5C
+		float              leftDistance;                 // 60
+		float              targetSpeed;                  // 64
+		bool               zeroTargetSpeedAllowed;       // 68
 		float              deltaTime;                    // 6C
-		float              deceleration;                 // 70
-		float              forwardAcceleration;          // 74
+		float              forwardAcceleration;          // 70
+		float              deceleration;                 // 74
 		float              minExpectedRotationSpeed;     // 78
 		float              normalExpectedRotationSpeed;  // 7C
-		float              currentRotationSpeed;         // 80
+		float              angularAcceleration;          // 80
 		float              unk84;                        // 84
 		MovementData       handledMovementData;          // 88
 		float              unkA4;                        // A4

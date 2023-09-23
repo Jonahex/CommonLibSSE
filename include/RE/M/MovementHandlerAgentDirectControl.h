@@ -21,13 +21,13 @@ namespace RE
 		const BSFixedString& GetName() const override;                                              // 01
 		MovementAgentType    GetType() override;                                                    // 02
 		void                 SetMovementController(MovementControllerAI* controller) override;      // 04
-		void                 SetProcessingOrder(BSPathingStreamSimpleBufferRead* buffer) override;  // 07
+		void                 Initialize(BSPathingStreamSimpleBufferRead* buffer) override;          // 07
 		void                 RemoveMovementController() override;                                   // 0A
 
 		// override (IMovementHandlerAgent)
-		const BSFixedString& GetHandlerAgentName() override;                                     // 01
-		void                 HandleMovement(float deltaTime, HandlerContext& context) override;  // 02
-		void                 Unk_03() override;                                                  // 03
+		const BSFixedString& GetHandlerAgentName() override;                            // 01
+		void                 HandleMovement(HandlerContext& context) override;          // 02
+		void                 HandleMovementVirtual(float* deltaTime) override;          // 03
 
 		// members
 		MovementData          movementData;                  // 20

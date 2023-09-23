@@ -23,9 +23,9 @@ namespace RE
 		void                 RemoveMovementController() override;                               // 0A
 
 		// override (IMovementPlannerAgent)
-		const BSFixedString& GetPlannerAgentName() override;                                   // 01
-		void                 PlanMovement(float deltaTime, PlannerContext& context) override;  // 02
-		void                 Unk_03() override;                                                // 03
+		const BSFixedString& GetPlannerAgentName() override;                                    // 01
+		void                 PlanMovement(float* deltaTime, PlannerContext& context) override;  // 02
+		void                 PlanMovementVirtual(float* deltaTime, bool&) override;             // 03
 
 		// members
 		MovementControllerAI* controller;            // 20

@@ -317,7 +317,7 @@ namespace RE
 		bool                                                  unk46A;                                    // 46A
 		bool                                                  deathDialogue;                             // 46B
 		bool                                                  fistsDrawn;                                // 46C
-		bool                                                  canUpdateMovementGraphVariables;           // 46D
+		bool                                                  isAnimationDriven;                         // 46D
 		bool                                                  unk46E;                                    // 46E
 		bool                                                  isAllowRotation;                           // 46F
 		bool                                                  doorActivated;                             // 470
