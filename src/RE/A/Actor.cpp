@@ -559,6 +559,13 @@ namespace RE
 		return func(this);
 	}
 
+	float Actor::GetTotalCarryWeight()
+	{
+		using func_t = decltype(&Actor::GetTotalCarryWeight);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36456, 37452) };
+		return func(this);
+	}
+
 	TESFaction* Actor::GetVendorFaction()
 	{
 		if (!vendorFaction) {
