@@ -14,7 +14,7 @@ namespace RE
 		virtual ~ISelectIdleFilter();  // 00
 
 		// add
-		virtual uint32_t FilterIdle(const BSScrapArray<IdleAnimationData>) = 0;  // 01                                                                                                      // 05
+		virtual uint32_t FilterIdle(const BSScrapArray<IdleAnimationData>& idles) = 0;  // 01                                                                                                      // 05
 	};
 	static_assert(sizeof(ISelectIdleFilter) == 0x8);
 }

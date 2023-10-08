@@ -24,10 +24,10 @@ namespace RE
 		public:
 			// members
 			std::uint8_t           unk00;          // 00
-			std::uint8_t           unk01;          // 01
+			bool                   shadowLight;    // 01
 			bool                   portalStrict;   // 02
 			bool                   affectLand;     // 03
-			std::uint8_t           unk04;          // 04
+			bool                   affectWater;    // 04
 			bool                   neverFades;     // 05
 			float                  fov;            // 08
 			float                  falloff;        // 0C

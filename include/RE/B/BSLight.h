@@ -20,31 +20,31 @@ namespace RE
 
 		struct ShapeData
 		{
-			std::uint64_t         unk00;       // 00
-			std::uint64_t         unk08;       // 08
-			NiPointer<BSTriShape> fenceShape;  // 10
+			ShapeData*            next;   // 00
+			ShapeData*            prev;   // 08
+			NiPointer<BSTriShape> shape;  // 10
 		};
 		static_assert(sizeof(ShapeData) == 0x18);
 
-		struct Data
+		struct ShapeList
 		{
-			std::uint64_t unk00;  // 00
-			std::uint64_t unk08;  // 08
-			std::uint32_t unk10;  // 10
-			ShapeData*    data;   // 18
+			ShapeData*    firstShape;    // 00
+			ShapeData*    lastShape;     // 08
+			std::uint32_t shapeCount;    // 10
+			ShapeData*    defaultShape;  // 18
 		};
-		static_assert(sizeof(Data) == 0x20);
+		static_assert(sizeof(ShapeList) == 0x20);
 
 		~BSLight() override;  // 00
 
 		// add
-		virtual bool Unk_02(NiLight* a_light);  // 02
-		virtual bool Unk_03();                  // 03
+		virtual void SetNiLight(NiLight* a_light);  // 02
+		virtual bool Unk_03();                      // 03
 
 		// members
 		std::uint32_t          unk010;          // 010
 		float                  lodDimmer;       // 014
-		Data                   unk018;          // 018
+		ShapeList              shapeList;       // 018
 		std::uint64_t          unk038;          // 038
 		std::uint32_t          unk040;          // 040
 		bool                   pointLight;      // 044
@@ -56,10 +56,10 @@ namespace RE
 		std::uint32_t          unk05C;          // 05C
 		std::uint8_t           unk060;          // 060
 		bool                   affectLand;      // 061
-		std::uint8_t           unk062;          // 062
+		bool                   affectWater;     // 062
 		bool                   neverFades;      // 063
 		std::uint32_t          unk064;          // 064
-		std::uint64_t          unk068;          // 068
+		ShapeData*             pivotShape;      // 068
 		std::uint8_t           unk070[96];      // 070
 		std::uint8_t           unk0D0;          // 0D0
 		std::uint8_t           pad0D1;          // 0D1

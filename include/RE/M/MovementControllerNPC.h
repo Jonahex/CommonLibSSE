@@ -103,23 +103,23 @@ namespace RE
 		virtual void OnMessage(const MovementMessage& message);  // 14
 
 		// members
-		BSSpinLock                       messageQueueLock;             // 150
-		BSTArray<MovementMessage*>       messageQueue;                 // 158
-		BSTArray<WarpPoint>              warpQueue;                    // 170
-		BSTArray<void*>                  unk188;                       // 188
-		BSSpinLock                       unk1A0;                       // 1A0
-		std::uint64_t                    unk1A8;                       // 1A8
-		BSTSmartPointer<MovementMessage> playIdleMessage;              // 1B0
-		Actor*                           owner;                        // 1B8
-		State                            currentState;                 // 1C0
-		bool                             isFlying;                     // 1C4
-		bool                             isControlsDriven;             // 1C5
-		bool                             directControlEnabled;         // 1C6
-		bool                             plannerDirectControlEnabled;  // 1C7
-		bool                             isLowLevel;                   // 1C8
-		bool                             isHighLevel;                  // 1C9
-		bool                             isStaticPath;                 // 1CA
-		bool                             keepOffsetFromActor;          // 1CB
+		BSSpinLock                             messageQueueLock;             // 150
+		BSTArray<MovementMessage*>             messageQueue;                 // 158
+		BSTArray<WarpPoint>                    warpQueue;                    // 170
+		BSTArray<void*>                        unk188;                       // 188
+		BSSpinLock                             unk1A0;                       // 1A0
+		std::uint64_t                          unk1A8;                       // 1A8
+		BSTSmartPointer<MovementMessage>       playIdleMessage;              // 1B0
+		Actor*                                 owner;                        // 1B8
+		stl::enumeration<State, std::uint32_t> currentState;                 // 1C0
+		bool                                   isFlying;                     // 1C4
+		bool                                   isControlsDriven;             // 1C5
+		bool                                   directControlEnabled;         // 1C6
+		bool                                   plannerDirectControlEnabled;  // 1C7
+		bool                                   isLowLevel;                   // 1C8
+		bool                                   isHighLevel;                  // 1C9
+		bool                                   isStaticPath;                 // 1CA
+		bool                                   keepOffsetFromActor;          // 1CB
 	};
 	static_assert(sizeof(MovementControllerNPC) == 0x1D0);
 }
