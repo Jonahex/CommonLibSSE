@@ -13,6 +13,12 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_BSFadeNode;
 		inline static constexpr auto Ni_RTTI = NiRTTI_BSFadeNode;
 
+		static BSFadeNode* GetFadeNodeAnim()
+		{
+			REL::Relocation<BSFadeNode**> node{ RELOCATION_ID(527632, 414561) };
+			return *node;
+		}
+
 		~BSFadeNode() override;  // 00
 
 		// override (NiNode)
@@ -32,22 +38,22 @@ namespace RE
 		virtual BSLeafAnimNode* AsLeafAnimNode();  // 3F - { return 0; }
 
 		// members
-		float         unk128;       // 128
-		float         unk12C;       // 12C
-		float         currentFade;  // 130
-		std::uint32_t unk134;       // 134
-		std::uint32_t unk138;       // 138
-		std::uint32_t unk13C;       // 13C
-		float         unk140;       // 140
-		std::uint32_t unk144;       // 144
-		std::uint32_t unk148;       // 148
-		float         unk14C;       // 14C
-		std::uint16_t unk150;       // 150
-		std::uint8_t  unk152;       // 152
-		std::uint8_t  unk153;       // 153
-		std::uint8_t  unk154;       // 154
-		std::uint8_t  unk155;       // 155
-		std::uint16_t unk156;       // 156
+		float         unk128;            // 128
+		float         unk12C;            // 12C
+		float         currentFade;       // 130
+		std::uint32_t unk134;            // 134
+		std::uint32_t unk138;            // 138
+		std::uint32_t unk13C;            // 13C
+		float         unk140;            // 140
+		float         currentDistance;   // 144
+		float         previousDistance;  // 148
+		float         unk14C;            // 14C
+		std::uint16_t unk150;            // 150
+		std::uint8_t  unk152;            // 152
+		std::uint8_t  unk153;            // 153
+		std::uint8_t  unk154;            // 154
+		std::uint8_t  unk155;            // 155
+		std::uint16_t unk156;            // 156
 	};
 	static_assert(sizeof(BSFadeNode) == 0x158);
 }

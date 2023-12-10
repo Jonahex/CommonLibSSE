@@ -25,4 +25,34 @@ namespace RE
 	bool          LookupReferenceByHandle(const RefHandle& a_handle, NiPointer<TESObjectREFR>& a_refrOut);
 	void          PlaySound(const char* a_editorID);
 	void          ShakeCamera(float a_strength, const NiPoint3& a_position, float a_duration);
+
+	class DisplaySettingsHelper
+	{
+	public:
+		const Setting* bEnableImprovedSnow = nullptr;
+		const Setting* bEnableStippleFade = nullptr;
+		const Setting* bLodZPrepass = nullptr;
+		const Setting* bSimpleLighting = nullptr;
+
+		const Setting* iEnableShadowCastingFlag = nullptr;
+
+		DisplaySettingsHelper();
+	};
+	static inline const DisplaySettingsHelper DisplaySettingsHelperInstance;
+
+	class LightingShaderSettingsHelper
+	{
+	public:
+		const Setting* fSpecularLODFadeStart = nullptr;
+		const Setting* fSpecularLODFadeEnd = nullptr;
+		const Setting* fEnvmapLODFadeStart = nullptr;
+		const Setting* fEnvmapLODFadeEnd = nullptr;
+		const Setting* fDecalLODFadeStart = nullptr;
+		const Setting* fDecalLODFadeEnd = nullptr;
+		const Setting* fRefractionLODFadeStart = nullptr;
+		const Setting* fRefractionLODFadeEnd = nullptr;
+
+		LightingShaderSettingsHelper();
+	};
+	static inline const LightingShaderSettingsHelper LightingShaderSettingsHelperInstance;
 }

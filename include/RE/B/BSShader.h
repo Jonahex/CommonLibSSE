@@ -1,6 +1,8 @@
 #pragma once
 
 #include "RE/B/BSReloadShaderI.h"
+#include "RE/B/BSTHashMap.h"
+#include "RE/N/NiAccumulator.h"
 #include "RE/N/NiBoneMatrixSetterI.h"
 #include "RE/N/NiRefObject.h"
 
@@ -15,6 +17,13 @@ namespace RE
 
 	namespace BSGraphics
 	{
+		enum class ConstantGroupLevel
+		{
+			PerTechnique,
+			PerMaterial,
+			PerGeometry,
+		};
+
 		class ConstantGroup
 		{
 		public:
@@ -106,12 +115,12 @@ namespace RE
 		~BSShader() override;  // 00
 
 		// add
-		virtual bool SetupTechnique(std::uint32_t a_technique) = 0;                                              // 02
-		virtual void RestoreTechnique(std::uint32_t a_technique) = 0;                                            // 03
-		virtual void SetupMaterial(const BSShaderMaterial* a_material);                                          // 04
-		virtual void RestoreMaterial(const BSShaderMaterial* a_material);                                        // 05
-		virtual void SetupGeometry(BSRenderPass* a_currentPass, std::uint32_t a_flags) = 0;                      // 06
-		virtual void RestoreGeometry(BSRenderPass* a_currentPass, std::uint32_t a_renderFlags) = 0;              // 07
+		virtual bool SetupTechnique(std::uint32_t globalTechnique) = 0;                                          // 02
+		virtual void RestoreTechnique(std::uint32_t globalTechnique) = 0;                                        // 03
+		virtual void SetupMaterial(const BSShaderMaterial* material);                                            // 04
+		virtual void RestoreMaterial(const BSShaderMaterial* material);                                          // 05
+		virtual void SetupGeometry(BSRenderPass* pass, RenderFlags flags) = 0;                                   // 06
+		virtual void RestoreGeometry(BSRenderPass* pass, RenderFlags flags) = 0;                                 // 07
 		virtual void GetTechniqueName(std::uint32_t a_techniqueID, char* a_buffer, std::uint32_t a_bufferSize);  // 08
 		virtual void ReloadShaders(bool a_clear);                                                                // 09
 
@@ -120,6 +129,13 @@ namespace RE
 		BSShaderTechniqueIDMap::MapType<BSGraphics::VertexShader*> vertexShaders;  // 28
 		BSShaderTechniqueIDMap::MapType<BSGraphics::PixelShader*>  pixelShaders;   // 58
 		const char*                                                fxpFilename;    // 88
+
+	protected:
+		bool BeginTechnique(uint32_t vertexDescriptor, uint32_t pixelDescriptor,
+			bool skipPixelShader);
+		void EndTechnique();
+
+		inline static thread_local uint32_t CurrentTechnique = 0;
 	};
 	static_assert(sizeof(BSShader) == 0x90);
 }

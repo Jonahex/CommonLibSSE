@@ -8,6 +8,7 @@
 
 namespace RE
 {
+	class BSShaderAccumulator;
 	class ShadowSceneNode;
 	class NiTexture;
 
@@ -80,6 +81,18 @@ namespace RE
 			using func_t = decltype(&BSShaderManager::GetTexture);
 			REL::Relocation<func_t> func{ RELOCATION_ID(98986, 105640) };
 			return func(a_path, a_demand, a_textureOut, a_isHeightMap);
+		}
+
+		static BSShaderAccumulator* GetCurrentAccumulator()
+		{
+			REL::Relocation<BSShaderAccumulator**> accumulator{ RELOCATION_ID(527650, 414600) };
+			return *accumulator;
+		}
+
+		static RenderMode GetCurrentRenderMode()
+		{
+			REL::Relocation<RenderMode*> renderMode{ RELOCATION_ID(527601, 414601) };
+			return *renderMode;
 		}
 	};
 }

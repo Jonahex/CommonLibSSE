@@ -7,7 +7,13 @@ namespace RE
 {
 	namespace BSGraphics
 	{
-		class Texture;
+		struct Texture
+		{
+			ID3D11Texture2D*          texture;
+			uint64_t                  unk08;
+			ID3D11ShaderResourceView* resourceView;
+		};
+		static_assert(sizeof(Texture) == 0x18);
 	}
 
 	namespace BSResource

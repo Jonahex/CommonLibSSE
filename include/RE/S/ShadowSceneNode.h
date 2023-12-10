@@ -67,7 +67,7 @@ namespace RE
 		NiPointer<BSFogProperty>        fogProperty;         // 220
 		BSPortalGraph*                  portalGraph;         // 228
 		BSTArray<BSShadowLight*>        shadowCasterLights;  // 230
-		std::uint64_t                   unk248;              // 248
+		std::uint32_t                   unk248;              // 248
 		std::uint64_t                   unk250;              // 250
 		std::uint64_t                   unk258;              // 258
 		std::uint64_t                   unk260;              // 260

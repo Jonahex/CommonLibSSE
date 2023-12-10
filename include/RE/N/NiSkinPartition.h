@@ -5,10 +5,10 @@
 #include "RE/N/NiObject.h"
 #include "RE/V/VertexDesc.h"
 
+struct ID3D11Buffer;
+
 namespace RE
 {
-	struct ID3D11Buffer;
-
 	namespace BSGraphics
 	{
 		struct TriShape

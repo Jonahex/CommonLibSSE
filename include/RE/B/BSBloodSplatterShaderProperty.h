@@ -27,12 +27,12 @@ namespace RE
 		~BSBloodSplatterShaderProperty() override;  // 00
 
 		// override (BSShaderProperty)
-		const NiRTTI*    GetRTTI() const override;                                                                                    // 02
-		NiObject*        CreateClone(NiCloningProcess& a_cloning) override;                                                           // 17
-		RenderPassArray* GetRenderPasses(BSGeometry* a_geometry, std::uint32_t a_arg2, BSShaderAccumulator* a_accumulator) override;  // 2A
-		std::int32_t     ForEachTexture(ForEachVisitor& a_visitor) override;                                                          // 33
-		std::int32_t     QShader() override;                                                                                          // 35 - { return 12 }
-		NiSourceTexture* GetBaseTexture() override;                                                                                   // 37 - { return bloodColorTexture; }
+		const NiRTTI*    GetRTTI() const override;                                                                                 // 02
+		NiObject*        CreateClone(NiCloningProcess& a_cloning) override;                                                        // 17
+		RenderPassArray* GetRenderPasses(BSGeometry* geometry, RenderMode renderMode, BSShaderAccumulator* accumulator) override;  // 2A
+		std::int32_t     ForEachTexture(ForEachVisitor& a_visitor) override;                                                       // 33
+		std::int32_t     QShader() override;                                                                                       // 35 - { return 12 }
+		NiSourceTexture* GetBaseTexture() override;                                                                                // 37 - { return bloodColorTexture; }
 
 		// members
 		NiPointer<NiSourceTexture> bloodTextures[kTotal];  // 088

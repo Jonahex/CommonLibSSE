@@ -39,7 +39,7 @@ namespace RE
 
 		// add
 		virtual void SetNiLight(NiLight* a_light);  // 02
-		virtual bool Unk_03();                      // 03
+		virtual bool IsShadowLight();               // 03
 
 		// members
 		std::uint32_t          unk010;          // 010

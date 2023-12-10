@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RE/B/BSShader.h"
 #include "RE/B/BSShaderRenderTargets.h"
 #include "RE/N/NiTexture.h"
 #include "RE/R/RenderTargetData.h"
@@ -120,10 +121,18 @@ namespace RE
 			[[nodiscard]] NiTexture::RendererData* CreateRenderTexture(std::uint32_t a_width, std::uint32_t a_height);
 			void                                   SaveRenderTargetToFile(RENDER_TARGET a_renderTarget, const char* a_filePath, TextureFileFormat a_textureFileFormat);
 
-			[[nodiscard]] static RendererData*   GetRendererData();
-			[[nodiscard]] static ScreenSize      GetScreenSize();
-			[[nodiscard]] static ID3D11Device*   GetDevice();
-			[[nodiscard]] static RendererWindow* GetCurrentRenderWindow();
+			[[nodiscard]] static RendererData*        GetRendererData();
+			[[nodiscard]] static ScreenSize           GetScreenSize();
+			[[nodiscard]] static ID3D11Device*        GetDevice();
+			[[nodiscard]] static ID3D11DeviceContext* GetDeviceContext();
+			[[nodiscard]] static RendererWindow*      GetCurrentRenderWindow();
+
+			static void PrepareVSConstantGroup(ConstantGroupLevel level);
+			static void PreparePSConstantGroup(ConstantGroupLevel level);
+			static void FlushVSConstantGroup(ConstantGroupLevel level);
+			static void FlushPSConstantGroup(ConstantGroupLevel level);
+			static void ApplyVSConstantGroup(ConstantGroupLevel level);
+			static void ApplyPSConstantGroup(ConstantGroupLevel level);
 
 		private:
 			void Begin(std::uint32_t windowID);

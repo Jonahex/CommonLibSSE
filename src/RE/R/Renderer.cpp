@@ -1,5 +1,7 @@
 #include "RE/R/Renderer.h"
 
+#include "RE/R/RendererState.h"
+
 namespace RE
 {
 	namespace BSGraphics
@@ -131,14 +133,92 @@ namespace RE
 		[[nodiscard]] ID3D11Device* Renderer::GetDevice()
 		{
 			// Location is a global pointer to the device in the Renderer Data
-			REL::Relocation<ID3D11Device**> device{ RELOCATION_ID(524729, 411348) };
+			static const auto device =
+				REL::Relocation<ID3D11Device**>(RE::Offset::D3D11Device);
 			return *device;
+		}
+		[[nodiscard]] ID3D11DeviceContext* Renderer::GetDeviceContext()
+		{
+			// Location is a global pointer to the device context in the Renderer Data
+			static const auto deviceContext =
+				REL::Relocation<ID3D11DeviceContext**>(RE::Offset::D3D11DeviceContext);
+			return *deviceContext;
 		}
 		[[nodiscard]] RendererWindow* Renderer::GetCurrentRenderWindow()
 		{
 			// Location is a global pointer to the current renderWindow (which is not necessarily at index 0 in the renderWindows array)
 			REL::Relocation<RendererWindow**> renderWindow{ RELOCATION_ID(524730, 411349) };
 			return *renderWindow;
+		}
+
+		void Renderer::PrepareVSConstantGroup(ConstantGroupLevel level)
+		{
+			auto* rendererState = RendererState::GetSingleton();
+			auto* deviceContext = GetDeviceContext();
+
+			auto& group = rendererState->GetVSConstantGroup(level);
+			if (group.buffer != nullptr)
+			{
+				D3D11_MAPPED_SUBRESOURCE resource;
+				deviceContext->Map(group.buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
+				group.data = resource.pData;
+			}
+		}
+
+		void Renderer::PreparePSConstantGroup(ConstantGroupLevel level)
+		{
+			auto* rendererState = RendererState::GetSingleton();
+			auto* deviceContext = GetDeviceContext();
+
+			auto&                    group = rendererState->GetPSConstantGroup(level);
+			if (group.buffer != nullptr)
+			{
+				D3D11_MAPPED_SUBRESOURCE resource;
+				deviceContext->Map(group.buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
+				group.data = resource.pData;
+			}
+		}
+
+		void Renderer::FlushVSConstantGroup(ConstantGroupLevel level)
+		{
+			auto* rendererState = RendererState::GetSingleton();
+			auto* deviceContext = GetDeviceContext();
+
+			auto& group = rendererState->GetVSConstantGroup(level);
+			if (group.buffer != nullptr) 
+			{
+				deviceContext->Unmap(group.buffer, 0);
+			}
+		}
+
+		void Renderer::FlushPSConstantGroup(ConstantGroupLevel level)
+		{
+			auto* rendererState = RendererState::GetSingleton();
+			auto* deviceContext = GetDeviceContext();
+
+			auto& group = rendererState->GetPSConstantGroup(level);
+			if (group.buffer != nullptr) 
+			{
+				deviceContext->Unmap(group.buffer, 0);
+			}
+		}
+
+		void Renderer::ApplyVSConstantGroup(ConstantGroupLevel level)
+		{
+			auto* rendererState = RendererState::GetSingleton();
+			auto* deviceContext = GetDeviceContext();
+
+			auto& group = rendererState->GetVSConstantGroup(level);
+			deviceContext->VSSetConstantBuffers(static_cast<UINT>(level), 1, &group.buffer);
+		}
+
+		void Renderer::ApplyPSConstantGroup(ConstantGroupLevel level)
+		{
+			auto* rendererState = RendererState::GetSingleton();
+			auto* deviceContext = GetDeviceContext();
+
+			auto& group = rendererState->GetPSConstantGroup(level);
+			deviceContext->PSSetConstantBuffers(static_cast<UINT>(level), 1, &group.buffer);
 		}
 	}
 }

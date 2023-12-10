@@ -9,7 +9,9 @@ namespace RE
 			kClampSClampT = 0,
 			kClampSWrapT = 1,
 			kWrapSClampT = 2,
-			kWrapSWrapT = 3
+			kWrapSWrapT = 3,
+			kBorderSBorderT = 4,
+			kMirrorSMirrorT = 5,
 		};
 	}
 }

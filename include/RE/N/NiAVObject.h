@@ -80,7 +80,8 @@ namespace RE
 			kMaterialsApplied = 1 << 23,
 			kHighDetail = 1 << 24,
 			kForceUpdate = 1 << 25,
-			kPreProcessedNode = 1 << 26
+			kPreProcessedNode = 1 << 26,
+			Unk27 = 1 << 27,
 		};
 
 		~NiAVObject() override;  // 00

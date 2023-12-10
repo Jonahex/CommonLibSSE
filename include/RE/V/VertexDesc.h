@@ -36,7 +36,8 @@ namespace RE
 				VF_LANDDATA = 1 << VA_LANDDATA,
 				VF_EYEDATA = 1 << VA_EYEDATA,
 				VF_INSTANCEDATA = 1 << VA_INSTANCEDATA,
-				VF_FULLPREC = 0x400
+				VF_FULLPREC = 0x400,
+				Unk800 = 0x800,
 			};
 
 			enum Masks : std::uint64_t

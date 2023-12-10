@@ -108,4 +108,23 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(32275, 33012) };
 		return func(a_strength, a_position, a_duration);
 	}
+
+	DisplaySettingsHelper::DisplaySettingsHelper() 
+		: bEnableImprovedSnow(GetINISetting("bEnableImprovedSnow:Display"))
+		, bEnableStippleFade(GetINISetting("bEnableStippleFade:Display"))
+		, bLodZPrepass(GetINISetting("bLodZPrepass:Display"))
+		, bSimpleLighting(GetINISetting("bSimpleLighting:Display"))
+		, iEnableShadowCastingFlag(GetINISetting("iEnableShadowCastingFlag:Display"))
+	{}
+
+	LightingShaderSettingsHelper::LightingShaderSettingsHelper() 
+		: fSpecularLODFadeStart(GetINISetting("fSpecularLODFadeStart:LightingShader"))
+		, fSpecularLODFadeEnd(GetINISetting("fSpecularLODFadeEnd:LightingShader"))
+		, fEnvmapLODFadeStart(GetINISetting("fEnvmapLODFadeStart:LightingShader"))
+		, fEnvmapLODFadeEnd(GetINISetting("fEnvmapLODFadeEnd:LightingShader"))
+		, fDecalLODFadeStart(GetINISetting("fDecalLODFadeStart:LightingShader"))
+		, fDecalLODFadeEnd(GetINISetting("fDecalLODFadeEnd:LightingShader"))
+		, fRefractionLODFadeStart(GetINISetting("fRefractionLODFadeStart:LightingShader"))
+		, fRefractionLODFadeEnd(GetINISetting("fRefractionLODFadeEnd:LightingShader"))
+	{}
 }

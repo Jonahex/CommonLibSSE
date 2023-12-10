@@ -1,17 +1,88 @@
 #pragma once
 
 #include "RE/B/BSEffectShaderData.h"
+#include "RE/B/BSShaderAccumulator.h"
 #include "RE/B/BSShaderMaterial.h"
 #include "RE/B/BSTSmartPointer.h"
 #include "RE/N/NiShadeProperty.h"
 
 namespace RE
 {
+	class BSLight;
 	class BSRenderPass;
+	class BSShader;
 	class BSShaderAccumulator;
 	class BSShaderMaterial;
 	class BSShaderPropertyLightData;
+	class NiAlphaProperty;
 	class NiSourceTexture;
+
+	enum class ShaderTechnique
+	{
+		// Sky
+		SkySunOcclude = 0x2,
+
+		// Grass
+		GrassNoAlphaDirOnlyFlatLit = 0x3,
+		GrassNoAlphaDirOnlyFlatLitSlope = 0x5,
+		GrassNoAlphaDirOnlyVertLitSlope = 0x6,
+		GrassNoAlphaDirOnlyFlatLitBillboard = 0x13,
+		GrassNoAlphaDirOnlyFlatLitSlopeBillboard = 0x14,
+
+		// Utility
+		UtilityGeneralStart = 0x2B,
+
+		// Effect
+		EffectGeneralStart = 0x4000002C,
+
+		// Lighting
+		LightingGeneralStart = 0x4800002D,
+
+		// DistantTree
+		DistantTreeDistantTreeBlock = 0x5C00002E,
+		DistantTreeDepth = 0x5C00002F,
+
+		// Grass
+		GrassDirOnlyFlatLit = 0x5C000030,
+		GrassDirOnlyFlatLitSlope = 0x5C000032,
+		GrassDirOnlyVertLitSlope = 0x5C000033,
+		GrassDirOnlyFlatLitBillboard = 0x5C000040,
+		GrassDirOnlyFlatLitSlopeBillboard = 0x5C000041,
+		GrassRenderDepth = 0x5C00005C,
+
+		// Sky
+		SkySky = 0x5C00005E,
+		SkyMoonAndStarsMask = 0x5C00005F,
+		SkyStars = 0x5C000060,
+		SkyTexture = 0x5C000061,
+		SkyClouds = 0x5C000062,
+		SkyCloudsLerp = 0x5C000063,
+		SkyCloudsFade = 0x5C000064,
+
+		// Particle
+		ParticleParticles = 0x5C000065,
+		ParticleParticlesGryColorAlpha = 0x5C000066,
+		ParticleParticlesGryColor = 0x5C000067,
+		ParticleParticlesGryAlpha = 0x5C000068,
+		ParticleEnvCubeSnow = 0x5C000069,
+		ParticleEnvCubeRain = 0x5C00006A,
+
+		// Water
+		WaterSimple = 0x5C00006B,
+		WaterSimpleVc = 0x5C00006C,
+		WaterStencil = 0x5C00006D,
+		WaterStencilVc = 0x5C00006E,
+		WaterDisplacementStencil = 0x5C00006F,
+		WaterDisplacementStencilVc = 0x5C000070,
+		WaterGeneralStart = 0x5C000071,
+
+		// Sky
+		SkySunGlare = 0x5C006072,
+
+		// BloodSplater
+		BloodSplaterFlare = 0x5C006073,
+		BloodSplaterSplatter = 0x5C006074,
+	};
 
 	class BSShaderProperty : public NiShadeProperty
 	{
@@ -35,9 +106,19 @@ namespace RE
 
 		struct RenderPassArray
 		{
-			BSRenderPass* head;  // 0
+			void          Clear();
+			void          ClearAfter(BSRenderPass* pass);
+			BSRenderPass* EmplacePass(BSShader* shader, BSShaderProperty* property, BSGeometry* geometry, 
+				uint32_t technique, uint8_t numLights = 0, BSLight* light0 = nullptr, BSLight* light1 = nullptr, 
+				BSLight* light2 = nullptr, BSLight* light3 = nullptr);
+			BSRenderPass* SetPass(BSRenderPass* pass, BSShader* shader, BSShaderProperty* property, BSGeometry* geometry,
+				uint32_t technique);
+			BSRenderPass* MoveHead(RenderPassArray& that);
+
+			BSRenderPass* head;  // 00
+			uint64_t      unk08; // 08
 		};
-		static_assert(sizeof(RenderPassArray) == 0x8);
+		static_assert(sizeof(RenderPassArray) == 0x10);
 
 		enum class EShaderPropertyFlag : std::uint64_t
 		{
@@ -190,45 +271,48 @@ namespace RE
 		void          Unk_29(void) override;                              // 29
 
 		// add
-		virtual RenderPassArray*               GetRenderPasses(BSGeometry* a_geometry, std::uint32_t a_arg2, BSShaderAccumulator* a_accumulator) = 0;  // 2A
-		virtual void                           Unk_2B(void);                                                                                           // 2B - { return 0; }
-		virtual void                           Unk_2C(void);                                                                                           // 2C - { return 0; }
-		virtual void                           Unk_2D(void);                                                                                           // 2D - { return 0; }
-		virtual void                           Unk_2E(void);                                                                                           // 2E - { return 1; }
-		virtual void                           Unk_2F(void);                                                                                           // 2F - { return 0; }
-		virtual bool                           CanMerge(const BSShaderProperty* a_other);                                                              // 30
-		virtual void                           SetMaterialAlpha(float a_alpha);                                                                        // 31 - { return; }
-		[[nodiscard]] virtual float            QMaterialAlpha();                                                                                       // 32 - { return 1.0; }
-		virtual std::int32_t                   ForEachTexture(ForEachVisitor& a_visitor);                                                              // 33 - { return 1; }
-		virtual void                           DoClearRenderPasses();                                                                                  // 34
-		virtual std::int32_t                   QShader();                                                                                              // 35 - { return 0; }
-		virtual void                           Unk_36(void);                                                                                           // 36 - { return 0; }
-		[[nodiscard]] virtual NiSourceTexture* GetBaseTexture();                                                                                       // 37 - { return 0; }
-		virtual void                           Unk_38(void);                                                                                           // 38 - { return 0; }
-		[[nodiscard]] virtual bool             AcceptsEffectData() const;                                                                              // 39 - { return false; }
-		virtual void                           Unk_3A(void);                                                                                           // 3A - { return; }
-		virtual void                           Unk_3B(void);                                                                                           // 3B - { return; }
-		virtual void                           Unk_3C(void);                                                                                           // 3C - { return 0; }
-		virtual std::uint32_t                  DetermineUtilityShaderDecl();                                                                           // 3D - { return 0; }
-		virtual BSShaderMaterial::Type         GetMaterialType();                                                                                      // 3E - { return 0; }
+		virtual RenderPassArray*               GetRenderPasses(BSGeometry* geometry, RenderMode renderMode, BSShaderAccumulator* accumulator) = 0;                       // 2A
+		virtual RenderPassArray*               GetDepthAndShadowmapRenderPasses(BSGeometry* geometry, RenderMode renderMode, BSShaderAccumulator* accumulator);          // 2B - { return 0; }
+		virtual RenderPassArray*               GetLocalMapRenderPasses(BSGeometry* geometry, RenderMode renderMode, BSShaderAccumulator* accumulator);                   // 2C - { return 0; }
+		virtual RenderPassArray*               GetPrecipitationOcclusionMapRenderPasses(BSGeometry* geometry, RenderMode renderMode, BSShaderAccumulator* accumulator);  // 2D - { return 0; }
+		virtual void                           Unk_2E(void);                                                                                                             // 2E - { return 1; }
+		virtual BSRenderPass*                  GetDepthRenderPass(BSGeometry* geometry);                                                                                 // 2F - { return 0; }
+		virtual bool                           CanMerge(const BSShaderProperty* a_other);                                                                                // 30
+		virtual void                           SetMaterialAlpha(float a_alpha);                                                                                          // 31 - { return; }
+		[[nodiscard]] virtual float            QMaterialAlpha();                                                                                                         // 32 - { return 1.0; }
+		virtual std::int32_t                   ForEachTexture(ForEachVisitor& a_visitor);                                                                                // 33 - { return 1; }
+		virtual void                           DoClearRenderPasses();                                                                                                    // 34
+		virtual std::int32_t                   QShader();                                                                                                                // 35 - { return 0; }
+		virtual void                           Unk_36(void);                                                                                                             // 36 - { return 0; }
+		[[nodiscard]] virtual NiSourceTexture* GetBaseTexture();                                                                                                         // 37 - { return 0; }
+		virtual RenderPassArray*               Unk_38();                                                                                                                 // 38 - { return 0; }
+		[[nodiscard]] virtual bool             AcceptsEffectData() const;                                                                                                // 39 - { return false; }
+		virtual void                           Unk_3A(void);                                                                                                             // 3A - { return; }
+		virtual void                           Unk_3B(void);                                                                                                             // 3B - { return; }
+		virtual void                           Unk_3C(void);                                                                                                             // 3C - { return 0; }
+		virtual std::uint32_t                  DetermineUtilityShaderDecl();                                                                                             // 3D - { return 0; }
+		virtual BSShaderMaterial::Type         GetMaterialType();                                                                                                        // 3E - { return 0; }
 
 		void SetEffectShaderData(const BSTSmartPointer<BSEffectShaderData>& a_data);
 		void SetMaterial(BSShaderMaterial* a_material, bool a_unk1);
 		void SetFlags(EShaderPropertyFlag8 a_flag, bool a_set);
+		RenderPassArray* GetDebugRenderPasses(BSGeometry* geometry);
+
+		void SetAlpha(float newAlpha);
+		bool IsTranslucent() const;
+		bool CanBeAffectedByLight(BSLight* light) const;
 
 		// members
 		float                                                alpha;                // 30
 		std::int32_t                                         lastRenderPassState;  // 34
 		stl::enumeration<EShaderPropertyFlag, std::uint64_t> flags;                // 38
 		RenderPassArray                                      renderPassList;       // 40
-		std::uint64_t                                        unk48;                // 48
 		RenderPassArray                                      debugRenderPassList;  // 50
-		std::uint64_t                                        unk58;                // 58
 		BSFadeNode*                                          fadeNode;             // 60
 		BSTSmartPointer<BSEffectShaderData>                  effectData;           // 68
 		BSShaderPropertyLightData*                           lightData;            // 70
 		BSShaderMaterial*                                    material;             // 78
-		std::uint64_t                                        unk80;                // 80
+		std::uint32_t                                        lastFrameCount;       // 80
 	};
 	static_assert(sizeof(BSShaderProperty) == 0x88);
 }

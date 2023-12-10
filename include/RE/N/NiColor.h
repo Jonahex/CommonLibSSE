@@ -401,6 +401,18 @@ namespace RE
 			return *this;
 		}
 
+		static const NiColorA& Black()
+		{
+			static constexpr NiColorA Black = { 0.f, 0.f, 0.f, 1.f };
+			return Black;
+		}
+
+		static const NiColorA& Empty()
+		{
+			static constexpr NiColorA Empty = { 0.f, 0.f, 0.f, 0.f };
+			return Empty;
+		}
+
 		// members
 		float red;    // 00
 		float green;  // 04

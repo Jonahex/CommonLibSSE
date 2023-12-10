@@ -32,22 +32,22 @@ namespace RE
 		~BSShadowLight() override;  // 00
 
 		// add
-		virtual void Unk_04();      // 04
-		virtual void Unk_05();      // 05
-		virtual void Unk_06();      // 06
-		virtual void Unk_07();      // 07
-		virtual void Unk_08();      // 08
-		virtual void Unk_09() = 0;  // 09
-		virtual void Unk_0A() = 0;  // 0A
-		virtual void Unk_0B();      // 0B
-		virtual void Unk_0C();      // 0C
-		virtual void Unk_0D();      // 0D
-		virtual void Unk_0E();      // 0E
-		virtual void Unk_0F();      // 0F
-		virtual void Unk_10() = 0;  // 10
+		virtual bool     Unk_04();                  // 04
+		virtual bool     IsSpotLight();             // 05
+		virtual bool     IsDirectionalLight();      // 06
+		virtual bool     IsParabolicLight();        // 07
+		virtual bool     IsOmnidirectionalLight();  // 08
+		virtual void     Unk_09() = 0;              // 09
+		virtual void     RenderShadowmaps() = 0;    // 0A
+		virtual void     Unk_0B();                  // 0B
+		virtual void     Unk_0C();                  // 0C
+		virtual uint32_t Unk_0D(uint32_t);          // 0D
+		virtual void     Unk_0E();                  // 0E
+		virtual void     Unk_0F();                  // 0F
+		virtual void     Unk_10() = 0;              // 10
 
 		// members
-		std::uint32_t   unk140;           // 140
+		std::uint32_t   shadowMapCount;   // 140
 		std::uint32_t   unk144;           // 144
 		BSTArray<void*> unk148;           // 148
 		Data            unk160[4];        // 161
