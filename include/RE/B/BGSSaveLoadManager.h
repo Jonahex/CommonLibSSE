@@ -101,8 +101,7 @@ namespace RE
 		std::uint64_t                            unk0C0;           // 0C0
 		std::uint64_t                            unk0C8;           // 0C8
 		std::uint64_t                            currentPlayerID;  // 0D0
-		std::uint32_t                            unk0D8;           // 0D8
-		std::uint32_t                            unk0DC;           // 0DC
+		std::uint64_t                            displayPlayerID;  // 0D8
 		std::uint32_t                            unk0E0;           // 0E0
 		std::uint32_t                            unk0E4;           // 0E4
 		BSTArray<void*>                          unk0E8;           // 0E8
@@ -175,7 +174,15 @@ namespace RE
 		std::uint32_t unk2A0;  // 2A0
 		std::uint32_t unk2A4;  // 2A4
 		std::uint64_t unk2A8;  // 2A8
-		Thread        unk2B0;  // 2B0
+#ifdef SKYRIM_SUPPORT_AE
+		std::uint16_t   unk2B0;  // 2B0
+		std::uint16_t   unk2B2;  // 2B2
+		std::uint64_t   unk2B8;  // 2B8
+		BSTArray<void*> unk2C0;  // 2C0
+		BSTArray<void*> unk2D8;  // 2D8
+		std::uint8_t    unk2F0;  // 2F0
+#endif
+		Thread thread;  // 2B0
 
 		BSTCommonStaticMessageQueue<BSTSmartPointer<bgs::saveload::Request>, 8> unk370;  // 370
 
@@ -183,5 +190,9 @@ namespace RE
 		bool Save_Impl(std::int32_t a_deviceID, std::uint32_t a_outputStats, const char* a_fileName);
 		bool Load_Impl(const char* a_fileName, std::int32_t a_deviceID, std::uint32_t a_outputStats, bool a_checkForMods);
 	};
+#ifdef SKYRIM_SUPPORT_AE
+	static_assert(sizeof(BGSSaveLoadManager) == 0x418);
+#else
 	static_assert(sizeof(BGSSaveLoadManager) == 0x3D0);
+#endif
 }

@@ -62,13 +62,13 @@ namespace RE
 	void NiAlphaProperty::SetDestBlendMode(AlphaFunction a_mode)
 	{
 		alphaFlags &= ~480;
-		alphaFlags |= 32 * stl::to_underlying(a_mode);
+		alphaFlags |= 32 * std::to_underlying(a_mode);
 	}
 
 	void NiAlphaProperty::SetSrcBlendMode(AlphaFunction a_mode)
 	{
 		alphaFlags &= ~30;
-		alphaFlags |= 2 * stl::to_underlying(a_mode);
+		alphaFlags |= 2 * std::to_underlying(a_mode);
 	}
 	void NiAlphaProperty::SetAlphaTestMode(TestFunction a_mode)
 	{

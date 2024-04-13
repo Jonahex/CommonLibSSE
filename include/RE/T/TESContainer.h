@@ -63,7 +63,7 @@ namespace RE
 		// members
 		ContainerObject** containerObjects;     // 08
 		std::uint32_t     numContainerObjects;  // 10
-		std::uint32_t     pad14;                // 14
+		bool              allowStolenItems;     // 14 - new in 1.6.1130
 
 	private:
 		void CopyObjectList(const std::vector<ContainerObject*>& a_copiedData);

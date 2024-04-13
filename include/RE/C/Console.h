@@ -34,12 +34,23 @@ namespace RE
 		void SetSelectedRef(ObjectRefHandle a_handle);
 
 		// members
-		void*         opcode;							// 30
-		BSTArray<ObjectRefHandle> raycastedRefHandles;	// 38
-		std::uint64_t selectedRefHandleIndex;			// 50
+		void* opcode;  // 30
+		BSTArray<ObjectRefHandle> raycastedRefHandles;   // 38
+#ifdef SKYRIM_SUPPORT_AE
+		std::uint8_t  unk4c;                   // 4c
+		bool          showAchievementWarning;  // 4d -- only used in ctor
+		bool          ctrlKeyHeld;             // 4e
+		std::uint8_t  pad4f;                   // 4f
+#else
+		std::uint64_t selectedRefHandleIndex;  // 50
+#endif
 
 	protected:
 		void SetSelectedRef_Impl(ObjectRefHandle& a_handle);
 	};
+#ifdef SKYRIM_SUPPORT_AE
+	static_assert(sizeof(Console) == 0x50);
+#else
 	static_assert(sizeof(Console) == 0x58);
+#endif
 }

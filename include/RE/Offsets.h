@@ -1,6 +1,6 @@
 #pragma once
 
-#include "REL/Relocation.h"
+#include "REL/ID.h"
 
 namespace RE
 {
@@ -151,6 +151,7 @@ namespace RE
 			inline constexpr REL::ID Play(static_cast<std::uint64_t>(67616));
 			inline constexpr REL::ID SetObjectToFollow(static_cast<std::uint64_t>(67636));
 			inline constexpr REL::ID SetPosition(static_cast<std::uint64_t>(67631));
+			inline constexpr REL::ID Pause(static_cast<std::uint64_t>(67618));
 			inline constexpr REL::ID Stop(static_cast<std::uint64_t>(67619));
 		}
 
@@ -181,7 +182,7 @@ namespace RE
 
 		namespace Console
 		{
-			inline constexpr REL::ID SelectedRef(static_cast<std::uint64_t>(405935));
+			inline constexpr REL::ID SelectedRef(static_cast<std::uint64_t>(504099));
 			inline constexpr REL::ID SetSelectedRef(static_cast<std::uint64_t>(51093));
 			inline constexpr REL::ID SelectReference(static_cast<std::uint64_t>(51089));
 		}
@@ -489,7 +490,7 @@ namespace RE
 
 		namespace Script
 		{
-			inline constexpr REL::ID CompileAndRun(static_cast<std::uint64_t>(21890));
+			inline constexpr REL::ID CompileAndRun(static_cast<std::uint64_t>(441582));
 			inline constexpr REL::ID GetProcessScripts(static_cast<std::uint64_t>(21921));
 			inline constexpr REL::ID SetProcessScripts(static_cast<std::uint64_t>(21920));
 		}
@@ -780,6 +781,7 @@ namespace RE
 			inline constexpr REL::ID Play(static_cast<std::uint64_t>(66355));
 			inline constexpr REL::ID SetObjectToFollow(static_cast<std::uint64_t>(66375));
 			inline constexpr REL::ID SetPosition(static_cast<std::uint64_t>(66370));
+			inline constexpr REL::ID Pause(static_cast<std::uint64_t>(66357));
 			inline constexpr REL::ID Stop(static_cast<std::uint64_t>(66358));
 		}
 

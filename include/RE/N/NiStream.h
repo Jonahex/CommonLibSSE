@@ -7,9 +7,7 @@
 #include "RE/N/NiTArray.h"
 #include "RE/N/NiTPointerMap.h"
 
-#ifdef MAX_PATH
-#undef MAX_PATH
-#endif
+#include "REX/W32/BASE.h"
 
 namespace RE
 {
@@ -69,7 +67,7 @@ namespace RE
 		BSTSmallArray<NiObjectGroup>                  groups;                              // 0D0
 		std::uint32_t                                 nifMaxVersion;                       // 100
 		std::uint32_t                                 nifMaxUserDefinedVersion;            // 104
-		char                                          inputFilePath[WinAPI::MAX_PATH];     // 108
+		char                                          inputFilePath[REX::W32::MAX_PATH];   // 108
 		std::uint16_t                                 unk20C;                              // 20C
 		std::uint16_t                                 unk20E;                              // 20E
 		std::uint64_t                                 unk210;                              // 210
@@ -95,10 +93,10 @@ namespace RE
 		std::uint32_t                                 unk300;                              // 300
 		std::uint32_t                                 unk304;                              // 304
 		std::int32_t                                  unk308;                              // 308
-		char                                          lastLoadedRTTI[WinAPI::MAX_PATH];    // 30C
+		char                                          lastLoadedRTTI[REX::W32::MAX_PATH];  // 30C
 		std::uint32_t                                 lastError;                           // 410
-		char                                          lastErrorMessage[WinAPI::MAX_PATH];  // 414
-		char                                          filePath[WinAPI::MAX_PATH];          // 518
+		char                                          lastErrorMessage[REX::W32::MAX_PATH];// 414
+		char                                          filePath[REX::W32::MAX_PATH];        // 518
 
 	protected:
 		NiStream* ctor();

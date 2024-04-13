@@ -28,11 +28,14 @@ namespace RE
 				kTFCMode,
 				kMapDebug,
 				kLockpicking,
+#ifdef SKYRIM_SUPPORT_AE
+				kMarketplace,
+#endif
 				kFavor,
 
-				kTotal = 17,
+				kTotal,
 
-				kNone = 18
+				kNone
 			};
 		};
 		using INPUT_CONTEXT_ID = INPUT_CONTEXT_IDS::INPUT_CONTEXT_ID;
