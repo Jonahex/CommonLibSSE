@@ -469,7 +469,6 @@ namespace RE
 		void                                    SetPosition(NiPoint3 a_pos);
 		void                                    SetScale(float scale);
 		void                                    SetTransform(const RE::NiTransform& transform);
-		void                                    Enable();
 
 		// members
 		OBJ_REFR         data;          // 40

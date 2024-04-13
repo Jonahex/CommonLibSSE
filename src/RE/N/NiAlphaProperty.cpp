@@ -73,6 +73,6 @@ namespace RE
 	void NiAlphaProperty::SetAlphaTestMode(TestFunction a_mode)
 	{
 		alphaFlags &= ~7168;
-		alphaFlags |= 1024 * stl::to_underlying(a_mode);
+		alphaFlags |= 1024 * std::to_underlying(a_mode);
 	}
 }

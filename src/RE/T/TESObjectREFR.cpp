@@ -95,7 +95,7 @@ namespace RE
 	void TESObjectREFR::Enable(bool a_resetInventory)
 	{
 		using func_t = decltype(&TESObjectREFR::Enable);
-		REL::Relocation<func_t> func{ RELOCATION_ID(19373, 19800) };
+		REL::Relocation<func_t> func{ Offset::TESObjectREFR::Enable };
 		return func(this, a_resetInventory);
 	}
 
@@ -947,12 +947,5 @@ namespace RE
 			GetWorldspace(), transform.translate, angle);
 		formFlags &= ~RE::TESForm::RecordFlags::kDisabled;
 		SetScale(transform.scale);
-	}
-
-	void TESObjectREFR::Enable()
-	{
-		using func_t = decltype(&TESObjectREFR::Enable);
-		REL::Relocation<func_t> func{ Offset::TESObjectREFR::Enable };
-		return func(this);
 	}
 }

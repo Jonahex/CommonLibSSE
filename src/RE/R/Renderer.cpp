@@ -151,11 +151,11 @@ namespace RE
 				REL::Relocation<REX::W32::ID3D11Device**>(RE::Offset::D3D11Device);
 			return *device;
 		}
-		[[nodiscard]] ID3D11DeviceContext* Renderer::GetDeviceContext()
+		[[nodiscard]] REX::W32::ID3D11DeviceContext* Renderer::GetDeviceContext()
 		{
 			// Location is a global pointer to the device context in the Renderer Data
 			static const auto deviceContext =
-				REL::Relocation<ID3D11DeviceContext**>(RE::Offset::D3D11DeviceContext);
+				REL::Relocation<REX::W32::ID3D11DeviceContext**>(RE::Offset::D3D11DeviceContext);
 			return *deviceContext;
 		}
 		[[nodiscard]] RendererWindow* Renderer::GetCurrentRenderWindow()
@@ -173,9 +173,9 @@ namespace RE
 			auto& group = rendererState->GetVSConstantGroup(level);
 			if (group.buffer != nullptr)
 			{
-				D3D11_MAPPED_SUBRESOURCE resource;
-				deviceContext->Map(group.buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
-				group.data = resource.pData;
+				REX::W32::D3D11_MAPPED_SUBRESOURCE resource;
+				deviceContext->Map(group.buffer, 0, REX::W32::D3D11_MAP_WRITE_DISCARD, 0, &resource);
+				group.data = resource.data;
 			}
 		}
 
@@ -187,9 +187,9 @@ namespace RE
 			auto&                    group = rendererState->GetPSConstantGroup(level);
 			if (group.buffer != nullptr)
 			{
-				D3D11_MAPPED_SUBRESOURCE resource;
-				deviceContext->Map(group.buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
-				group.data = resource.pData;
+				REX::W32::D3D11_MAPPED_SUBRESOURCE resource;
+				deviceContext->Map(group.buffer, 0, REX::W32::D3D11_MAP_WRITE_DISCARD, 0, &resource);
+				group.data = resource.data;
 			}
 		}
 
