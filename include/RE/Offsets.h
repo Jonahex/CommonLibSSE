@@ -632,7 +632,7 @@ namespace RE
 		inline constexpr REL::ID OnQuitGame(static_cast<std::uint64_t>(36551));
 		inline constexpr REL::ID WinMain(static_cast<std::uint64_t>(36544));
 		inline constexpr REL::ID D3D11Device(static_cast<std::uint64_t>(411348));
-		inline constexpr REL::ID D3D11DeviceContext(static_cast<std::uint64_t>(524729));
+		inline constexpr REL::ID D3D11DeviceContext(static_cast<std::uint64_t>(411391));
 		inline constexpr REL::ID RendererStateInstance(static_cast<std::uint64_t>(388819));
 		inline constexpr REL::ID NiObjectConstructorRegistry(static_cast<std::uint64_t>(410484));
 		inline constexpr REL::ID GlobalStateCounter(static_cast<std::uint64_t>(400305));

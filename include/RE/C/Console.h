@@ -34,9 +34,11 @@ namespace RE
 		void SetSelectedRef(ObjectRefHandle a_handle);
 
 		// members
-		void* opcode;  // 30
-		BSTArray<ObjectRefHandle> raycastedRefHandles;   // 38
+		void*         opcode;  // 30
+		std::uint64_t unk38;   // 38
+		std::uint64_t unk40;   // 40
 #ifdef SKYRIM_SUPPORT_AE
+		std::uint32_t unk48;                   // 48
 		std::uint8_t  unk4c;                   // 4c
 		bool          showAchievementWarning;  // 4d -- only used in ctor
 		bool          ctrlKeyHeld;             // 4e
