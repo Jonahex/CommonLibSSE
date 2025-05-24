@@ -55,6 +55,7 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_IMenu;
+		inline static constexpr auto VTABLE = VTABLE_IMenu;
 
 		using Context = UserEvents::INPUT_CONTEXT_ID;
 		using Flag = UI_MENU_FLAGS;
@@ -96,21 +97,21 @@ namespace RE
 		[[nodiscard]] constexpr bool RequiresUpdate() const noexcept { return menuFlags.all(Flag::kRequiresUpdate); }
 		[[nodiscard]] constexpr bool SkipRenderDuringFreezeFrameScreenshot() const noexcept { return menuFlags.all(Flag::kSkipRenderDuringFreezeFrameScreenshot); }
 		[[nodiscard]] constexpr bool TopmostRenderedMenu() const noexcept { return menuFlags.all(Flag::kTopmostRenderedMenu); }
-		[[nodiscard]] constexpr bool UpdateUsesCursor() const noexcept { return menuFlags.all(Flag::kUsesBlurredBackground); }
-		[[nodiscard]] constexpr bool UsesBlurredBackground() const noexcept { return menuFlags.all(Flag::kUsesCursor); }
-		[[nodiscard]] constexpr bool UsesCursor() const noexcept { return menuFlags.all(Flag::kUsesMenuContext); }
-		[[nodiscard]] constexpr bool UsesMenuContext() const noexcept { return menuFlags.all(Flag::kUsesMovementToDirection); }
-		[[nodiscard]] constexpr bool UsesMovementToDirection() const noexcept { return menuFlags.all(Flag::kUpdateUsesCursor); }
+		[[nodiscard]] constexpr bool UpdateUsesCursor() const noexcept { return menuFlags.all(Flag::kUpdateUsesCursor); }
+		[[nodiscard]] constexpr bool UsesBlurredBackground() const noexcept { return menuFlags.all(Flag::kUsesBlurredBackground); }
+		[[nodiscard]] constexpr bool UsesCursor() const noexcept { return menuFlags.all(Flag::kUsesCursor); }
+		[[nodiscard]] constexpr bool UsesMenuContext() const noexcept { return menuFlags.all(Flag::kUsesMenuContext); }
+		[[nodiscard]] constexpr bool UsesMovementToDirection() const noexcept { return menuFlags.all(Flag::kUsesMovementToDirection); }
 
 		// members
-		GPtr<GFxMovieView>                             uiMovie{ nullptr };              // 10
-		std::int8_t                                    depthPriority{ 3 };              // 18
-		std::uint8_t                                   pad19{ 0 };                      // 19
-		std::uint16_t                                  pad20{ 0 };                      // 1A
-		stl::enumeration<UI_MENU_FLAGS, std::uint32_t> menuFlags{ Flag::kNone };        // 1C
-		stl::enumeration<Context, std::uint32_t>       inputContext{ Context::kNone };  // 20
-		std::uint32_t                                  pad24{ 0 };                      // 24
-		GPtr<FxDelegate>                               fxDelegate{ nullptr };           // 28
+		GPtr<GFxMovieView>                         uiMovie{ nullptr };              // 10
+		std::int8_t                                depthPriority{ 3 };              // 18
+		std::uint8_t                               pad19{ 0 };                      // 19
+		std::uint16_t                              pad20{ 0 };                      // 1A
+		REX::EnumSet<UI_MENU_FLAGS, std::uint32_t> menuFlags{ Flag::kNone };        // 1C
+		REX::EnumSet<Context, std::uint32_t>       inputContext{ Context::kNone };  // 20
+		std::uint32_t                              pad24{ 0 };                      // 24
+		GPtr<FxDelegate>                           fxDelegate{ nullptr };           // 28
 	};
 	static_assert(sizeof(IMenu) == 0x30);
 }

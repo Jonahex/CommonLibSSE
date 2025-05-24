@@ -104,14 +104,14 @@ namespace RE
 		uint8_t GetShadowmapMask(const BSShadowLight& directionalLight, const BSShaderPropertyLightData& lightData)
 		{
 			uint8_t shadowMapMask = 0;
-			for (uint32_t shadowMapIndex = 0; shadowMapIndex < directionalLight.shadowMapCount; ++shadowMapIndex)
+			for (uint32_t shadowMapIndex = 0; shadowMapIndex < directionalLight.shadowMapIndex; ++shadowMapIndex)
 			{
 				shadowMapMask |= (1 << shadowMapIndex) & (lightData.flags >> 1);
 			}
 			return shadowMapMask;
 		}
 
-		uint32_t GetLightingTechnique(stl::enumeration<BSShaderProperty::EShaderPropertyFlag> flags, BSShaderMaterial* material, uint32_t pointLightCount, uint32_t shadowLightCount, bool hasPointShadowLights, bool shadowDirectionalLight, bool alphaTest, bool needsAdditionalAlphaMask)
+		uint32_t GetLightingTechnique(REX::EnumSet<BSShaderProperty::EShaderPropertyFlag> flags, BSShaderMaterial* material, uint32_t pointLightCount, uint32_t shadowLightCount, bool hasPointShadowLights, bool shadowDirectionalLight, bool alphaTest, bool needsAdditionalAlphaMask)
 		{
 			using enum BSShaderProperty::EShaderPropertyFlag;
 			using enum BSLightingShader::Flags;
@@ -122,7 +122,7 @@ namespace RE
 			pointLightCount = std::min(pointLightCount, 7u);
 			shadowLightCount = std::min(shadowLightCount, 4u);
 
-			stl::enumeration<BSLightingShader::Flags> shaderFlags = static_cast<BSLightingShader::Flags>(((pointLightCount << 3) | (shadowLightCount << 6)));
+			REX::EnumSet<BSLightingShader::Flags> shaderFlags = static_cast<BSLightingShader::Flags>(((pointLightCount << 3) | (shadowLightCount << 6)));
 			if (flags.any(kVertexColors))
 			{
 				shaderFlags.set(Vc);
@@ -291,12 +291,12 @@ namespace RE
 			return (static_cast<uint32_t>(localTechnique) << 24) | shaderFlags.underlying();
 		}
 
-		uint32_t GetRenderNormalTechnique(stl::enumeration<BSShaderProperty::EShaderPropertyFlag> flags)
+		uint32_t GetRenderNormalTechnique(REX::EnumSet<BSShaderProperty::EShaderPropertyFlag> flags)
 		{
 			using enum BSShaderProperty::EShaderPropertyFlag;
 			using enum BSUtilityShader::Flags;
 
-			stl::enumeration<BSUtilityShader::Flags> result;
+			REX::EnumSet<BSUtilityShader::Flags> result;
 			result.set(Texture, RenderNormal);
 
 			if (flags.any(kModelSpaceNormals))
@@ -323,12 +323,12 @@ namespace RE
 			return result.underlying();
 		}
 
-		uint32_t GetRenderNormalClearTechnique(stl::enumeration<BSShaderProperty::EShaderPropertyFlag> flags)
+		uint32_t GetRenderNormalClearTechnique(REX::EnumSet<BSShaderProperty::EShaderPropertyFlag> flags)
 		{
 			using enum BSShaderProperty::EShaderPropertyFlag;
 			using enum BSUtilityShader::Flags;
 
-			stl::enumeration<BSUtilityShader::Flags> result;
+			REX::EnumSet<BSUtilityShader::Flags> result;
 			result.set(Texture, RenderNormalClear);
 
 			if (flags.any(kModelSpaceNormals))
@@ -347,12 +347,12 @@ namespace RE
 			return result.underlying();
 		}
 
-		uint32_t GetGrayscaleMaskTechnique(stl::enumeration<BSShaderProperty::EShaderPropertyFlag> flags)
+		uint32_t GetGrayscaleMaskTechnique(REX::EnumSet<BSShaderProperty::EShaderPropertyFlag> flags)
 		{
 			using enum BSShaderProperty::EShaderPropertyFlag;
 			using enum BSUtilityShader::Flags;
 
-			stl::enumeration<BSUtilityShader::Flags> result;
+			REX::EnumSet<BSUtilityShader::Flags> result;
 			result.set(GrayscaleMask, RenderDepth, AlphaTest, Texture);
 
 			if (flags.any(kVertexColors))
@@ -371,12 +371,12 @@ namespace RE
 			return result.underlying();
 		}
 
-		uint32_t GetEffectShaderTechnique(stl::enumeration<BSShaderProperty::EShaderPropertyFlag> flags, BSEffectShaderData* effectData, const NiAlphaProperty* alphaProperty)
+		uint32_t GetEffectShaderTechnique(REX::EnumSet<BSShaderProperty::EShaderPropertyFlag> flags, BSEffectShaderData* effectData, const NiAlphaProperty* alphaProperty)
 		{
 			using enum BSShaderProperty::EShaderPropertyFlag;
 			using enum BSEffectShader::Flags;
 
-			stl::enumeration<BSEffectShader::Flags> result;
+			REX::EnumSet<BSEffectShader::Flags> result;
 			result.set(Membrane, Texture, TexCoord);
 			if (flags.any(kVertexColors))
 			{
@@ -481,7 +481,7 @@ namespace RE
 			return GetDebugRenderPasses(geometry);
 		}
 
-		stl::enumeration<EShaderPropertyFlag> effectiveFlags = flags;
+		REX::EnumSet<EShaderPropertyFlag> effectiveFlags = flags;
 
 		float    currentFade = 1.0;
 		if (!accumulator->unkB9)
@@ -557,7 +557,7 @@ namespace RE
 		const bool useAlphaBlending = alphaProperty && alphaProperty->GetAlphaBlending();
 		const bool useAlphaTesting = alphaProperty && alphaProperty->GetAlphaTesting();
 		const bool translucent = IsTranslucent() || useAlphaBlending;
-		const bool alphaTest = (BSGraphics::State::GetSingleton()->unk55 || translucent) && useAlphaTesting;
+		const bool alphaTest = (BSGraphics::State::GetSingleton()->unk055 || translucent) && useAlphaTesting;
 
 		if (effectiveFlags.any(kRefraction, kTempRefraction))
 		{
@@ -602,7 +602,7 @@ namespace RE
 				includeShadowLights,
 				shadowDirectionalLight,
 				renderMode == RenderMode::FirstPersonView,
-				accumulator->activeShadowSceneNode->unk248);
+				accumulator->activeShadowSceneNode->firstPersonShadowMask);
 			const uint32_t pointLightCount = lightCount - 1;
 
 			bool shadowLightsAllowed = accumulator->unk178;
@@ -856,7 +856,7 @@ namespace RE
 		{
 			shadowmapRenderPassLists[0].MoveHead(shadowmapRenderPassLists[previousShadowmapRenderPassListIndex]);
 		}
-		if (lastFrameCount != BSGraphics::State::GetSingleton()->uiFrameCount)
+		if (lastFrameCount != BSGraphics::State::GetSingleton()->frameCount)
 		{
 			shadowmapRenderPassLists[currentShadowmapRenderPassListIndex].Clear();
 			currentShadowmapRenderPassListIndex = previousShadowmapRenderPassListIndex;
@@ -1052,21 +1052,21 @@ namespace RE
 			{
 				bool          isFirst = true;
 				uint8_t       shadowInfluenceBitIndex = 0;
-				const uint32_t  shadowMapCount = accumulator->activeShadowSceneNode->shadowDirLight->shadowMapCount + BSRenderPass::MaxShadowLightCount;
+				const uint32_t shadowMapCount = accumulator->activeShadowSceneNode->shadowDirLight->shadowMapIndex + BSRenderPass::MaxShadowLightCount;
 				for (uint32_t shadowMapIndex = 0; shadowMapIndex < shadowMapCount; ++shadowMapIndex)
 				{
 					uint32_t shadowInfluenceMask = 1 << shadowInfluenceBitIndex;
-					if (renderMode == RenderMode::Unk17 && (shadowInfluenceMask & accumulator->activeShadowSceneNode->unk248) != 0 || (shadowInfluenceMask & lightData->flags) != 0)
+					if (renderMode == RenderMode::Unk17 && (shadowInfluenceMask & accumulator->activeShadowSceneNode->firstPersonShadowMask) != 0 || (shadowInfluenceMask & lightData->flags) != 0)
 					{
-						BSShadowLight* shadowLight = accumulator->activeShadowSceneNode->shadowCasterLights[shadowMapIndex];
+						BSShadowLight* shadowLight = accumulator->activeShadowSceneNode->shadowLightsAccum[shadowMapIndex];
 						if (shadowLight == nullptr || !shadowLight->IsShadowLight())
 						{
 							continue;
 						}
 
-						const bool isSpot = shadowLight->IsSpotLight();
-						const bool isParabolic = shadowLight->IsParabolicLight();
-						const bool isOmnidirectional = shadowLight->IsOmnidirectionalLight();
+						const bool isSpot = shadowLight->GetIsFrustumLight();
+						const bool isParabolic = shadowLight->GetIsParabolicLight();
+						const bool isOmnidirectional = shadowLight->GetIsOmniLight();
 						const bool isDirectional = !(isSpot || isParabolic || isOmnidirectional);
 
 						if (isDirectional && !isFirst)
@@ -1174,7 +1174,7 @@ namespace RE
 		{
 			shadowmapRenderPassLists[0].MoveHead(shadowmapRenderPassLists[previousShadowmapRenderPassListIndex]);
 		}
-		if (lastFrameCount != BSGraphics::State::GetSingleton()->uiFrameCount)
+		if (lastFrameCount != BSGraphics::State::GetSingleton()->frameCount)
 		{
 			shadowmapRenderPassLists[currentShadowmapRenderPassListIndex].Clear();
 			currentShadowmapRenderPassListIndex = previousShadowmapRenderPassListIndex;

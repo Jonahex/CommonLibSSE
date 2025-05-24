@@ -100,10 +100,11 @@ namespace RE
 		{
 		public:
 			inline static constexpr auto RTTI = RTTI_hkbStateMachine__TransitionInfoArray;
+			inline static constexpr auto VTABLE = VTABLE_hkbStateMachine__TransitionInfoArray;
 
-			~TransitionInfoArray() override;		// 00
+			~TransitionInfoArray() override;  // 00
 
-			hkArray<TransitionInfo> m_transitions;	// 10
+			hkArray<TransitionInfo> m_transitions;  // 10
 		};
 		static_assert(sizeof(TransitionInfoArray) == 0x20);
 
@@ -111,6 +112,7 @@ namespace RE
 		{
 		public:
 			inline static constexpr auto RTTI = RTTI_hkbStateMachine__StateInfo;
+			inline static constexpr auto VTABLE = VTABLE_hkbStateMachine__StateInfo;
 
 			~StateInfo() override;  // 00
 
@@ -201,8 +203,8 @@ namespace RE
 		std::int32_t													currentStateID;                           // 080
 		bool															wrapAroundStateID;                        // 084
 		std::int8_t														maxSimultaneousTransitions;               // 085
-		stl::enumeration<StartStateMode, std::uint8_t>					startStateMode;                           // 086
-		stl::enumeration<StateMachineSelfTransitionMode, std::uint8_t>	selfTransitionMode;                       // 087
+		REX::EnumSet<StartStateMode, std::uint8_t>					    startStateMode;                           // 086
+		REX::EnumSet<StateMachineSelfTransitionMode, std::uint8_t>	    selfTransitionMode;                       // 087
 		bool															isActive;                                 // 088
 		hkArray<StateInfo*>												states;                                   // 090
 		hkRefPtr<TransitionInfoArray>									wildcardTransitions;                      // 0A0

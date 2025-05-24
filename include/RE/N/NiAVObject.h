@@ -3,6 +3,7 @@
 #include "RE/B/BSFixedString.h"
 #include "RE/B/BSShaderMaterial.h"
 #include "RE/C/CollisionLayers.h"
+#include "RE/H/hkpMotion.h"
 #include "RE/N/NiBound.h"
 #include "RE/N/NiObjectNET.h"
 #include "RE/N/NiSmartPointer.h"
@@ -31,8 +32,8 @@ namespace RE
 			kDisableCollision = 1 << 13
 		};
 
-		float                                 time;   // 0
-		stl::enumeration<Flag, std::uint32_t> flags;  // 4
+		float                             time;   // 0
+		REX::EnumSet<Flag, std::uint32_t> flags;  // 4
 	};
 	static_assert(sizeof(NiUpdateData) == 0x8);
 
@@ -51,6 +52,7 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_NiAVObject;
 		inline static constexpr auto Ni_RTTI = NiRTTI_NiAVObject;
+		inline static constexpr auto VTABLE = VTABLE_NiAVObject;
 
 		enum class Flag
 		{
@@ -120,6 +122,7 @@ namespace RE
 		[[nodiscard]] bhkCollisionObject* GetCollisionObject() const;
 		[[nodiscard]] COL_LAYER           GetCollisionLayer() const;
 		[[nodiscard]] BSGeometry*         GetFirstGeometryOfShaderType(BSShaderMaterial::Feature a_type);
+		[[nodiscard]] float               GetMass();
 		[[nodiscard]] TESObjectREFR*      GetUserData() const;
 		[[nodiscard]] bool                HasAnimation() const;
 		[[nodiscard]] bool                HasShaderType(BSShaderMaterial::Feature a_type);
@@ -127,7 +130,7 @@ namespace RE
 		void                              SetAppCulled(bool a_cull);
 		void                              SetCollisionLayer(COL_LAYER a_collisionLayer);
 		void                              SetCollisionLayerAndGroup(COL_LAYER a_collisionLayer, std::uint32_t a_group);
-		bool                              SetMotionType(std::uint32_t a_motionType, bool a_arg2 = true, bool a_arg3 = false, bool a_allowActivate = true);
+		bool                              SetMotionType(hkpMotion::MotionType a_motionType, bool a_recurse = true, bool a_force = false, bool a_allowActivate = true);
 		bool                              SetProjectedUVData(const NiColorA& a_projectedUVParams, const NiColor& a_projectedUVColor, bool a_isSnow);
 		void                              TintScenegraph(const NiColorA& a_color);
 		void                              Update(NiUpdateData& a_data);
@@ -137,22 +140,22 @@ namespace RE
 		void                              UpdateRigidConstraints(bool a_enable, std::uint8_t a_arg2 = 1, std::uint32_t a_arg3 = 1);
 
 		// members
-		NiNode*                               parent;                   // 030
-		std::uint32_t                         parentIndex;              // 038
-		std::uint32_t                         unk03C;                   // 03C
-		NiPointer<NiCollisionObject>          collisionObject;          // 040
-		NiTransform                           local;                    // 048
-		NiTransform                           world;                    // 07C
-		NiTransform                           previousWorld;            // 0B0
-		NiBound                               worldBound;               // 0E4
-		stl::enumeration<Flag, std::uint32_t> flags;                    // 0F4
-		TESObjectREFR*                        userData;                 // 0F8
-		float                                 fadeAmount;               // 100
-		std::uint32_t                         lastUpdatedFrameCounter;  // 104
-		std::uint8_t                          unk108;                   // 108
-		std::uint8_t                          flags02;                  // 109
-		std::uint16_t                         unk10A;                   // 10A
-		std::uint32_t                         pad10C;                   // 10C
+		NiNode*                           parent;                   // 030
+		std::uint32_t                     parentIndex;              // 038
+		std::uint32_t                     unk03C;                   // 03C
+		NiPointer<NiCollisionObject>      collisionObject;          // 040
+		NiTransform                       local;                    // 048
+		NiTransform                       world;                    // 07C
+		NiTransform                       previousWorld;            // 0B0
+		NiBound                           worldBound;               // 0E4
+		REX::EnumSet<Flag, std::uint32_t> flags;                    // 0F4
+		TESObjectREFR*                    userData;                 // 0F8
+		float                             fadeAmount;               // 100
+		std::uint32_t                     lastUpdatedFrameCounter;  // 104
+		std::uint8_t                      unk108;                   // 108
+		std::uint8_t                      flags02;                  // 109
+		std::uint16_t                     unk10A;                   // 10A
+		std::uint32_t                     pad10C;                   // 10C
 	};
 	static_assert(sizeof(NiAVObject) == 0x110);
 }

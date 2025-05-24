@@ -55,16 +55,16 @@ namespace RE
 		};
 
 		// members
-		std::int32_t                                 cellX;          // 00
-		std::int32_t                                 cellY;          // 04
-		char*                                        maxHeightData;  // 08
-		BGSTerrainVisibilityData*                    lodVisData;     // 10
-		float                                        worldX;         // 18
-		float                                        worldY;         // 1C
-		stl::enumeration<LandHideFlag, std::uint8_t> landHideFlags;  // 20
-		std::uint8_t                                 pad21;          // 21
-		std::uint16_t                                pad22;          // 22
-		std::uint32_t                                pad24;          // 24
+		std::int32_t                             cellX;          // 00
+		std::int32_t                             cellY;          // 04
+		char*                                    maxHeightData;  // 08
+		BGSTerrainVisibilityData*                lodVisData;     // 10
+		float                                    worldX;         // 18
+		float                                    worldY;         // 1C
+		REX::EnumSet<LandHideFlag, std::uint8_t> landHideFlags;  // 20
+		std::uint8_t                             pad21;          // 21
+		std::uint16_t                            pad22;          // 22
+		std::uint32_t                            pad24;          // 24
 	};
 	static_assert(sizeof(EXTERIOR_DATA) == 0x28);
 
@@ -82,15 +82,15 @@ namespace RE
 		// members
 		NiPointer<BSPortalGraph>                             portalGraph;             // 000 - smart ptr
 		NiPointer<NiNode>                                    cell3D;                  // 008
-		void*                                                unk010;                  // 010 - smart ptr
-		void*                                                unk018;                  // 018 - smart ptr
-		void*                                                unk020;                  // 020 - smart ptr
+		NiPointer<NiNode>                                    lightMarkerNode;         // 010 - smart ptr
+		NiPointer<NiNode>                                    soundMarkerNode;         // 018 - smart ptr
+		NiPointer<NiNode>                                    multiBoundNode;          // 020 - smart ptr
 		BSGeometry*											 autoWaterGeometry;       // 028
 		std::uint64_t                                        unk030;                  // 030
 		std::uint64_t                                        unk038;                  // 038
-		BSTArray<void*>                                      unk040;                  // 040
-		BSTArray<void*>                                      unk058;                  // 058
-		NiTMap<TESForm*, ObjectRefHandle>                    unk070;                  // 070
+		BSTArray<ObjectRefHandle>                            unk040;                  // 040
+		BSTArray<ObjectRefHandle>                            flickeringLights;        // 058
+		NiTMap<TESForm*, ObjectRefHandle>                    emittanceSourceRefMap;   // 070
 		NiTMap<ObjectRefHandle, NiNode*>                     emittanceLightRefMap;    // 090
 		NiTMap<ObjectRefHandle, NiPointer<BSMultiBoundNode>> multiboundRefMap;        // 0B0
 		NiTMap<BSMultiBoundNode*, ObjectRefHandle>           refMultiboundMap;        // 0D0
@@ -98,15 +98,15 @@ namespace RE
 		BSSimpleList<ObjectRefHandle>                        waterRefs;               // 100
 		std::uint64_t                                        unk110;                  // 110
 		BSTArray<void*>                                      unk118;                  // 118
-		BSTArray<void*>                                      unk130;                  // 130
-		BSTArray<void*>                                      unk148;                  // 148
+		BSTArray<ObjectRefHandle>                            decalRefs;               // 130
+		BSTArray<ObjectRefHandle>                            skyActors;               // 148
 		BGSEncounterZone*                                    encounterZone;           // 160
-		std::uint32_t                                        unk168;                  // 168
+		bool                                                 decalsQueued;            // 168
 		volatile mutable std::int32_t                        criticalQueuedRefCount;  // 16C
 		volatile mutable std::int32_t                        queuedRefCount;          // 170
 		volatile mutable std::int32_t                        queuedDistantRefCount;   // 174
-		std::uint32_t                                        unk178;                  // 178
-		std::uint32_t                                        unk17C;                  // 17C
+		std::int32_t                                         unk178;                  // 178
+		bool                                                 refsFullyLoaded;         // 17C
 	};
 	static_assert(sizeof(LOADED_CELL_DATA) == 0x180);
 
@@ -220,30 +220,30 @@ namespace RE
 		bool           UsesSkyLighting() const;
 
 		// members
-		mutable BSSpinLock                                   grassCreateLock;		// 030
-		mutable BSSpinLock                                   grassTaskLock;			// 038
-		stl::enumeration<Flag, std::uint16_t>                cellFlags;				// 040
-		std::uint16_t                                        cellGameFlags;			// 042
-		stl::enumeration<CellState, std::uint8_t>            cellState;				// 044
-		bool                                                 autoWaterLoaded;		// 045
-		bool                                                 cellDetached;			// 046
-		std::uint8_t                                         pad047;				// 047
-		ExtraDataList                                        extraList;				// 048
-		CellData                                             cellData;				// 060 - XCLL if interior, XCLC if exterior
-		TESObjectLAND*                                       cellLand;				// 068
-		float                                                waterHeight;			// 070 - XCLW
-		NavMeshArray*                                        navMeshes;				// 078
-		BSTSet<NiPointer<TESObjectREFR>>                     references;			// 080
-		TESForm*                                             unk0B0;				// 0B0 - REFR owner of cell?
-		BSTArray<TESObjectREFR*>                             objectList;			// 0B8 - persistent
-		BSTArray<bhkWorldObject*>							 autoWaterObjects;      // 0D0
-		BSTArray<bhkWorldObject*>                            placeableWaterObjects;  // 0E8
-		BSTArray<bhkWorldObject*>                            waterFalls;             // 100
-		mutable BSSpinLock                                   spinLock;				// 118
-		TESWorldSpace*                                       worldSpace;			// 120
-		LOADED_CELL_DATA*                                    loadedData;			// 128
-		BGSLightingTemplate*                                 lightingTemplate;		// 130 - LTMP
-		std::uint64_t                                        unk138;				// 138
+		mutable BSSpinLock                                   grassCreateLock;   // 030
+		mutable BSSpinLock                                   grassTaskLock;     // 038
+		REX::EnumSet<Flag, std::uint16_t>                    cellFlags;         // 040
+		std::uint16_t                                        cellGameFlags;     // 042
+		REX::EnumSet<CellState, std::uint8_t>                cellState;         // 044
+		bool                                                 autoWaterLoaded;   // 045
+		bool                                                 cellDetached;      // 046
+		std::uint8_t                                         pad047;            // 047
+		ExtraDataList                                        extraList;         // 048
+		CellData                                             cellData;          // 060 - XCLL if interior, XCLC if exterior
+		TESObjectLAND*                                       cellLand;          // 068
+		float                                                waterHeight;       // 070 - XCLW
+		NavMeshArray*                                        navMeshes;         // 078
+		BSTSet<NiPointer<TESObjectREFR>>                     references;        // 080
+		TESForm*                                             unk0B0;            // 0B0 - REFR owner of cell?
+		BSTArray<TESObjectREFR*>                             objectList;        // 0B8 - persistent
+		BSTArray<bhkWorldObject*>							 autoWaterObjects;  // 0D0
+		BSTArray<BGSWaterCollisionManager::BGSWaterUpdateI*> waterObjects;      // 0E8
+		BSTArray<bhkWorldObject*>                            waterFalls;        // 100
+		mutable BSSpinLock                                   spinLock;          // 118
+		TESWorldSpace*                                       worldSpace;        // 120
+		LOADED_CELL_DATA*                                    loadedData;        // 128
+		BGSLightingTemplate*                                 lightingTemplate;  // 130 - LTMP
+		std::uint64_t                                        unk138;            // 138
 	};
 #ifndef SKYRIM_SUPPORT_AE
 	static_assert(sizeof(TESObjectCELL) == 0x140);

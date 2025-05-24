@@ -45,7 +45,7 @@ namespace RE
 		BSShaderMaterial::Type GetMaterialType() override;                                                                                                        // 3E - { return 3; }
 
 		// members
-		stl::enumeration<WaterFlag, std::uint32_t> waterFlags;            // 88
+		REX::EnumSet<WaterFlag, std::uint32_t>     waterFlags;            // 88
 		std::uint32_t                              unk8C;                 // 8C
 		std::uint32_t                              cellX;                 // 90
 		std::uint32_t                              cellY;                 // 94

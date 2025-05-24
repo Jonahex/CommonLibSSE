@@ -26,6 +26,7 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_MenuTopicManager;
+		inline static constexpr auto VTABLE = VTABLE_MenuTopicManager;
 
 		struct Dialogue
 		{
@@ -60,7 +61,7 @@ namespace RE
 
 		static MenuTopicManager* GetSingleton()
 		{
-			REL::Relocation<MenuTopicManager**> singleton{ RELOCATION_ID(514959, 401099) };
+			static REL::Relocation<MenuTopicManager**> singleton{ RELOCATION_ID(514959, 401099) };
 			return *singleton;
 		}
 

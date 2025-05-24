@@ -25,10 +25,10 @@ namespace RE
 		void          RegisterObjects(const BSTArray<BSGeometry*>& objects) override;  // 27
 
 		// members
-		BSLight::ShapeList shapeList;    // 18
-		BSGeometry**       object;       // 38
-		float*             depths;       // 40
-		int                currentItem;  // 48
+		BSLight::NodeListT<NiPointer<BSTriShape>> shapeList;    // 18
+		BSGeometry**                              object;       // 38
+		float*                                    depths;       // 40
+		int                                       currentItem;  // 48
 	};
 	static_assert(sizeof(NiBackToFrontAccumulator) == 0x50);
 }

@@ -24,6 +24,7 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_MovementControllerNPC;
+		inline static constexpr auto VTABLE = VTABLE_MovementControllerNPC;
 
 		enum class State
 		{
@@ -94,8 +95,8 @@ namespace RE
 		virtual bool GetIsSprinting() const;                     // 0B
 		virtual void SetAIDriven();                              // 0C
 		virtual void SetControlsDriven();                        // 0D
-		virtual bool IsAIDriven();                               // 0E
-		virtual bool IsControlsDriven();                         // 0F
+		virtual bool GetAIDriven();                              // 0E
+		virtual bool GetControlsDriven();                        // 0F
 		virtual void SetNodeFollowerState();                     // 10
 		virtual void SetFlying(bool isFlying);                   // 11
 		virtual void OnSaveGame(BGSSaveFormBuffer* buffer);      // 12

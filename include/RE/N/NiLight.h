@@ -11,6 +11,7 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_NiLight;
 		inline static constexpr auto Ni_RTTI = NiRTTI_NiLight;
+		inline static constexpr auto VTABLE = VTABLE_NiLight;
 
 		~NiLight() override;  // 00
 
@@ -25,7 +26,7 @@ namespace RE
 		NiColor       diffuse;  // 11C
 		NiPoint3      radius;   // 128
 		float         fade;     // 134
-		std::uint32_t unk138;   // 138
+		std::uint64_t unk138;   // 138
 	};
 	static_assert(sizeof(NiLight) == 0x140);
 }

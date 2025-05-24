@@ -72,23 +72,23 @@ namespace RE
 		void CheckAttachCastingArt()
 		{
 			using func_t = decltype(&ActorMagicCaster::CheckAttachCastingArt);
-			REL::Relocation<func_t> func{ RELOCATION_ID(33403, 34185) };
+			static REL::Relocation<func_t> func{ RELOCATION_ID(33403, 34185) };
 			return func(this);
 		}
 
 		// members
-		RefAttachTechniqueInput                castingArtData;               // 64
-		NiPointer<BGSArtObjectCloneTask>       cloneTask;                    // B0
-		Actor*                                 actor;                        // B8
-		NiNode*                                magicNode;                    // C0
-		NiPointer<BSLight>                     light;                        // C8
-		InterruptHandler_t*                    interruptHandler;             // D0
-		BGSLoadGameSubBuffer                   loadGameSubBuffer;            // D8
-		BGSArtObject*                          castingArt;                   // E0
-		ReferenceEffectController*             weaponEnchantmentController;  // E8
-		float                                  costCharged;                  // F0
-		MagicSystem::CastingSource             castingSource;                // F4
-		stl::enumeration<Flags, std::uint32_t> flags;                        // F8
+		RefAttachTechniqueInput            castingArtData;               // 64
+		NiPointer<BGSArtObjectCloneTask>   cloneTask;                    // B0
+		Actor*                             actor;                        // B8
+		NiNode*                            magicNode;                    // C0
+		NiPointer<BSLight>                 light;                        // C8
+		InterruptHandler_t*                interruptHandler;             // D0
+		BGSLoadGameSubBuffer               loadGameSubBuffer;            // D8
+		BGSArtObject*                      castingArt;                   // E0
+		ReferenceEffectController*         weaponEnchantmentController;  // E8
+		float                              costCharged;                  // F0
+		MagicSystem::CastingSource         castingSource;                // F4
+		REX::EnumSet<Flags, std::uint32_t> flags;                        // F8
 	};
 	static_assert(sizeof(ActorMagicCaster) == 0x100);
 }

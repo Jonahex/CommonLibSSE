@@ -52,8 +52,8 @@ namespace RE
 		};
 
 		// members
-		stl::enumeration<BipedObjectSlot, std::uint32_t> bipedObjectSlots;  // 0
-		stl::enumeration<ArmorType, std::uint32_t>       armorType;         // 4
+		REX::EnumSet<BipedObjectSlot, std::uint32_t> bipedObjectSlots;  // 0
+		REX::EnumSet<ArmorType, std::uint32_t>       armorType;         // 4
 	};
 	static_assert(sizeof(BIPED_MODEL) == 0x8);
 
@@ -61,6 +61,7 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_BGSBipedObjectForm;
+		inline static constexpr auto VTABLE = VTABLE_BGSBipedObjectForm;
 
 		using ArmorType = BIPED_MODEL::ArmorType;
 		using BipedObjectSlot = BIPED_MODEL::BipedObjectSlot;

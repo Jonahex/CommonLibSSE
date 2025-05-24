@@ -24,6 +24,11 @@ namespace RE
 		return !operator==(a_rhs);
 	}
 
+	bool NiPoint3::operator<(const NiPoint3& a_rhs) const
+	{
+		return std::tie(x, y, z) < std::tie(a_rhs.x, a_rhs.y, a_rhs.z);
+	}
+
 	NiPoint3 NiPoint3::operator+(const NiPoint3& a_rhs) const
 	{
 		return NiPoint3(x + a_rhs.x, y + a_rhs.y, z + a_rhs.z);
@@ -97,6 +102,38 @@ namespace RE
 	NiPoint3& NiPoint3::operator/=(float a_scalar)
 	{
 		return operator*=(1.0F / a_scalar);
+	}
+
+	NiPoint3 operator+(float a_lhs, const NiPoint3& a_rhs)
+	{
+		return NiPoint3(
+			a_lhs + a_rhs.x,
+			a_lhs + a_rhs.y,
+			a_lhs + a_rhs.z);
+	}
+
+	NiPoint3 operator-(float a_lhs, const NiPoint3& a_rhs)
+	{
+		return NiPoint3(
+			a_lhs - a_rhs.x,
+			a_lhs - a_rhs.y,
+			a_lhs - a_rhs.z);
+	}
+
+	NiPoint3 operator*(float a_lhs, const NiPoint3& a_rhs)
+	{
+		return NiPoint3(
+			a_lhs * a_rhs.x,
+			a_lhs * a_rhs.y,
+			a_lhs * a_rhs.z);
+	}
+
+	NiPoint3 operator/(float a_lhs, const NiPoint3& a_rhs)
+	{
+		return NiPoint3(
+			a_lhs / a_rhs.x,
+			a_lhs / a_rhs.y,
+			a_lhs / a_rhs.z);
 	}
 
 	NiPoint3 NiPoint3::Cross(const NiPoint3& a_pt) const

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "RE/U/UnlinkedTypes.h"
 
 #include "RE/M/MemoryManager.h"
@@ -19,14 +17,14 @@ namespace RE
 			void Object::Dtor()
 			{
 				using func_t = decltype(&Object::Dtor);
-				REL::Relocation<func_t> func{ RELOCATION_ID(98654, 105309) };
+				static REL::Relocation<func_t> func{ RELOCATION_ID(98654, 105309) };
 				return func(this);
 			}
 
 			Object* Object::Ctor()
 			{
 				using func_t = decltype(&Object::Ctor);
-				REL::Relocation<func_t> func{ RELOCATION_ID(98759, 105410) };
+				static REL::Relocation<func_t> func{ RELOCATION_ID(98759, 105410) };
 				return func(this);
 			}
 

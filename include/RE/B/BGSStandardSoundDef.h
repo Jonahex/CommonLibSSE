@@ -13,11 +13,13 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_BGSStandardSoundDef;
+		inline static constexpr auto VTABLE = VTABLE_BGSStandardSoundDef;
 
 		struct SoundPlaybackCharacteristics : public BSISoundDescriptor::BSIPlaybackCharacteristics  // BNAM
 		{
 		public:
 			inline static constexpr auto RTTI = RTTI_BGSStandardSoundDef__SoundPlaybackCharacteristics;
+			inline static constexpr auto VTABLE = VTABLE_BGSStandardSoundDef__SoundPlaybackCharacteristics;
 
 			// override (BSIPlaybackCharacteristics)
 			std::uint8_t  GetFrequencyShift() override;     // 01 - { return frequencyShift; }
@@ -46,10 +48,10 @@ namespace RE
 				kEnvelopeSlow = 1 << 5
 			};
 
-			std::uint8_t                            unk0;             // 0
-			stl::enumeration<Looping, std::uint8_t> looping;          // 1
-			std::uint8_t                            unk2;             // 2
-			std::uint8_t                            rumbleSendValue;  // 3
+			std::uint8_t                        unk0;             // 0
+			REX::EnumSet<Looping, std::uint8_t> looping;          // 1
+			std::uint8_t                        unk2;             // 2
+			std::uint8_t                        rumbleSendValue;  // 3
 		};
 		static_assert(sizeof(LengthCharacteristics) == 0x4);
 

@@ -33,10 +33,10 @@ namespace RE
 		}
 
 		// members
-		BSTArray<BSLight*> lights;          // 00
-		std::int32_t       nextLightIndex;  // 18
-		std::uint32_t      flags;           // 1C - 1st bit unkown, i+1-th bit is 1 if object is present in i-th shadowmap of directional light, then 2 bits per each point light's shadowmap
-		bool               hasLights;       // 20
+		BSTArray<BSLight*> lights;            // 00
+		std::int32_t       lightListFence;    // 18
+		std::uint32_t      flags;             // 1C - 1st bit unkown, i+1-th bit is 1 if object is present in i-th shadowmap of directional light, then 2 bits per each point light's shadowmap
+		bool               hasLights;         // 20
 	};
 	static_assert(sizeof(BSShaderPropertyLightData) == 0x28);
 }

@@ -8,11 +8,12 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_BSImagespaceShaderBlur3;
+		inline static constexpr auto VTABLE = VTABLE_BSImagespaceShaderBlur3;
 
 		~BSImagespaceShaderBlur3() override;  // 00
 
 		// override (BSImagespaceShader)
-		void Unk_0D(void) override;  // 0D
+		void GetShaderMacros(ShaderMacro* a_macros) override;  // 0D
 	};
 	static_assert(sizeof(BSImagespaceShaderBlur3) == 0x1A8);
 }

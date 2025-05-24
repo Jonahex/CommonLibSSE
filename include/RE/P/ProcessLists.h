@@ -25,6 +25,7 @@ namespace RE
 		{
 		public:
 			inline static constexpr auto RTTI = RTTI_ProcessLists__GetActorsFilter;
+			inline static constexpr auto VTABLE = VTABLE_ProcessLists__GetActorsFilter;
 
 			virtual ~GetActorsFilter();  // 00
 
@@ -35,6 +36,7 @@ namespace RE
 
 		static ProcessLists* GetSingleton();
 
+		bool         AreHostileActorsNear(BSScrapArray<ActorHandle>* a_arrayOut);
 		void         ClearCachedFactionFightReactions() const;
 		void         ForAllActors(std::function<BSContainer::ForEachResult(Actor*)> a_callback);
 		void         ForEachHighActor(std::function<BSContainer::ForEachResult(Actor*)> a_callback);

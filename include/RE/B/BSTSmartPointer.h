@@ -23,7 +23,7 @@ namespace RE
 	template <class T>
 	struct BSTSmartPointerAutoPtr
 	{
-		constexpr static void Acquire(T* a_ptr)
+		constexpr static void Acquire(T*)
 		{
 			return;
 		}

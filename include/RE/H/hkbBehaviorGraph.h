@@ -70,7 +70,7 @@ namespace RE
 		void     UpdateSync(const hkbContext& a_context) override;																				// 19
 
 		// members
-		stl::enumeration<VariableMode, std::uint8_t>			variableMode;                     // 048
+		REX::EnumSet<VariableMode, std::uint8_t>				variableMode;                     // 048
 		hkArray<uint16_t>										uniqueIDPool;                     // 050
 		hkPointerMap<std::uint16_t, hkbStateMachine*>*          idToStateMachineTemplateMap;      // 060
 		hkArray<int>											mirroredExternalIDMap;            // 068

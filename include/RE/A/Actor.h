@@ -28,6 +28,8 @@
 
 namespace RE
 {
+	enum class FIGHT_REACTION;
+
 	class ActorMagicCaster;
 	class ActorMover;
 	class AIProcess;
@@ -122,18 +124,19 @@ namespace RE
 
 	class Actor :
 		public TESObjectREFR,                              // 000
-		public MagicTarget,                                // 098
-		public ActorValueOwner,                            // 0B0
-		public ActorState,                                 // 0B8
-		public BSTEventSink<BSTransformDeltaEvent>,        // 0C8
-		public BSTEventSink<bhkCharacterMoveFinishEvent>,  // 0D0
-		public IPostAnimationChannelUpdateFunctor          // 0D8
+		public MagicTarget,                                // 0A0
+		public ActorValueOwner,                            // 0B8
+		public ActorState,                                 // 0C0
+		public BSTEventSink<BSTransformDeltaEvent>,        // 0D0
+		public BSTEventSink<bhkCharacterMoveFinishEvent>,  // 0D8
+		public IPostAnimationChannelUpdateFunctor          // 0E0
 	{
 	private:
 		using EntryPoint = BGSEntryPointPerkEntry::EntryPoint;
 
 	public:
 		inline static constexpr auto RTTI = RTTI_Actor;
+		inline static constexpr auto VTABLE = VTABLE_Actor;
 		inline static constexpr auto FORMTYPE = FormType::ActorCharacter;
 
 		struct SlotTypes
@@ -258,6 +261,7 @@ namespace RE
 		{
 		public:
 			inline static constexpr auto RTTI = RTTI_Actor__ForEachSpellVisitor;
+			inline static constexpr auto VTABLE = VTABLE_Actor__ForEachSpellVisitor;
 
 			virtual ~ForEachSpellVisitor() = default;  // 00
 
@@ -409,7 +413,7 @@ namespace RE
 		virtual void                    InitiateSpectator(Actor* a_target);                                                                                                                                              // 0DC - { return; }
 		virtual void                    InitiateFlee(TESObjectREFR* a_fleeRef, bool a_runOnce, bool a_knows, bool a_combatMode, TESObjectCELL* a_cell, TESObjectREFR* a_ref, float a_fleeFromDist, float a_fleeToDist);  // 0DD
 		virtual void                    InitiateGetUpPackage();                                                                                                                                                          // 0DE
-		virtual void                    PutCreatedPackage(TESPackage* a_package, bool a_tempPackage, bool a_createdPackage, bool a_allowFromFurniture);                                                                  // 0DF
+		virtual void                    PutCreatedPackage(TESPackage* a_package, bool a_tempPackage, bool a_createdPackage);                                                                                             // 0DF
 		virtual void                    UpdateAlpha();                                                                                                                                                                   // 0E0
 		virtual void                    SetAlpha(float a_alpha = 1.0);                                                                                                                                                   // 0E1
 		virtual float                   GetAlpha();                                                                                                                                                                      // 0E2
@@ -465,7 +469,7 @@ namespace RE
 		virtual ActorHandle             QLastRiddenMount() const;                                                                                                                                                        // 114 - { return {}; }
 		virtual bool                    CalculateCachedOwnerIsUndead() const;                                                                                                                                            // 115
 		virtual bool                    CalculateCachedOwnerIsNPC() const;                                                                                                                                               // 116
-		virtual void                    Unk_117(void);                                                                                                                                                                   // 117 - { return; }
+		virtual void                    Unk_117(NiPoint3& a_origin);                                                                                                                                                     // 117 - { return; }
 		virtual void                    InitValues();                                                                                                                                                                    // 118
 		virtual const BSFixedString&    GetResponseString() const;                                                                                                                                                       // 119 - { return "ActorResponse"; }
 		virtual void                    ModifyMovementData(float a_delta, NiPoint3& deltaTranslation, NiPoint3& deltaRotation);                                                                                                           // 11A
@@ -488,6 +492,7 @@ namespace RE
 
 		bool                         AddAnimationGraphEventSink(BSTEventSink<BSAnimationGraphEvent>* a_sink) const;
 		void                         AddCastPower(SpellItem* a_power);
+		void                         AddDeathItems();
 		bool                         AddSpell(SpellItem* a_spell);
 		void                         AddToFaction(TESFaction* a_faction, std::int8_t a_rank);
 		void                         AddWornOutfit(BGSOutfit* a_outfit, bool a_forceUpdate);
@@ -533,6 +538,7 @@ namespace RE
 		TESForm*                     GetEquippedObjectInSlot(const BGSEquipSlot* slot) const;
 		float                        GetEquippedWeight();
 		std::int32_t                 GetFactionRank(TESFaction* a_faction, bool a_isPlayer);
+		FIGHT_REACTION               GetFactionReaction(Actor* a_other) const;
 		std::int32_t                 GetGoldAmount(bool a_noInit = false);
 		ActorHandle                  GetHandle();
 		[[nodiscard]] NiAVObject*    GetHeadPartObject(BGSHeadPart::HeadPartType a_type);
@@ -545,13 +551,16 @@ namespace RE
 		bool                         GetMountedBy(NiPointer<Actor>& a_outRider);
 		double                       GetMoveDirectionRelativeToFacing();
 		ObjectRefHandle              GetOccupiedFurniture() const;
+		bool                         GetPlayerControls() const;
 		TESRace*                     GetRace() const;
 		float                        GetRegenDelay(ActorValue a_actorValue) const;
 		bool                         GetRider(NiPointer<Actor>& a_outRider);
 		[[nodiscard]] TESObjectARMO* GetSkin() const;
 		[[nodiscard]] TESObjectARMO* GetSkin(BGSBipedObjectForm::BipedObjectSlot a_slot, bool a_noInit = false);
 		[[nodiscard]] SOUL_LEVEL     GetSoulSize() const;
+		TESNPC*                      GetTemplateBase();
 		float                        GetTotalCarryWeight();
+		float                        GetTrackedDamage() const;
 		TESFaction*                  GetVendorFaction();
 		const TESFaction*            GetVendorFaction() const;
 		float                        GetVoiceRecoveryTime();
@@ -570,12 +579,15 @@ namespace RE
 		bool                         IsAIEnabled() const;
 		bool                         IsAlarmed() const;
 		bool                         IsAMount() const;
+		bool                         IsAngryWithPlayer() const { return boolFlags.all(BOOL_FLAGS::kAngryWithPlayer); };
 		bool                         IsAnimationDriven() const;
 		bool                         IsBeingRidden() const;
 		bool                         IsBlocking() const;
 		bool                         IsCasting(MagicItem* a_spell) const;
+		bool                         IsCombatTarget(Actor* a_other) const;
 		bool                         IsCommandedActor() const;
 		bool                         IsCurrentShout(SpellItem* a_power);
+		bool                         IsDoingFavor() const;
 		bool                         IsDualCasting() const;
 		bool                         IsEssential() const;
 		bool                         IsFactionInCrimeGroup(const TESFaction* a_faction) const;
@@ -592,6 +604,7 @@ namespace RE
 		bool                         IsOnMount() const;
 		bool                         IsOverEncumbered() const;
 		bool                         IsPlayerTeammate() const;
+		bool                         IsPowerAttacking() const;
 		bool                         IsProtected() const;
 		bool                         IsRunning() const;
 		bool                         IsSneaking() const;
@@ -608,10 +621,11 @@ namespace RE
 		bool                         RemoveSpell(SpellItem* a_spell);
 		std::int32_t                 RequestDetectionLevel(Actor* a_target, DETECTION_PRIORITY a_priority = DETECTION_PRIORITY::kNormal);
 		bool                         SetDefaultOutfit(BGSOutfit* a_outfit, bool a_update3D);
+		void                         SetHeading(float a_angle);  // SetRotationZ
 		void                         SetLifeState(ACTOR_LIFE_STATE a_lifeState);
+		void                         SetLooking(float a_angle);  // SetRotationX
+		void                         SetPlayerControls(bool a_enable);
 		bool                         SetSleepOutfit(BGSOutfit* a_outfit, bool a_update3D);
-		void                         SetRotationX(float a_angle);
-		void                         SetRotationZ(float a_angle);
 		void                         StealAlarm(TESObjectREFR* a_ref, TESForm* a_object, std::int32_t a_num, std::int32_t a_total, TESForm* a_owner, bool a_allowWarning);
 		void                         StopAlarmOnActor();
 		void                         StopInteractingQuick(bool a_unk02);
@@ -632,65 +646,65 @@ namespace RE
 		bool                         WouldBeStealing(const TESObjectREFR* a_target) const;
 
 		// members
-		stl::enumeration<BOOL_BITS, std::uint32_t>            boolBits;                           // 0E0
-		float                                                 updateTargetTimer;                  // 0E4
-		stl::enumeration<ACTOR_CRITICAL_STAGE, std::uint32_t> criticalStage;                      // 0E8
-		std::uint32_t                                         pad0EC;                             // 0EC
-		AIProcess*                                            currentProcess;                     // 0F0
-		ObjectRefHandle                                       dialogueItemTarget;                 // 0F8
-		ActorHandle                                           currentCombatTarget;                // 0FC
-		ActorHandle                                           myKiller;                           // 100
-		float                                                 checkMyDeadBodyTimer;               // 104
-		float                                                 voiceTimer;                         // 108
-		float                                                 underWaterTimer;                    // 10C
-		std::int32_t                                          thiefCrimeStamp;                    // 110
-		std::int32_t                                          actionValue;                        // 114
-		float                                                 timerOnAction;                      // 118
-		std::uint32_t                                         unk11C;                             // 11C
-		NiPoint3                                              editorLocCoord;                     // 120
-		float                                                 editorLocRot;                       // 12C
-		TESForm*                                              editorLocForm;                      // 130
-		BGSLocation*                                          editorLocation;                     // 138
-		ActorMover*                                           actorMover;                         // 140
-		BSTSmartPointer<MovementControllerNPC>                movementController;                 // 148
-		TESPackage*                                           unk150;                             // 150
-		CombatController*                                     combatController;                   // 158
-		TESFaction*                                           vendorFaction;                      // 160
-		AITimeStamp                                           calculateVendorFactionTimer;        // 168
-		EmotionType                                           emotionType;                        // 16C
-		std::uint32_t                                         emotionValue;                       // 170
-		std::uint32_t                                         unk174;                             // 174
-		std::uint32_t                                         unk178;                             // 178
-		std::uint32_t                                         intimidateBribeDayStamp;            // 17C
-		std::uint64_t                                         unk180;                             // 180
-		BSTSmallArray<SpellItem*>                             addedSpells;                        // 188
-		ActorMagicCaster*                                     magicCasters[SlotTypes::kTotal];    // 1A0
-		MagicItem*                                            selectedSpells[SlotTypes::kTotal];  // 1C0
-		TESForm*                                              selectedPower;                      // 1E0
-		std::uint32_t                                         unk1E8;                             // 1E8
-		std::uint32_t                                         pad1EC;                             // 1EC
-		TESRace*                                              race;                               // 1F0
-		float                                                 equippedWeight;                     // 1F8
-		stl::enumeration<BOOL_FLAGS, std::uint32_t>           boolFlags;                          // 1FC
-		ActorValueStorage                                     avStorage;                          // 200
-		BGSDialogueBranch*                                    exclusiveBranch;                    // 220
-		Modifiers                                             healthModifiers;                    // 228
-		Modifiers                                             magickaModifiers;                   // 234
-		Modifiers                                             staminaModifiers;                   // 240
-		Modifiers                                             voicePointsModifiers;               // 24C
-		float                                                 lastUpdate;                         // 258
-		std::uint32_t                                         lastSeenTime;                       // 25C
-		BSTSmartPointer<BipedAnim>                            biped;                              // 260
-		float                                                 armorRating;                        // 268
-		float                                                 armorBaseFactorSum;                 // 26C
-		std::int8_t                                           soundCallBackSet;                   // 271
-		std::uint8_t                                          unk271;                             // 270
-		std::uint8_t                                          unk272;                             // 272
-		std::uint8_t                                          unk273;                             // 273
-		std::uint32_t                                         unk274;                             // 274
-		std::uint64_t                                         unk278;                             // 278
-		std::uint64_t                                         unk280;                             // 280
-		REX::W32::CRITICAL_SECTION                            unk288;                             // 288 - havok related
+		REX::EnumSet<BOOL_BITS, std::uint32_t>            boolBits;                           // 0E0
+		float                                             updateTargetTimer;                  // 0E4
+		REX::EnumSet<ACTOR_CRITICAL_STAGE, std::uint32_t> criticalStage;                      // 0E8
+		std::uint32_t                                     pad0EC;                             // 0EC
+		AIProcess*                                        currentProcess;                     // 0F0
+		ObjectRefHandle                                   dialogueItemTarget;                 // 0F8
+		ActorHandle                                       currentCombatTarget;                // 0FC
+		ActorHandle                                       myKiller;                           // 100
+		float                                             checkMyDeadBodyTimer;               // 104
+		float                                             voiceTimer;                         // 108
+		float                                             underWaterTimer;                    // 10C
+		std::int32_t                                      thiefCrimeStamp;                    // 110
+		std::int32_t                                      actionValue;                        // 114
+		float                                             timerOnAction;                      // 118
+		std::uint32_t                                     unk11C;                             // 11C
+		NiPoint3                                          editorLocCoord;                     // 120
+		float                                             editorLocRot;                       // 12C
+		TESForm*                                          editorLocForm;                      // 130
+		BGSLocation*                                      editorLocation;                     // 138
+		ActorMover*                                       actorMover;                         // 140
+		BSTSmartPointer<MovementControllerNPC>            movementController;                 // 148
+		TESPackage*                                       unk150;                             // 150
+		CombatController*                                 combatController;                   // 158
+		TESFaction*                                       vendorFaction;                      // 160
+		AITimeStamp                                       calculateVendorFactionTimer;        // 168
+		EmotionType                                       emotionType;                        // 16C
+		std::uint32_t                                     emotionValue;                       // 170
+		std::uint32_t                                     unk174;                             // 174
+		std::uint32_t                                     unk178;                             // 178
+		std::uint32_t                                     intimidateBribeDayStamp;            // 17C
+		std::uint64_t                                     unk180;                             // 180
+		BSTSmallArray<SpellItem*>                         addedSpells;                        // 188
+		ActorMagicCaster*                                 magicCasters[SlotTypes::kTotal];    // 1A0
+		MagicItem*                                        selectedSpells[SlotTypes::kTotal];  // 1C0
+		TESForm*                                          selectedPower;                      // 1E0
+		std::uint32_t                                     unk1E8;                             // 1E8
+		std::uint32_t                                     pad1EC;                             // 1EC
+		TESRace*                                          race;                               // 1F0
+		float                                             equippedWeight;                     // 1F8
+		REX::EnumSet<BOOL_FLAGS, std::uint32_t>           boolFlags;                          // 1FC
+		ActorValueStorage                                 avStorage;                          // 200
+		BGSDialogueBranch*                                exclusiveBranch;                    // 220
+		Modifiers                                         healthModifiers;                    // 228
+		Modifiers                                         magickaModifiers;                   // 234
+		Modifiers                                         staminaModifiers;                   // 240
+		Modifiers                                         voicePointsModifiers;               // 24C
+		float                                             lastUpdate;                         // 258
+		std::uint32_t                                     lastSeenTime;                       // 25C
+		BSTSmartPointer<BipedAnim>                        biped;                              // 260
+		float                                             armorRating;                        // 268
+		float                                             armorBaseFactorSum;                 // 26C
+		std::int8_t                                       soundCallBackSet;                   // 271
+		std::uint8_t                                      unk271;                             // 270
+		std::uint8_t                                      unk272;                             // 272
+		std::uint8_t                                      unk273;                             // 273
+		std::uint32_t                                     unk274;                             // 274
+		std::uint64_t                                     unk278;                             // 278
+		std::uint64_t                                     unk280;                             // 280
+		REX::W32::CRITICAL_SECTION                        unk288;                             // 288 - havok related
 
 	private:
 		void        CalculateCurrentVendorFaction() const;

@@ -13,6 +13,7 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_IMovementMessageInterface;
+		inline static constexpr auto VTABLE = VTABLE_IMovementMessageInterface;
 
 		~IMovementMessageInterface() override;  // 00
 

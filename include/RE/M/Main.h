@@ -56,6 +56,7 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_Main;
+		inline static constexpr auto VTABLE = VTABLE_Main;
 
 		~Main() override;  // 00
 
@@ -71,6 +72,7 @@ namespace RE
 		static NiCamera*   WorldRootCamera();
 		static Scenegraph* WorldRootNode();
 
+		bool IsRoomVisible(NiNode* a_room);
 		void SetActive(bool a_active);
 
 		// members

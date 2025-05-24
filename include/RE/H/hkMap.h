@@ -269,7 +269,7 @@ namespace RE
 
 		int getMemSize() const
 		{
-			return (m_hashMod + 1) * hkSizeOf(Pair);
+			return (m_hashMod + 1) * sizeof(Pair);
 		}
 
 		void* getMemStart() const { return m_elem; }
@@ -339,7 +339,7 @@ namespace RE
 			int cap;
 			for (cap = s_minimumCapacity; cap < numSlots; cap *= 2) {
 			}
-			return cap * hkSizeOf(Pair);
+			return cap * sizeof(Pair);
 		}
 
 		void init(void* ptr, int sizeInBytes)

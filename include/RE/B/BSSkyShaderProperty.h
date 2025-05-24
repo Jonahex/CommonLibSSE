@@ -9,7 +9,8 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_BSSkyShaderProperty;
-		inline static constexpr auto Ni_RTTI = NiRTTI_BSSkyShaderProperty;
+		inline static auto           Ni_RTTI = NiRTTI_BSSkyShaderProperty;
+		inline static auto           VTABLE = VTABLE_BSSkyShaderProperty;
 
 		enum class SkyObjectType
 		{
@@ -26,33 +27,31 @@ namespace RE
 		~BSSkyShaderProperty() override;  // 00
 
 		// override (BSShaderProperty)
-		const NiRTTI*    GetRTTI() const override;                                                                                 // 02
-		NiObject*        CreateClone(NiCloningProcess& a_cloning) override;                                                        // 17
-		void             LoadBinary(NiStream& a_stream) override;                                                                  // 18
-		void             LinkObject(NiStream& a_stream) override;                                                                  // 19
-		bool             RegisterStreamables(NiStream& a_stream) override;                                                         // 1A
-		void             SaveBinary(NiStream& a_stream) override;                                                                  // 1B
-		bool             IsEqual(NiObject* a_object) override;                                                                     // 1C
-		void             PostLinkObject(NiStream& a_stream) override;                                                              // 1E
-		bool             SetupGeometry(BSGeometry* a_geometry) override;                                                           // 27
-		bool             FinishSetupGeometry(BSGeometry* a_geometry) override;                                                     // 28
-		RenderPassArray* GetRenderPasses(BSGeometry* geometry, RenderMode renderMode, BSShaderAccumulator* accumulator) override;  // 2A
-		std::int32_t     ForEachTexture(ForEachVisitor& a_visitor) override;                                                       // 33
-		std::int32_t     QShader() override;                                                                                       // 35
-		NiSourceTexture* GetBaseTexture() override;                                                                                // 37
+		const NiRTTI*                          GetRTTI() const override;                                                                                      // 02
+		NiObject*                              CreateClone(NiCloningProcess& a_cloning) override;                                                             // 17
+		void                                   LoadBinary(NiStream& a_stream) override;                                                                       // 18
+		void                                   LinkObject(NiStream& a_stream) override;                                                                       // 19
+		bool                                   RegisterStreamables(NiStream& a_stream) override;                                                              // 1A
+		void                                   SaveBinary(NiStream& a_stream) override;                                                                       // 1B
+		bool                                   IsEqual(NiObject* a_object) override;                                                                          // 1C
+		void                                   PostLinkObject(NiStream& a_stream) override;                                                                   // 1E
+		RenderPassArray*                       GetRenderPasses(BSGeometry* a_geometry, RenderMode a_renderMode, BSShaderAccumulator* a_accumulator) override; // 2A
+		std::int32_t                           ForEachTexture(ForEachVisitor& a_visitor) override;                                                            // 33
+		virtual std::int32_t                   QShader() override;                                                                                            // 35
+		[[nodiscard]] virtual NiSourceTexture* GetBaseTexture() override;                                                                                     // 37
 
 		RenderPassArray* GetRenderPassesImpl(BSGeometry* geometry, RenderMode renderMode, BSShaderAccumulator* accumulator);
 
 		// members
-		NiColorA                                  color;              // 88
-		NiPointer<NiSourceTexture>                baseTexture;        // 98
-		NiPointer<NiSourceTexture>                blendTexture;       // A0
-		NiPointer<NiSourceTexture>                noiseGradTexture;   // A8
-		BSFixedString                             baseTexturePath;    // B0
-		float                                     blendValue;         // B8
-		uint16_t                                  cloudLayer;         // BC
-		bool                                      fadeSecondTexture;  // BE
-		stl::enumeration<SkyObjectType, uint32_t> objectType;         // C0
+		NiColorA                              color;              // 88
+		NiPointer<NiSourceTexture>            baseTexture;        // 98
+		NiPointer<NiSourceTexture>            blendTexture;       // A0
+		NiPointer<NiSourceTexture>            noiseGradTexture;   // A8
+		BSFixedString                         baseTexturePath;    // B0
+		float                                 blendValue;         // B8
+		uint16_t                              cloudLayer;         // BC
+		bool                                  fadeSecondTexture;  // BE
+		REX::EnumSet<SkyObjectType, uint32_t> objectType;         // C0
 	};
 	static_assert(sizeof(BSSkyShaderProperty) == 0xC8);
 }

@@ -14,6 +14,7 @@ namespace RE
 	class hkTransform;
 	class hkQuaternion;
 	class hkVector4;
+	class hkpRigidBody;
 
 	class bhkRigidBody : public bhkEntity
 	{
@@ -69,6 +70,7 @@ namespace RE
 
 		inline static constexpr auto RTTI = RTTI_bhkRigidBody;
 		inline static constexpr auto Ni_RTTI = NiRTTI_bhkRigidBody;
+		inline static constexpr auto VTABLE = VTABLE_bhkRigidBody;
 
 		~bhkRigidBody() override;  // 00
 
@@ -103,10 +105,11 @@ namespace RE
 		virtual void GetAabbWorldspace(hkAabb& a_outAabb);                                     // 3B
 		virtual void Unk_3C(void);                                                             // 3C
 
-		void SetAngularImpulse(const hkVector4& a_impulse);
-		void SetAngularVelocity(const hkVector4& a_newVel);
-		void SetLinearImpulse(const hkVector4& a_impulse);
-		void SetLinearVelocity(const hkVector4& a_newVel);
+		hkpRigidBody* GetRigidBody() const;
+		void          SetAngularImpulse(const hkVector4& a_impulse);
+		void          SetAngularVelocity(const hkVector4& a_newVel);
+		void          SetLinearImpulse(const hkVector4& a_impulse);
+		void          SetLinearVelocity(const hkVector4& a_newVel);
 
 		// members
 		BSTArray<NiPointer<NiRefObject>> constraints;  // 28 - array of smart ptrs to bhkConstraints

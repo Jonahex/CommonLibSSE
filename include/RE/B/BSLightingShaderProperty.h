@@ -7,11 +7,15 @@
 
 namespace RE
 {
+	class BSShader;
+	class BSLight;
+
 	class BSLightingShaderProperty : public BSShaderProperty
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_BSLightingShaderProperty;
 		inline static constexpr auto Ni_RTTI = NiRTTI_BSLightingShaderProperty;
+		inline static constexpr auto VTABLE = VTABLE_BSLightingShaderProperty;
 
 		~BSLightingShaderProperty() override;  // 00
 

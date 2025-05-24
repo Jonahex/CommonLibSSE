@@ -26,7 +26,7 @@ namespace RE
 				try_acquire();
 			}
 
-			inline BSFixedString(BSFixedString&& a_rhs) :
+			inline BSFixedString(BSFixedString&& a_rhs) noexcept :
 				_data(a_rhs._data)
 			{
 				a_rhs._data = nullptr;
@@ -136,7 +136,7 @@ namespace RE
 
 			[[nodiscard]] inline friend bool operator==(const BSFixedString& a_lhs, const BSFixedString& a_rhs) noexcept
 			{
-				return a_lhs._data == a_rhs._data || a_lhs.empty() && a_rhs.empty();
+				return (a_lhs._data == a_rhs._data) || (a_lhs.empty() && a_rhs.empty());
 			}
 
 			[[nodiscard]] inline friend bool operator!=(const BSFixedString& a_lhs, const BSFixedString& a_rhs) noexcept { return !(a_lhs == a_rhs); }
@@ -191,14 +191,14 @@ namespace RE
 			inline BSFixedString* ctor8(const char* a_data)
 			{
 				using func_t = decltype(&BSFixedString::ctor8);
-				REL::Relocation<func_t> func{ RELOCATION_ID(67819, 69161) };
+				static REL::Relocation<func_t> func{ RELOCATION_ID(67819, 69161) };
 				return func(this, a_data);
 			}
 
 			inline BSFixedString* ctor16(const wchar_t* a_data)
 			{
 				using func_t = decltype(&BSFixedString::ctor16);
-				REL::Relocation<func_t> func{ RELOCATION_ID(67834, 69176) };
+				static REL::Relocation<func_t> func{ RELOCATION_ID(67834, 69176) };
 				return func(this, a_data);
 			}
 

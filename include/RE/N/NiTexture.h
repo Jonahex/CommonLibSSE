@@ -16,6 +16,7 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_NiTexture;
 		inline static constexpr auto Ni_RTTI = NiRTTI_NiTexture;
+		inline static constexpr auto VTABLE = VTABLE_NiTexture;
 
 		class FormatPrefs
 		{
@@ -57,10 +58,10 @@ namespace RE
 			FormatPrefs();
 
 			// members
-			stl::enumeration<PixelLayout, std::uint32_t> pixelLayout;  // 00
-			stl::enumeration<AlphaFormat, std::uint32_t> alphaFormat;  // 04
-			stl::enumeration<MipFlag, std::uint32_t>     mipMapped;    // 08
-			std::uint32_t                                pad0C;        // 0C
+			REX::EnumSet<PixelLayout, std::uint32_t> pixelLayout;  // 00
+			REX::EnumSet<AlphaFormat, std::uint32_t> alphaFormat;  // 04
+			REX::EnumSet<MipFlag, std::uint32_t>     mipMapped;    // 08
+			std::uint32_t                            pad0C;        // 0C
 		};
 		static_assert(sizeof(FormatPrefs) == 0x10);
 

@@ -47,21 +47,21 @@ namespace RE
 
 		[[nodiscard]] static VATS* GetSingleton()
 		{
-			REL::Relocation<VATS**> singleton{ RELOCATION_ID(514725, 400883) };
+			static REL::Relocation<VATS**> singleton{ RELOCATION_ID(514725, 400883) };
 			return *singleton;
 		}
 
 		void SetMagicTimeSlowdown(float a_magicTimeSlowdown, float a_playerMagicTimeSlowdown)
 		{
 			using func_t = decltype(&VATS::SetMagicTimeSlowdown);
-			REL::Relocation<func_t> func{ RELOCATION_ID(43103, 44300) };
+			static REL::Relocation<func_t> func{ RELOCATION_ID(43103, 44300) };
 			return func(this, a_magicTimeSlowdown, a_playerMagicTimeSlowdown);
 		}
 
 		// members
 		std::uint32_t                          pad00;                    // 00
 		BSTArray<BSTSmartPointer<VATSCommand>> commandList;              // 08
-		VATS_MODE                              VATSMode;                 // 20
+		VATS_MODE                              mode;                     // 20
 		std::uint32_t                          pad24;                    // 24
 		std::uint64_t                          unk28;                    // 28
 		BGSCameraShot*                         cameraShot;               // 30
@@ -87,7 +87,7 @@ namespace RE
 		std::int32_t                           unkA0;                    // A0
 		std::uint32_t                          padA4;                    // A4
 		NiPointer<Actor>                       attacker;                 // A8
-		NiPointer<Actor>                       unkB0;                    // B0 - stranger?
+		NiPointer<Actor>                       stranger;                 // B0
 		mutable BSSpinLock                     lock;                     // B8
 	};
 	static_assert(sizeof(VATS) == 0xC0);

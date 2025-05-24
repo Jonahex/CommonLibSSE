@@ -44,6 +44,7 @@ namespace RE
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_PlayerCamera;
+		inline static constexpr auto VTABLE = VTABLE_PlayerCamera;
 
 		struct Unk120
 		{
@@ -65,7 +66,9 @@ namespace RE
 		bool IsInFirstPerson() const;
 		bool IsInFreeCameraMode() const;
 		bool IsInThirdPerson() const;
+		void PushCameraState(CameraState a_state);
 		void ToggleFreeCameraMode(bool a_freezeTime);
+		void Update();
 		void UpdateThirdPerson(bool a_weaponDrawn);
 
 		// members

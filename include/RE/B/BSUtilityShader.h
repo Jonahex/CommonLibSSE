@@ -7,6 +7,9 @@ namespace RE
 	class BSUtilityShader : public BSShader
 	{
 	public:
+		inline static constexpr auto RTTI = RTTI_BSUtilityShader;
+		inline static constexpr auto VTABLE = VTABLE_BSUtilityShader;
+
 		enum class Flags
 		{
 			None = 0,
@@ -44,7 +47,7 @@ namespace RE
 
 		static BSUtilityShader* GetSingleton()
 		{
-			REL::Relocation<BSUtilityShader**> singleton{ RELOCATION_ID(528354, 415300) };
+			static REL::Relocation<BSUtilityShader**> singleton{ RELOCATION_ID(528354, 415300) };
 			return *singleton;
 		}
 		~BSUtilityShader() override;  // 00
@@ -54,6 +57,9 @@ namespace RE
 		void RestoreTechnique(std::uint32_t globalTechnique) override;         // 03
 		void SetupGeometry(BSRenderPass* pass, RenderFlags flags) override;    // 06
 		void RestoreGeometry(BSRenderPass* pass, RenderFlags flags) override;  // 07
+
+		// members
+		std::uint64_t unk90;  // 90
 	};
-	static_assert(sizeof(BSUtilityShader) == 0x90);
+	static_assert(sizeof(BSUtilityShader) == 0x98);
 }
